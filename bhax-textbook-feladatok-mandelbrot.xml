@@ -1,0 +1,131 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Mandelbrot!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    
+    <section>
+        <title>A Mandelbrot halmaz</title>
+        
+        <para>
+            Megoldás videó:
+        </para>
+            <para>
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/mandelpngt.c%2B%2B">https://github.com/kzoltan99/feladatok/blob/master/mandelpngt.c%2B%2B</link>
+        </para>
+        <para>
+            Tanulságok, tapasztalat, magyarázat...
+            A Mandelbrot halmazt Benoit Mandelbrot találta meg a komplex számsíkon.
+            Komplex számok azok a számok, amelyekkel válaszolni tudunk egyébként értelmezhetetlen kérdésekre.
+            A Mandelbrot halmaz egy sík origójú, 4 oldalúhosszú négyzetbe helyezett rács. A rács pontjait pedig komplex számoknak feleltetjük meg.
+            A rács minden pontját megvizsgáljuk a z n+1 =z n 2 +c, (0 kisebb egyenlő n) képlettel. C a vizsgált rácspont. A z0 pedig az origó.
+			
+                • z0 = 0
+                • z1 = 0 2 +c = c
+                • z2 = c 2 +c
+                • z3 = (c 2 +c) 2 +c
+                • z4 = ((c 2 +c) 2 +c) 2 +c
+                • ...
+		
+            Az origóból kiindulva (z 0 ) átlépünk a rács első pontjába a z 1 = c-be, aztán a c-től függően a további z-kbe.
+            Ha így kijutunk a 2 sugarú körből, akkor a vizsgált rácspont nem a Mandelbrot halmaz eleme. Csak véges sok z-t nézünk meg minden rácsponthoz.
+            Ha nem lép ki akkor feketére színezzük, ezzel jelezve ,hogy az a c rácspont a halmaz része.    
+        </para>
+        
+        </section>
+        
+    <section>
+        <title>A Mandelbrot halmaz a <filename>std::complex</filename> osztállyal</title>
+        <para>
+        
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/3.1.2.cpp">https://github.com/kzoltan99/feladatok/blob/master/3.1.2.cpp</link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalat, magyarázat...
+            Ez az előző feladat egy továbbfejlesztett változata. Tartalmazza az std::complex osztályt amelyben a nevéből is adódóan komplex számok vannak.
+            Segítségével a felhasznált változók számát tudjuk egyre csökkenteni ami egyszerűsíti így könnyebben értelmezhetőbbé teszi kódunkat.
+            
+        </para>
+    </section>        
+                
+    <section>
+        <title>Biomorfok</title>
+        <para>
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/IJMbgRzY76E">https://youtu.be/IJMbgRzY76E</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/Biomorf">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/Biomorf</link>
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            Az ún. biomorfokra Clifford Pickover talált rá 1986-ban. Legjobb tudomása szerint ezek valamiféle természeti törvények voltak.
+            Írt is rá egy a Julia halmazokat rajzoló programot. A különbség a Mandelbrot halmaz és a Julia halmazok között az
+            hogy a komplex számsíkban elhelyezkedő c az előbbiben változó, utóbbiban pedig állandó.
+            Ahogy a kódban láthatjuk a Mandelbrot halmazokat alkalmazó programban a c befutja a vizsgált összes rácspontot
+            amíg a Julia halmazt alkalmazóban végig egy értéke van. Ennek a feladatnak a megoldásához elég módosítani a Mandelbrot halmazt kiszámoló forrást
+            és átnevezni a változókat.
+        </para>                        
+    </section>                     
+
+    <section>
+        <title>A Mandelbrot halmaz CUDA megvalósítása</title>
+        <para>
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/blob/master/attention_raising/CUDA/mandelpngc_60x60_100.cu">https://gitlab.com/nbatfai/bhax/blob/master/attention_raising/CUDA/mandelpngc_60x60_100.cu</link>
+        </para>
+        <para>
+            Tanulságok, tapasztalat, magyarázat...
+            Az Nvidia CUDA technológiája segítségével jelentősen fel tudjuk gyorsítani a Mandelbrot halmazos képünk kirajzolódását.
+            Egy 600x600 darab blokkból álló rács áll rendelkezésünkre amiben mindenegyes blokkhoz tartozik egy szál. 
+            Ezzel a program párhuzamos futású lesz. A CUDA használatához nvidia GPU-ra van szükség,
+            ami sajnos nekem nem áll a rendelkezésemre ezért a program futását nem tudtam tesztelni.
+        </para>
+    </section>                     
+
+    <section>
+        <title>Mandelbrot nagyító és utazó C++ nyelven</title>
+        <para>
+            Építs GUI-t a Mandelbrot algoritmusra, lehessen egérrel nagyítani egy területet, illetve egy pontot
+            egérrel kiválasztva vizualizálja onnan a komplex iteréció bejárta z<subscript>n</subscript> komplex számokat!
+        </para>
+            
+        <para>
+            Megoldás forrása:  <link xlink:href="https://github.com/kzoltan99/mandel-c-">https://github.com/kzoltan99/mandel-c-</link>
+        </para>
+
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Tanulságok, tapasztalat, magyarázat...
+            Ez a program egy több összefüggő kódból hozható létre. Lényege az, hogy a már az előbbiekben megírt Mandelbrot halmazt kirajzoló
+            progink képes legyen az egérrel történő nagyításra. Ehhez a qt-t hívjuk segítségül.
+            Ez alapjáraton nem része linux rendszerünknek (legalábbis nekem nem volt) ezért telepítenünk kell.
+            Ezt a "sudo apt-get install build-essential libgl1-mesa-dev" paranccsal érhetjük el terminálunkban.
+            Qmake -projects paranccsal kapunk e .pro fájlt. Ebbe be kell implementálni a qt +=widgets-et illetve a targetnek egy tetszőleges nevet adni.
+            Aztán újra qmake jön csak kapcsoló nélkül (qmake *.pro), ezután egy make parancs majd végül szokás szerint ./-el futtatjuk az általunk elnevezett progit.
+            
+        </para>
+    </section>                     
+                                                                                                                                                                            
+    <section>
+        <title>Mandelbrot nagyító és utazó Java nyelven</title>
+    <para>
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/mandel.java">https://github.com/kzoltan99/mandel.java</link>
+    </para>
+    </section>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

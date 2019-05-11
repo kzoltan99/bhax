@@ -1,0 +1,254 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Turing!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Végtelen ciklus</title>
+        <para>
+            Írj olyan C végtelen ciklusokat, amelyek 0 illetve 100 százalékban dolgoztatnak egy magot és egy olyat, amely  
+            100 százalékban minden magot!
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/v-gtelen-ciklus">https://github.com/kzoltan99/v-gtelen-ciklus</link>
+		Program ami végtelen és 0 %-ban dolgoztatja a magokat:a while ciklus különböző iterációi
+		<programlisting language="c"><![CDATA[
+int main()
+{
+	for(;;)
+	return 0;
+}]]></programlisting>                 
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            A végtelen ciklus a c nyelv egyik legalapvetőbb és legegyszerűbb kis programja. Nem jelentett számomra nehézséget megírni és alkalmazni. 
+            Működése egyszerű: a sima while ciklus a végtelenségig fut amig igaz, ezzel alapvetően egy processzor szálat terhel 100 %-ig.
+            Ha altatjuk a ciklust sleep-el akkor nem terheli a cpu-t. Ha pedig alkalmazzuk a párhuzamos futtatást akkor a cpu összes szálát 100 %-ig terheli le. 
+        </para>            
+    </section>        
+        
+    <section>
+        <title>Lefagyott, nem fagyott, akkor most mi van?</title>
+        <para>
+            Mutasd meg, hogy nem lehet olyan programot írni, amely bármely más programról eldönti, hogy le fog-e fagyni vagy sem!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:  tegyük fel, hogy akkora haxorok vagyunk, hogy meg tudjuk írni a <function>Lefagy</function>
+            függvényt, amely tetszőleges programról el tudja dönteni, hogy van-e benne vlgtelen ciklus:              
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+
+	boolean Lefagy(Program P)
+	{
+		 if(P-ben van végtelen ciklus)
+			return true;
+		 else
+			return false; 
+	}
+
+	main(Input Q)
+	{
+		Lefagy(Q)
+	}
+}]]></programlisting>            
+        <para>
+            A program futtatása, például akár az előző <filename>v.c</filename> ilyen pszeudókódjára:
+            <screen><![CDATA[T100(t.c.pseudo)
+true]]></screen>            
+            akár önmagára
+            <screen><![CDATA[T100(T100)
+false]]></screen>  
+            ezt a kimenetet adja.          
+        </para>
+        <para>
+            A T100-as programot felhasználva készítsük most el az alábbi T1000-set, amelyben a
+            Lefagy-ra épőlő Lefagy2 már nem tartalmaz feltételezett, csak csak konkrét kódot:
+        </para>
+        <programlisting language="c"><![CDATA[Program T1000
+{
+
+	boolean Lefagy(Program P)
+	{
+		 if(P-ben van végtelen ciklus)
+			return true;
+		 else
+			return false; 
+	}
+
+	boolean Lefagy2(Program P)
+	{
+		 if(Lefagy(P))
+			return true;
+		 else
+			for(;;); 
+	}
+
+	main(Input Q)
+	{
+		Lefagy2(Q)
+	}
+
+}]]></programlisting>            
+        <programlisting><![CDATA[]]></programlisting>            
+        <para>
+            Mit for kiírni erre a <computeroutput>T1000(T1000)</computeroutput> futtatásra?
+                                
+            <itemizedlist>
+                <listitem>
+                    <para>Ha T1000 lefagyó, akkor nem fog lefagyni, kiírja, hogy true</para>                        
+                </listitem>
+                <listitem>
+                    <para>Ha T1000 nem fagyó, akkor pedig le fog fagyni...</para>                        
+                </listitem>
+            </itemizedlist>
+            akkor most hogy fog működni? Sehogy, mert ilyen <function>Lefagy</function>
+            függvényt, azaz a T100 program nem is létezik.                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            Véleményem szerint ez a program azért nem működőképes mert a lefuttatása után mindig ellentétes eredményt kapunk ha jól látom. 
+            Ha a T100-as gépnek olyan függvényt adunk akkor lefagy. Ha pedig olyat amiben nincs akkor végtelen ciklusként futtatja a gép. 
+            Szerintem ezért nem lehetséges egy ilyen program létrehozása bár számomra nem teljesen tiszta még ennek a gépnek a működése (vagy helyesebben a nem működése).
+        </para>
+    </section>        
+                
+    <section>
+        <title>Változók értékének felcserélése</title>
+        <para>
+            Írj olyan C programot, amely felcseréli két változó értékét, bármiféle logikai utasítás vagy kifejezés
+            nasználata nélkül!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2018/08/28/10_begin_goto_20_avagy_elindulunk">https://bhaxor.blog.hu/2018/08/28/10_begin_goto_20_avagy_elindulunk</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/valtozo.c">https://github.com/kzoltan99/feladatok/blob/master/valtozo.c</link>  
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            A feladat megoldásához elég néhány egyszerű matematikai műveletet ismerni és megfelelően alkalmazni. 
+            A feladat többféleképpen is megoldahtó én most a szorzás és osztás alkalmazása mellett döntöttem. Először is adunk 2 random intet amelyeket előbb összeszorzunk.
+            Aztán egyikkel és a masikkal is elosztjuk az eredményt és igy az a és b int értéke megcserélődik. 
+            
+        </para>
+    </section>                     
+
+    <section>
+        <title>Labdapattogás</title>
+        <para>
+            Először if-ekkel, majd bármiféle logikai utasítás vagy kifejezés
+            nasználata nélkül írj egy olyan programot, ami egy labdát pattogtat a karakteres konzolon! (Hogy mit értek
+            pattogtatás alatt, alább láthatod a videókon.)
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2018/08/28/labdapattogas">https://bhaxor.blog.hu/2018/08/28/labdapattogas</link>
+        </para>
+        <para>
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/labdapattogtatas">https://github.com/kzoltan99/labdapattogtatas</link>  
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            Ez a feladat már kicsit nagyobb nehézségett okozott számomra de kezdem érteni a dolgot. Az if-es megoldás már megvan. 
+            A program lényege az h meg kell adnunk neki azt h az x és y tengelyen mekkorákat lépkedjen illetve a clear használatával akár azt is megoldhatjuk h egyzserre csak egy kis o betű jelenjen meg a képernyőnkön. 
+            Majd ezek után if-ek használatával tudjuk úgymond "visszafordítani" az o betű lépkedését hiszen így tudjuk meg hogy már a képernyő szélén járunk. A feladat if nélküli megoldása még folyamatban van
+        </para>
+    </section>                     
+
+    <section>
+        <title>Szóhossz és a Linus Torvalds féle BogoMIPS</title>
+        <para>
+            Írj egy programot, ami megnézi, hogy hány bites a szó a gépeden, azaz mekkora az <type>int</type> mérete.
+            Használd ugyanazt a while ciklus fejet, amit Linus Torvalds a BogoMIPS rutinjában! 
+        </para>
+        <para>
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/szohossz.c">https://github.com/kzoltan99/feladatok/blob/master/szohossz.c</link>
+        </para>
+		<para>
+            Tanulságok, tapasztalatok, magyarázat... 
+            Ez a program a már előző félévben használt bitshifteléses módszert alkalmazza, tehát a biteket egyenként addig lépteti amíg a legelső nem 0 lesz.
+            Ezt a módszert lehet akár szavak bithosszának mérésére is ahogyan ez ebben a feladatban látható is.
+            A BogoMIPS maga egy a linux kernele által létrehozott processzor sebességmérő melyet maga a linux kitalálója Linus Torvalds alkotott meg.
+        </para>
+ </section>                     
+
+    <section>
+        <title>Helló, Google!</title>
+        <para>
+            Írj olyan C programot, amely egy 4 honlapból álló hálózatra kiszámolja a négy lap Page-Rank 
+            értékét!
+        </para>
+        <para>
+      Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/pg.c">https://github.com/kzoltan99/feladatok/blob/master/pg.c</link>
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            A PageRank algoritmust a Stanford egyetemen fejlesztette ki Larry Page és Sergey Brin 1998-ban. Ők a Google megalkotói és
+            a mai napig ez az algoritmus a keresőmotorjuk szíve. Maga az algoritmus hyperlinkekkel foglalkozik.
+            Ezeket megszámozott dokumentumokkal köti össze és rangsorolja a hálózatban betöltött szerep alapján.
+            Lényegében arra a feltételezésre épít, hogy ha valaki egy oldalt belinkel a sajátjáról akkor azt fontosnak, jónak, hasznosnak tartja.
+            Egy oldalt minél több helyről linkelnek be annál előrébb veszi a sorrendben a keresőmotor, persze az is számít, hogy az oldal
+            ahonnan belinkelték a másikat mennyire fontos. Tehát a rekurzió elve is nagy szerepet játszik.
+        </para>
+    </section>
+
+    <section xml:id="Brun">
+        <title>100 éves a Brun tétel</title>
+        <para>
+            Írj R szimulációt a Brun tétel demonstrálására!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/xbYhp9G6VqQ">https://youtu.be/xbYhp9G6VqQ</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/blob/master/attention_raising/Primek_R">https://gitlab.com/nbatfai/bhax/blob/master/attention_raising/Primek_R</link>
+        </para>
+        <para>
+            Tanulságok, tapasztalat, magyarázat...
+            Brun tétele azt mondja ki, hogy azok a számok melyeket ikerprímeknek, azaz olyan prímeknek melyeknek különbsége kettő,
+            reciprokának összege egy véges értékhez konvergál melynek neve Brun-konstans. 
+            Szitaeljárások vizsgálata során bír nagy jelentőséggel ez a tétel, melyet Viggo Brun bizonyított be 1919-ben.
+        </para>
+    </section>
+    
+    <section xml:id="bhax-textbook-feladatok-turing.MontyHall">
+        <title>A Monty Hall probléma</title>
+        <para>
+            Írj R szimulációt a Monty Hall problémára!
+             </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2019/01/03/erdos_pal_mit_keresett_a_nagykonyvben_a_monty_hall-paradoxon_kapcsan">https://bhaxor.blog.hu/2019/01/03/erdos_pal_mit_keresett_a_nagykonyvben_a_monty_hall-paradoxon_kapcsan</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/MontyHall_R">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/MontyHall_R</link>
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            A Monty Hall probléma vagy paradoxon egy régi amerikai show legutolsó feladatán alapszik és annak műsorvezetőjéről nevezték el.
+            A játék nagyon egyszerű: a játékosnak 3 ajtó közül kell választania és azt nyeri meg ami az ajtó mögött van.
+            2 ajtó mögött egy kecske egy mögött pedig egy autó van.
+            A játékos először választ egyet de még nem tudjuk meg mi van mögötte. Először a műsorvezető kinyitja az egyiket
+            (tudván azt a tényt, hogy mi lapul mögötte). Természetesen egy kecske lesz az. Ezekután a játékost döntés elé állítják:
+            változtat a döntésén vagy sem. A probléma fő kérdése a változtatás fontossága és az h mennyire éri meg.
+            A valószínűségszámítás szerint legtöbb esetben érdemes változtatni az eredeti döntésen.
+            Viszont ez józan paraszti ésszel gondolkodva eléggé ellentmodásos innen a paradoxon elnevezés.
+            
+            A programunk is ezt a számítást végzi el. Megadjuk neki a kísérletek számát, a játékost és a műsorvezető helyzetét.
+            For ciklusban történik a műsorvezető választása, az if és az else segítségével mindig azt az ajtót választja
+            ami mögött nincs autó és a játékos sem választotta.
+            A forrásunk vége egyértelmű: nemvaltoztatasnyer akkor kap értéket ha a játékos elsőre jó ajtót választott és nem másította meg döntését.
+            A valtoztatasnyer pedig akkor ha változtatott és így nyert.
+            Legvégül pedig kiírjuk a kísérletek számát és hogy a két lehetőség hányszor fordult elő így összehasonlítva azt,
+            hogy érdemes-e váltani vagy sem.
+        </para>
+    </section>
+
+</chapter>                

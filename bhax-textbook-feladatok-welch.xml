@@ -1,0 +1,137 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Welch!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Első osztályom</title>
+        <para>
+            Valósítsd meg C++-ban és Java-ban az módosított polártranszformációs algoritmust! A matek háttér 
+            teljesen irreleváns, csak annyiban érdekes, hogy az algoritmus egy számítása során két normálist
+            számol ki, az egyiket elspájzolod és egy további logikai taggal az osztályban jelzed, hogy van vagy
+            nincs eltéve kiszámolt szám.
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:
+            Java:  <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/polargen.java">https://github.com/kzoltan99/feladatok/blob/master/polargen.java</link>
+            C++:   <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/polargen.cpp">https://github.com/kzoltan99/feladatok/blob/master/polargen.cpp</link>
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat... térj ki arra is, hogy a JDK forrásaiban a Sun programozói
+            pont úgy csinálták meg ahogyan te is, azaz az OO nemhogy nem nehéz, hanem éppen természetes neked!
+            A megoldásban létrehoztunk egy Polargen nevű osztályt.A konstruktorban megadjuk, hogy még nincs tárolt szám és és letrehozunk egy random-szám generátort.
+            Az objektum orientált programozás nem nehéz,hanem természetes. A Java SDK-ban is hasonlóan megírt programrészleteket találhatunk. 
+            Számunkra talán azért tűnhet természetesnek mert mi minent objektumként kezelünk.
+            Az algoritmus matematikai háttere most számunkra lényegtelen, fontos viszont az eljárás azon jellemzője, hogy egy számítási lépés két normális eloszlású számot állít elő,
+            tehát minden páratlanadik meghíváskor nem kell számolnunk, csupán az előző lépés másik számát visszaadnunk. 
+            Hogy páros vagy páratlan lépésben hívtuk-e meg a megfelelő számítást elvégző következő() függvényt, a nincsTárolt logikai változóval jelöljük. 
+            Igaz értéke azt jelenti, hogy tárolt lebegőpontos változóban el van tárolva a visszaadandó szám.
+
+
+        </para>                
+    </section>        
+
+    <section>
+        <title>LZW</title>
+        <para>
+            Valósítsd meg C-ben az LZW algoritmus fa-építését!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:  <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/z.c">https://github.com/kzoltan99/feladatok/blob/master/z.c</link>             
+        </para>
+		<para>
+               A függvény először megvizsgálja, hogy a kapott érték 0-e. Ha 0, akkor megnézi, mutató által címzett csomópontak van-e 0-s gyermeke.
+				Ha van, akkor a fa mutató az aktuális csomópont bal gyermekére lép. Ha nincs, akkor létrehozza azt,a mutatót a gyökérre állítja.
+				Ha a kapott érték nem 0,a függvény végrehajtja az utasításokat,az aktuális csomópont jobb gyermekére.
+				Az eljárás inorder módon rekurzívan bejárja a bináris fát.
+				Az inorder bejárásnál először a fa bal oldalát járjuk be, majd a gyökerét, végül pedig a jobb oldalát dolgozzuk fel.
+				A eljárás rekurzívan postorder módon bejárja a fát és minden rekurzió végén felszabadítja a részfa gyökérelemét.
+				A felszabadítás előtt meg kell vizsgálni, hogy a részfa gyökere egyenlő-e a teljes fa gyökerével, fa gyökére nem dinamikusan foglalt.
+				Inorder módon bejárjuk a fát, majd felszabadjuk a mutatóit.
+		</para>
+	</section> 
+   
+        
+    <section>
+        <title>Fabejárás</title>
+        <para>
+            Járd be az előző (inorder bejárású) fát pre- és posztorder is!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+		<para>
+     
+        A preorder fabejárás abban különbözik az inorder eljárástól, hogy ebben először a részfa gyökerét dolgozzuk fel, majd a részfa bal oldalát és jobb oldalát járjuk be.
+        A postorder fabejárás abban különbözik az inorder eljárástól, hogy ebben először  a részfa bal oldalát és jobb oldalát járjuk be. Végül pedig részfa gyökerét dolgozzuk fel.
+		</para>
+    </section>  
+	
+    <section>
+        <title>Tag a gyökér</title>
+        <para>
+            Az LZW algoritmust ültesd át egy C++ osztályba, legyen egy Tree és egy beágyazott Node
+            osztálya. A gyökér csomópont legyen kompozícióban a fával!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/z3a72.cpp">https://github.com/kzoltan99/feladatok/blob/master/z3a72.cpp</link>               
+        </para>
+		<para>
+		 Ez a megoldás az előző feladat megoldására épül. A különbség, hogy a  fát kezelő függvényeket a Binfa osztályba rendezzük, illetve a Binfa osztály privát részébe helyezzük a Node-ot.
+         A binfa osztályban túlterheljük a balra bitshift operátort, amely a fa építését látja el.      
+        </para>
+    </section>   
+    <section>
+        <title>Mutató a gyökér</title>
+        <para>
+            Írd át az előző forrást, hogy a gyökér csomópont ne kompozícióban, csak aggregációban legyen a 
+            fával!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/z3a73.cpp">https://github.com/kzoltan99/feladatok/blob/master/z3a73.cpp</link>
+        </para>
+		<para>
+		  A különbség az előző feladathoz képest, hogy ebben a gyökérelemre is már egy mutató mutat, azért a Binfa konstruktorában létre kell hozni a gyökérobjektumot.
+          A program mostmár a gyökérelemet adja át nem a referenciáját.
+		</para>
+    </section>                    
+
+    <section>
+        <title>Mozgató szemantika</title>
+        <para>
+            Írj az előző programhoz mozgató konstruktort és értékadást, a mozgató konstruktor legyen a mozgató
+            értékadásra alapozva!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása:  <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/z3a9.cpp">https://github.com/kzoltan99/feladatok/blob/master/z3a9.cpp</link>
+        </para>
+		<para>
+		 A másoló szemantika lényege, hogy az értékül kapott bináris fát értékül adja az eredeti fának, minden érték másolásával. 
+		 A mozgató szemantika pedig úgy működik, hogy az eredeti bináris fa gyökerét "kicseréli" az értékül kapott fa gyökerével,
+         és az értékül kapott fa gyökerének gyermekeit nullpointerre állítja,
+         hogy az eredetileg létező fa ne törlődjön le.
+         </para>
+	</section>     
+                 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

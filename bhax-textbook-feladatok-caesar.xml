@@ -1,0 +1,132 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Caesar!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title><type>int ***</type> háromszögmátrix</title>
+        <para>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/doublecscs.png" scale="50"/>
+                </imageobject>
+            </mediaobject>
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/tm.c">https://github.com/kzoltan99/feladatok/blob/master/tm.c</link>                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            Az int *** háromszögmátrixban a főátló alatt és fölött csak 0 szerepelhet. A mátrix neve megtévesztő mivel sorainak és oszlopainak száma megegyezik.
+            Deklarálunk egy intet (aminek most a kezdőértéke legyen 5) illetve a **tm mutatót. Aztán mallock segítségével megnézzük, hogy van-e a memóriában hely a **tm számára.
+            Ha nincs akkor a progi leáll. Aztán egy for ciklusban megnézzük, hogy van-e hely a sorok számára. Mint az előző esetben, ha nincs akkor kilépés történik.
+            Végül pedig kiiratjuk a sorokat ("i") és a pointereket ("j") amelyeket a mátrixunk tartalmaz.
+        </para>            
+    </section>        
+    <section>
+        <title>C EXOR titkosító</title>
+        <para>
+            Írj egy EXOR titkosítót C-ben!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/e.c">https://github.com/kzoltan99/feladatok/blob/master/e.c</link>                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            A programot lefordítjuk, majd tetszőleges argumentummal elindítjuk.
+            Aztán a kimenetet átirányítjuk egy állományba és kiírjuk a bemenetre a titkosítandó szöveget.
+            Az általunk értelmetlen szöveget pedig ugyanazzal a kulcsal való fordítással tudjuk értelmezhetővé varázsolni,
+            csak annyit kell tennünk h az előbb alkalmazott titkos szöveg lesz most a bementünk amit beleírányítunk a programba
+            és a standard outputon fog megjelenni a már olvasható szöveg.
+        </para>            
+    </section>        
+    <section>
+        <title>Java EXOR titkosító</title>
+        <para>
+            Írj egy EXOR titkosítót Java-ban!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/ExorTitkos%C3%ADt%C3%B3.java">https://github.com/kzoltan99/feladatok/blob/master/ExorTitkos%C3%ADt%C3%B3.java</link>                
+        </para>
+        <para>
+           Tanulságok, tapasztalatok, magyarázat...
+           A program ugyanazt a feladatot végzi el mint a c-s társa csak java nyelvben leprogramozva.
+           A java mostanában talán az egyik legfelkapottabb programnyelv mivel sok hasznos C és C++ funkciót tartalmaz
+           illetve talán legnagyobb előnye az objektum-orientáltság ami nekünk embereknek szinte természetes,
+           mivel mindent tárgyként kezelünk.
+        </para>            
+    </section>        
+    <section>
+        <title>C EXOR törő</title>
+        <para>
+            Írj egy olyan C programot, amely megtöri az első feladatban előállított titkos szövegeket!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/t.c">https://github.com/kzoltan99/feladatok/blob/master/t.c</link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            A C Exortörő programunk az előzőekben exorosan letitkosított szöveget képes feltörni.
+            A programunk elején nagyon fontos az olvasásbuffer és a kulcsméret pontos definiálása,
+            hiszen ezeknek nagy szerepe van a helyes működésben.
+            Az alapkoncepció az, hogy egy szöveg már fel van törve tehát tiszta szöveg lesz ha tartalmazza az átlagosan előforduló magyar szavakat
+            (Ezek a szavak a: hogy, nem, az, ha). Ebben az esetben a szavakra mutató pointereket kapunk vissza.
+            Egyébként még a titkos szöveg kategóriába tartozik alias nincs még feltörve és null pointert kapunk vissza.
+            A feltörés maga a titkosításra alkalmazott kulcs kiszámításával történik.
+            Az exorozás és maga az exortörés ugyanazon argumentumokkal dolgozik és a titkosított szöveg mindenegyes karakterén végrehajtódik.
+            Egy egyszerű while ciklus segítségével beolvastatjuk magát a titkosított szöveget. (Itt köszön vissza az olvasásbuffer pontos vagy pontatlan definiálása.)
+            Aztán jönnek az egymásba ágyazott for ciklusok melyek számát az határozza meg, hogy mekkora a kulcsméret.
+            Itt jönnek létre a lehetséges kulcsok amelyeket szépen rápróbálunk a titkosított szövegre.
+            Majd végül a sikeres törés után megkapjuk a kulcsot illetve magát a tiszta szöveget.
+        </para>            
+    </section>        
+    <section>
+        <title>Neurális OR, AND és EXOR kapu</title>
+        <para>
+            R
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/Koyw6IH5ScQ">https://youtu.be/Koyw6IH5ScQ</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/NN_R">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/NN_R</link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+    </section>        
+    <section>
+        <title>Hiba-visszaterjesztéses perceptron</title>
+        <para>
+            C++
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/ql.hpp">https://github.com/kzoltan99/feladatok/blob/master/ql.hpp</link>                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            A perceptron a gépi tanulásban és az adatbányászatban játszik fontos szerepet.
+            Egy osztályba soroló algoritmus ami bináris inputot tud különböző osztályokba besorolni előre meghatározott próbálkozás alapján melyek száma véges.
+            A mi programunk inputja nem más mint a mandelbrot halmaz átal létrehozott kép.
+        </para>            
+    </section>        
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

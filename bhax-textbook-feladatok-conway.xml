@@ -1,0 +1,95 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Conway!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Hangyaszimulációk</title>
+        <para>
+            Írj Qt C++-ban egy hangyaszimulációs programot, a forrásaidról utólag reverse engineering jelleggel
+            készíts UML osztálydiagramot is!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2018/10/10/myrmecologist">https://bhaxor.blog.hu/2018/10/10/myrmecologist</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/Myrmecologist">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/Myrmecologist</link>              
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            A program a hanygák kommunkiációját szimulálja. A cellákra osztott képernyőn a hangyák megkeresik legerősebb feromonnal rendelkező társukat
+            és feléjük mennek. Az utatakat a halvány kékeszöld négyzetek jelentik.
+            A fermonon szint folyamatosan csökken, de ha valahová belép a hanyga ott megnő a szint.
+            Az értékeket parancssori argumentumokkal adjuk meg.
+
+        </para>            
+    </section>        
+    <section>
+        <title>Java életjáték</title>
+        <para>
+            Írd meg Java-ban a John Horton Conway-féle életjátékot, 
+            valósítsa meg a sikló-kilövőt!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása:              
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+    </section>        
+    <section>
+        <title>Qt C++ életjáték</title>
+        <para>
+            Most Qt C++-ban!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/conway-eletjatek">https://github.com/kzoltan99/conway-eletjatek</link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            Az életjátékot John Conway találta ki. A játékos szerepe annyi, hogy megad egy kezdőalakzatot, és azután csak figyeli az eredményt.
+            Matematikai szempontból a sejtautomaták közé tartozik. A játék egyes lépéseinek eredményét számítógép számítja ki.
+            A játék, a felfedezése után nagyon népszerű lett amerikában. Komoly matematikai és filozófiai vonatkozásai vannak.
+            
+            Szabályok:
+            -A sejt túléli a kört, ha két vagy három szomszédja van.
+            -A sejt elpusztul, ha kettőnél kevesebb (elszigetelődés), vagy háromnál több (túlnépesedés) szomszédja van.
+            -Új sejt születik minden olyan cellában, melynek környezetében pontosan három sejt található.
+            A játék lépéseinek sorrendje:
+            -Az elhaló sejtek megjelölése
+            -A születő sejtek elhelyezése
+            -A megjelölt sejtek eltávolítása
+        </para>            
+    </section>        
+    <section>
+        <title>BrainB Benchmark</title>
+        <para>
+		
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/nbatfai/esport-talent-search">https://github.com/nbatfai/esport-talent-search</link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+            A BrainB Benchmark feladata az esport tehetségek felkutatása.
+           Maga a benchmark: a játékban elveszítjük a karakterünket, mennyi ideig tart megtalálnunk, és ha megtaláltuk, mennyi ideig tart elveszítenünk. bit/sec képernyőváltásokkal méri a sebességünket.
+           A feladat annyi, hogy a kurzort rajta kell tartani a Samu Entropyn, minnél tovább tartod rajta, annál több jelenik meg, ezzel nehezítve a dolgod. Ha elveszted,akkor lassabban kezdenek el megjelenni a karakterek azért, hogy kicsit könnyítsenek a dolgodon. 
+           Az egész játék 10 percig tart és a végén megkapott kép minnél bonyolultabb annál jobb a teljesítmény amit elértél. AZ eredményt egy fájlban kapod meg a teljesítés után.
+
+
+
+        </para>            
+    </section>        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
