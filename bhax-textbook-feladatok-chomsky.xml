@@ -59,7 +59,14 @@
             A C szabványok az évek során egyre nagyobb fejlődésen mentek keresztül.
             Ezen fejlesztések által a szabványok egyre több funkciót tartalmaznak és több mindenre képesek.
             Az általam bemutatott kódcsipetben látható a fejlődés hiszen az a C89-es szabványban nem, de a C99-esben lefordul.
-            Ez azért van mert ha a C89-el fordítjuk nem tudunk függvényen belül deklarációt csinálni, ezt a függvény előtt külön kell elvégeznünk.
+            <programlisting language="c"><![CDATA[
+#include <stdio.h>
+int main()
+{
+for(int a=5;a>10;a++);
+return 0;
+}]]></programlisting>
+            Ez azért van mert c89-ben a statement scope változó deklarálása nem lehetséges.
             De az újabb szabvány segítségével már ezt is megtehetjük és ezzel egyszerűbbé téve a munkánkat.
             Mindenbizonnyal ennél sokkal számottevőbb különbség van a két szabvány között, de számomra ez volt a legszembetűnőbb, ezért választottam.
             A 
