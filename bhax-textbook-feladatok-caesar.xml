@@ -41,11 +41,21 @@
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
-            A programot lefordítjuk, majd tetszőleges argumentummal elindítjuk.
-            Aztán a kimenetet átirányítjuk egy állományba és kiírjuk a bemenetre a titkosítandó szöveget.
-            Az általunk értelmetlen szöveget pedig ugyanazzal a kulcsal való fordítással tudjuk értelmezhetővé varázsolni,
-            csak annyit kell tennünk h az előbb alkalmazott titkos szöveg lesz most a bementünk amit beleírányítunk a programba
-            és a standard outputon fog megjelenni a már olvasható szöveg.
+            Az EXOR titkosító programunk egy logikai műveletre épül (vagy). Szépen bitenként hasonlítjuk össze
+            a titkosítandó szöveget és a kulcsunkat amivel titkosítunk. Ha a bitek egyeznek akkor 0-át ha nem
+            akkor egyet kapunk vissza. Minél rövidebb a kulcsunk annál könyebb a feltörés. Viszont egy erős titkosítás
+            nagyon időigényes feladat, ezért gondolkozzunk csak kicsiben:
+            <programlisting language="c"><![CDATA[
+#define MAX_KULCS 100
+#define BUFFER_MERET 256
+
+int
+main (int argc, char **argv)
+]]></programlisting>
+            Ebben a csipetben látható, hogy a kulcs és buffer méret konstansként szerepel, így értéke nem változtatható.
+            Konstansokat csupa nagy betűvel definiálunk, így megkülönbeztetve egy sima változótól.
+            Aztán maga a main sem szokványos, mivel terminálon keresztül szeretnénk majd argumentumot adni neki.
+            Ezeket az ar arg.-ra mutató mutatókat az argv-ben tároljuk, számukat pedig az argc-vel számoltatjuk meg.
         </para>            
     </section>        
     <section>
