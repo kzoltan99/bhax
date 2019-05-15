@@ -15,12 +15,31 @@
             Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/v-gtelen-ciklus">https://github.com/kzoltan99/v-gtelen-ciklus</link>
 		Program ami végtelen és 0 %-ban dolgoztatja a magokat:a while ciklus különböző iterációi
 		<programlisting language="c"><![CDATA[
-int main()
+#include <stdio.h>
+main()
 {
-	for(;;)
-	return 0;
+    while(1){}
+
 }]]></programlisting>                 
-        </para>
+        
+	<programlisting language="c"><![CDATA[
+#include <stdio.h>
+#include <omp.h>
+main()
+{
+    #pragma omp parallel
+    while(1){}
+}]]></programlisting>
+		
+	<programlisting language="c"><![CDATA[
+ #include <stdio.h>
+main()
+{
+    while(1){}
+            sleep(1);
+
+}]]></programlisting>
+	</para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
             A végtelen ciklus a c nyelv egyik legalapvetőbb és legegyszerűbb kis programja. Nem jelentett számomra nehézséget megírni és alkalmazni. 
