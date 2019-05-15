@@ -248,7 +248,67 @@ getmaxyx(ablak, my, mx);
             Lényegében arra a feltételezésre épít, hogy ha valaki egy oldalt belinkel a sajátjáról akkor azt fontosnak, jónak, hasznosnak tartja.
             Egy oldalt minél több helyről linkelnek be annál előrébb veszi a sorrendben a keresőmotor, persze az is számít, hogy az oldal
             ahonnan belinkelték a másikat mennyire fontos. Tehát a rekurzió elve is nagy szerepet játszik.
-        </para>
+		Az én forrásomban 4 oldalról van szó, ezek kapcsolatát egy 4x4-es mátrixban tárolom el:
+		<programlisting language="c"><![CDATA[
+double L[4][4] = {
+		{0.0,  0.0,      1.0/3.0,  0.0},
+		{1.0,  1.0/2.0,  1.0/3.0,  1.0},
+		{0.0,  1.0/2.0,  0.0,      0.0},
+		{0.0,  0.0, 	 1.0/3.0,  0.0}
+	};	
+]]></programlisting>
+		Ezt a mátrixot adjuk be a pagerank függvényünknek. Eredményként egy 4x1-es vektort fogunk kapni, ami az oldalak pagerankjét tartalmazza.
+		A PRv nevű tömbben van az oldalak eredeti értéke tárolva, a PR-ben pedig már a mátrixszorzás eredménye, ugyanis ezzel a művelettel tudunk pageranket számítani.
+		Azonban nagyon oda kell figyelni a sorrendre mivel kihatással lehet az eredményre.(L és PRv tömb között kell elvégezni.
+		Végül pedig a kiir függvény kiírja a számítás eredményeit.
+		</para>
+	    	<para>
+			Maga a számítás:
+			<programlisting language="c"><![CDATA[
+void
+pagerank(double T[4][4]){
+	double PR[4] = { 0.0, 0.0, 0.0, 0.0 }; 
+	double PRv[4] = { 1.0/4.0, 1.0/4.0, 1.0/4.0, 1.0/4.0}; 
+	
+	int i, j;
+	
+	for(;;){
+		
+				
+		
+		for (i=0; i<4; i++){
+			PR[i]=0.0;
+			for (j=0; j<4; j++){
+				PR[i] = PR[i] + T[i][j]*PRv[j];
+			}
+		}
+	
+			if (tavolsag(PR,PRv,4) < 0.0000000001) 
+				break;
+		
+		
+			
+			for (i=0;i<4; i++){
+				PRv[i]=PR[i];
+			}	
+	}
+	
+	kiir (PR, 4);
+}]]></programlisting>
+	</para>
+	<para>
+		Illetve a kiírást végző függvény:
+		<programlisting language="c"><![CDATA[
+void
+kiir (double tomb[], int db){
+	
+	int i;
+	
+	for (i=0; i<db; ++i){
+		printf("%f\n",tomb[i]);
+	}
+}]]></programlisting>
+	    </para>
     </section>
 
     <section xml:id="Brun">
