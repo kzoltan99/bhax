@@ -131,7 +131,7 @@ while ((olvasott_bajtok = read (0, (void *) buffer, BUFFER_MERET)))
             A programunk elején nagyon fontos az olvasásbuffer és a kulcsméret pontos definiálása,
             hiszen ezeknek nagy szerepe van a helyes működésben.
             Az alapkoncepció az, hogy egy szöveg már fel van törve tehát tiszta szöveg lesz ha tartalmazza az átlagosan előforduló magyar szavakat
-            (Ezek a szavak a: hogy, nem, az, ha). Ebben az esetben a szavakra mutató pointereket kapunk vissza.
+            (Ezek a szavak a: hogy, nem, az, ha). Ha ez így van akkor a program kiírja a visszafejtés eredményét.
             Egyébként még a titkos szöveg kategóriába tartozik alias nincs még feltörve és null pointert kapunk vissza.
             A feltörés maga a titkosításra alkalmazott kulcs kiszámításával történik.
             Az exorozás és maga az exortörés ugyanazon argumentumokkal dolgozik és a titkosított szöveg mindenegyes karakterén végrehajtódik.
