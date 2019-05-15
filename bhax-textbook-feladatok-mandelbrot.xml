@@ -32,6 +32,8 @@
             Az origóból kiindulva (z 0 ) átlépünk a rács első pontjába a z 1 = c-be, aztán a c-től függően a további z-kbe.
             Ha így kijutunk a 2 sugarú körből, akkor a vizsgált rácspont nem a Mandelbrot halmaz eleme. Csak véges sok z-t nézünk meg minden rácsponthoz.
             Ha nem lép ki akkor feketére színezzük, ezzel jelezve ,hogy az a c rácspont a halmaz része.
+	    </para>
+	    <para>
 		Először is definiáljuk egy konstansban a létrehozandó képünk méretet, valamint
 		az iterációs határunkat:
 		<programlisting language="c++"><![CDATA[
@@ -155,7 +157,9 @@ main (int argc, char *argv[])
             Tanulságok, tapasztalat, magyarázat...
             Ez az előző feladat egy továbbfejlesztett változata. Tartalmazza az std::complex osztályt amelyben a nevéből is adódóan komplex számok vannak.
             Segítségével a felhasznált változók számát tudjuk egyre csökkenteni ami egyszerűsíti így könnyebben értelmezhetőbbé teszi kódunkat.
-            Itt láthatjuk magát az std::complex osztályt a forrásunkba implementálva:
+         </para>
+	 <para>
+		Itt láthatjuk magát az std::complex osztályt a forrásunkba implementálva:
 		<programlisting language="c++"><![CDATA[
 		reC = a + k * dx;
           imC = d - j * dy;
@@ -170,6 +174,8 @@ while ( std::abs ( z_n ) < 4 && iteracio < iteraciosHatar )
               ++iteracio;
             }
 ]]></programlisting>
+	    </para>
+	    <para>
 		Maga a komplex osztály double-öket tartalmaz (két rész:valós és imaginárius)
 		Magát a képzési szabályt is simán beírhatjuk.
 		 <programlisting language="c++"><![CDATA[
@@ -197,7 +203,9 @@ while ( std::abs ( z_n ) < 4 && iteracio < iteraciosHatar )
             hogy a komplex számsíkban elhelyezkedő c az előbbiben változó, utóbbiban pedig állandó.
             Ahogy a kódban láthatjuk a Mandelbrot halmazokat alkalmazó programban a c befutja a vizsgált összes rácspontot
             amíg a Julia halmazt alkalmazóban végig egy értéke van. Ennek a feladatnak a megoldásához elég módosítani a Mandelbrot halmazt kiszámoló forrást
-            és átnevezni a változókat:
+            és átnevezni a változókat.
+	    </para>
+	    <para>
 <programlisting language="c++"><![CDATA[		
 #include <iostream>
 #include "png++/png.hpp"
@@ -230,6 +238,8 @@ main ( int argc, char *argv[] )
         imC = atof ( argv[10] );
         R = atof ( argv[11] );
 ]]></programlisting>
+	    </para>
+	    <para>
 		A hasonlóság szemmel látható, habár van egy pár különbség is.
 		A küszöbszámot illetve a cc konstans-t most a felhasználótól kérjük,
 		illetve a parancssori argumentumok száma megugrott 10-re.
@@ -244,7 +254,8 @@ else
         std::cout << "Hasznalat: ./3.1.2 fajlnev szelesseg magassag n a b c d reC imC R" << std::endl;
         return -1;
     }]]></programlisting>
- 	<para>
+ 	</para>
+	<para>
 	  	Itt is létrehozzuk a png-t ami majd tartalmazni fogja a halmazunkat:
 		<programlisting language="c++"><![CDATA[
 		png::image < png::rgb_pixel > kep ( szelesseg, magassag );]]></programlisting>
