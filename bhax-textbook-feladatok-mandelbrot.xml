@@ -57,7 +57,7 @@ int szelesseg = MERET, magassag = MERET, iteraciosHatar = ITER_HAT;]]></programl
 		</para>
 	<para>
         A for ciklusok:
-		<programlisting language"c++"><![CDATA[
+		<programlisting language="c++"><![CDATA[
 for (int j = 0; j < magassag; ++j)
     {
         //sor = j;
