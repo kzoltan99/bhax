@@ -175,7 +175,39 @@ false]]></screen>
             Tanulságok, tapasztalatok, magyarázat...
             Ez a feladat már kicsit nagyobb nehézségett okozott számomra de kezdem érteni a dolgot. Az if-es megoldás már megvan. 
             A program lényege az h meg kell adnunk neki azt h az x és y tengelyen mekkorákat lépkedjen illetve a clear használatával akár azt is megoldhatjuk h egyzserre csak egy kis o betű jelenjen meg a képernyőnkön. 
-            Majd ezek után if-ek használatával tudjuk úgymond "visszafordítani" az o betű lépkedését hiszen így tudjuk meg hogy már a képernyő szélén járunk. A feladat if nélküli megoldása még folyamatban van
+            Majd ezek után if-ek használatával tudjuk úgymond "visszafordítani" az o betű lépkedését hiszen így tudjuk meg hogy már a képernyő szélén járunk.
+		<programlisting language="c"><![CDATA[
+    if ( x>=mx-1 ) { // elerte-e a jobb oldalt?
+            xnov = xnov * -1;
+        }
+        if ( x<=0 ) { // elerte-e a bal oldalt?
+            xnov = xnov * -1;
+        }
+        if ( y<=0 ) { // elerte-e a tetejet?
+            ynov = ynov * -1;
+        }
+        if ( y>=my-1 ) { // elerte-e a aljat?
+            ynov = ynov * -1;
+]]></programlisting>
+		Az néküli megoldás annyiban tér el, hogy az if-ek helyet maradékos osztást alkalmazunk.
+		Egészen addig az osztandó szám értékét kapjuk vissza amíg nem érjük el a képernyő szélét.
+		Ilyenkor az értékünk visszaáll -1-re (vagy 1-re) és a labda pattogási iránya megfordul.
+		<programlisting language="c"><![CDATA[
+getmaxyx(ablak, my, mx);
+        xj = (xj - 1) % mx;
+        xk = (xk + 1) % mx;
+
+        yj = (yj - 1) % my;
+        yk = (yk + 1) % my;
+
+        //clear ();
+
+        mvprintw (abs (yj + (my - yk)),
+                  abs (xj + (mx - xk)), "X");
+
+        refresh ();
+        usleep (150000);
+]]></programlisting>
         </para>
     </section>                     
 
