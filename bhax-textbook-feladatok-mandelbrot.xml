@@ -162,7 +162,21 @@ main (int argc, char *argv[])
           std::complex<double> c ( reC, imC );
 
           std::complex<double> z_n ( 0, 0 );
-	  iteracio = 0;]]></programlisting>
+	  iteracio = 0;
+while ( std::abs ( z_n ) < 4 && iteracio < iteraciosHatar )
+            {
+              z_n = z_n * z_n + c;
+
+              ++iteracio;
+            }
+]]></programlisting>
+		Maga a komplex osztály double-öket tartalmaz (két rész:valós és imaginárius)
+		Magát a képzési szabályt is simán beírhatjuk.
+		 <programlisting language="c++"><![CDATA[
+		int szazalek = ( double ) j / ( double ) magassag * 100.0;
+      std::cout << "\r" << szazalek << "%" << std::flush;]]></programlisting>
+		Valamint még egy kicsi de szerintem érdekes változtatást mutat be a fent idézett kódcsipet:
+		már futás közben láthatjuk hány százaléknal jár a számítás.
         </para>
     </section>        
                 
@@ -183,8 +197,115 @@ main (int argc, char *argv[])
             hogy a komplex számsíkban elhelyezkedő c az előbbiben változó, utóbbiban pedig állandó.
             Ahogy a kódban láthatjuk a Mandelbrot halmazokat alkalmazó programban a c befutja a vizsgált összes rácspontot
             amíg a Julia halmazt alkalmazóban végig egy értéke van. Ennek a feladatnak a megoldásához elég módosítani a Mandelbrot halmazt kiszámoló forrást
-            és átnevezni a változókat.
-        </para>                        
+            és átnevezni a változókat:
+<programlisting language="c++"><![CDATA[		
+#include <iostream>
+#include "png++/png.hpp"
+#include <complex>
+
+int
+main ( int argc, char *argv[] )
+{
+
+    int szelesseg = 1920;
+    int magassag = 1080;
+    int iteraciosHatar = 255;
+    double xmin = -1.9;
+    double xmax = 0.7;
+    double ymin = -1.3;
+    double ymax = 1.3;
+    double reC = .285, imC = 0;
+    double R = 10.0;
+
+    if ( argc == 12 )
+    {
+        szelesseg = atoi ( argv[2] );
+        magassag =  atoi ( argv[3] );
+        iteraciosHatar =  atoi ( argv[4] );
+        xmin = atof ( argv[5] );
+        xmax = atof ( argv[6] );
+        ymin = atof ( argv[7] );
+        ymax = atof ( argv[8] );
+        reC = atof ( argv[9] );
+        imC = atof ( argv[10] );
+        R = atof ( argv[11] );
+]]></programlisting>
+		A hasonlóság szemmel látható, habár van egy pár különbség is.
+		A küszöbszámot illetve a cc konstans-t most a felhasználótól kérjük,
+		illetve a parancssori argumentumok száma megugrott 10-re.
+		Ha a felhasználó ezeket mégsem használná ki (ami persze nem kötelező)
+		akkor az alapértelmezett érték lép életbe.
+	    </para>
+	    <para>
+		A felhasználó segítségére újra implementálünk egy hibaüzenetet a hibás futtatás esetén:
+<programlisting language="c++"><![CDATA[
+else
+    {
+        std::cout << "Hasznalat: ./3.1.2 fajlnev szelesseg magassag n a b c d reC imC R" << std::endl;
+        return -1;
+    }]]></programlisting>
+ 	<para>
+	  	Itt is létrehozzuk a png-t ami majd tartalmazni fogja a halmazunkat:
+		<programlisting language="c++"><![CDATA[
+		png::image < png::rgb_pixel > kep ( szelesseg, magassag );]]></programlisting>
+	</para>
+	<para>
+		A rácspontokon ismét két egymásba épített for ciklus vezet át minket.
+		Valamint itt használunk egy harmadikat is, amivel amíg nem érjük el az iterációs
+		határt vagy nem teljesítődik a feltétel (maga az eredeti program által tartalmazott bug)
+		<programlisting language="c++"><![CDATA[
+                if(std::real ( z_n ) > R || std::imag ( z_n ) > R)]]></programlisting>
+		számítjuk a függvényértékeket.
+	<programlisting language="c++"><![CDATA[	
+    double dx = ( xmax - xmin ) / szelesseg;
+    double dy = ( ymax - ymin ) / magassag;
+
+    std::complex<double> cc ( reC, imC );
+
+    std::cout << "Szamitas\n";
+
+    // j megy a sorokon
+    for ( int y = 0; y < magassag; ++y )
+    {
+        // k megy az oszlopokon
+
+        for ( int x = 0; x < szelesseg; ++x )
+        {
+
+            double reZ = xmin + x * dx;
+            double imZ = ymax - y * dy;
+            std::complex<double> z_n ( reZ, imZ );
+
+            int iteracio = 0;
+            for (int i=0; i < iteraciosHatar; ++i)
+            {
+
+                z_n = std::pow(z_n, 3) + cc;
+                //z_n = std::pow(z_n, 2) + std::sin(z_n) + cc;
+                if(std::real ( z_n ) > R || std::imag ( z_n ) > R)
+                {
+                    iteracio = i;
+                    break;
+                }
+            }]]></programlisting>
+	</para>
+	<para>
+		A kód vége pedig megegyezik a mandelbrotos kódunkkal. Előbb a kep.set_pixel
+		segítségével színt adunk a pixeleknek, majd kiíratjuk a létrehozott png-be az eredményt.
+		(Illetve itt is alkalmazzuk a számítás előrehaladtát mutató kis fejlesztésünket).
+  <programlisting language="c++"><![CDATA[
+        kep.set_pixel ( x, y,
+                            png::rgb_pixel ( (iteracio*20)%255, (iteracio*40)%255, (iteracio*60)%255 ));
+        }
+
+        int szazalek = ( double ) y / ( double ) magassag * 100.0;
+        std::cout << "\r" << szazalek << "%" << std::flush;
+    }
+
+    kep.write ( argv[1] );
+    std::cout << "\r" << argv[1] << " mentve." << std::endl;]]></programlisting>
+
+    </para>                        
     </section>                     
 
     <section>
