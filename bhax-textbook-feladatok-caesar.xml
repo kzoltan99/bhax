@@ -56,6 +56,43 @@ main (int argc, char **argv)
             Konstansokat csupa nagy betűvel definiálunk, így megkülönbeztetve egy sima változótól.
             Aztán maga a main sem szokványos, mivel terminálon keresztül szeretnénk majd argumentumot adni neki.
             Ezeket az ar arg.-ra mutató mutatókat az argv-ben tároljuk, számukat pedig az argc-vel számoltatjuk meg.
+            <programlisting language="c"><![CDATA[
+ char kulcs[MAX_KULCS];
+  char buffer[BUFFER_MERET];
+
+  int kulcs_index = 0;
+  int olvasott_bajtok = 0;
+
+  int kulcs_meret = strlen (argv[1]);
+  strncpy (kulcs, argv[1], MAX_KULCS);
+]]></programlisting>
+            Itt tároljuk két tömbben a kulcs méretét illetve az olvasott bájtokat. (Ezek számát "maximalizáltuk" a kód elején).
+            A kulcs_index segítségével járjuk be a tömböt, valamint az olvasott_bajtok-kal számoljuk a bájtokat.
+            Az strlen-el kapjuk meg a kulcs méretet, ami az argv[1] hosszát adja vissza nekünk egy string formájában.
+            az strncpy pedig szépen karakterenként másolja az argv[1]-ben lévő stringeket. A MAX_KULCS pedig határt szab
+            a kulcs méretének.
+            <programlisting language="c"><![CDATA[
+while ((olvasott_bajtok = read (0, (void *) buffer, BUFFER_MERET)))
+    {
+
+      for (int i = 0; i < olvasott_bajtok; ++i)
+	{
+
+	  buffer[i] = buffer[i] ^ kulcs[kulcs_index];
+	  kulcs_index = (kulcs_index + 1) % kulcs_meret;
+
+	}
+
+      write (1, buffer, olvasott_bajtok);
+
+    }
+}]]></programlisting>
+            Ameddig a read beolvassa a bufferből a megadott mennyiségű bájtot addig a while ciklusunk igaz lesz.
+            Ez a mennyiség a BUFFER_MERET-ben van definiálva (jelen esetben ez 256).
+            Visszakapjuk a beolvasott bájtok számát.A A bufferben tárolt karaktereket egyenként
+            EXORozzuk a kulcs tömb megfelelő elemével. A kulcs_indexet egyel növeljük mindaddig amíg akkora nem lesz mint
+            a megadott kulcs_meret.
+            Ezután pedig végső lépésként kiírjuk a bufferben tárolt tartalmat.
         </para>            
     </section>        
     <section>
