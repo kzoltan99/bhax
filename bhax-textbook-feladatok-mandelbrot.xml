@@ -31,9 +31,95 @@
 		
             Az origóból kiindulva (z 0 ) átlépünk a rács első pontjába a z 1 = c-be, aztán a c-től függően a további z-kbe.
             Ha így kijutunk a 2 sugarú körből, akkor a vizsgált rácspont nem a Mandelbrot halmaz eleme. Csak véges sok z-t nézünk meg minden rácsponthoz.
-            Ha nem lép ki akkor feketére színezzük, ezzel jelezve ,hogy az a c rácspont a halmaz része.    
-        </para>
-        
+            Ha nem lép ki akkor feketére színezzük, ezzel jelezve ,hogy az a c rácspont a halmaz része.
+		Először is definiáljuk egy konstansban a létrehozandó képünk méretet, valamint
+		az iterációs határunkat:<programlisting language="c++"><[CDATA[
+#define MERET 600
+#define ITER_HAT 32000
+]]></programlisting>
+		Majd jöhet az értékkészlet valamint az értelmezési tartomány, illetve az előbb definiált
+		adatok hívása:
+	<programlisting language="c++"><[CDATA[	
+float a = -2.0, b = .7, c = -1.35, d = 1.35;
+int szelesseg = MERET, magassag = MERET, iteraciosHatar = ITER_HAT;]]></programlisting>
+   Aztán a számítások a következő részben történnek két for ciklus segítségével
+   de előbb deklarálnunk kell a lépésközünket valamint változókat amiben tárolni fogjuk a "c" illetve a "z" komplex számok
+   imaginárius és valós részeit.
+		</para>
+		<para>
+		Változók és lépésköz deklaraciója:
+		<programlisting language="c++"><[CDATA[    
+    float dx = (b - a) / szelesseg;
+    float dy = (d - c) / magassag;
+    float reC, imC, reZ, imZ, ujreZ, ujimZ;
+		 int iteracio = 0;]]></programlisting>
+		</para>
+	<para>
+        A for ciklusok:
+		<programlisting language"c++"><[CDATA[
+for (int j = 0; j < magassag; ++j)
+    {
+        //sor = j;
+        for (int k = 0; k < szelesseg; ++k)
+        {
+            // c = (reC, imC) a rács csomópontjainak
+            // megfelelő komplex szám
+            reC = a + k * dx;
+            imC = d - j * dy;
+            // z_0 = 0 = (reZ, imZ)
+            reZ = 0;
+            imZ = 0;
+            iteracio = 0;
+            // z_{n+1} = z_n * z_n + c iterációk
+            // számítása, amíg |z_n| < 2 vagy még
+            // nem értük el a 255 iterációt, ha
+            // viszont elértük, akkor úgy vesszük,
+            // hogy a kiinduláci c komplex számra
+            // az iteráció konvergens, azaz a c a
+            // Mandelbrot halmaz eleme
+            while (reZ * reZ + imZ * imZ < 4 && iteracio < iteraciosHatar)
+            {
+                // z_{n+1} = z_n * z_n + c
+                ujreZ = reZ * reZ - imZ * imZ + reC;
+                ujimZ = 2 * reZ * imZ + imC;
+                reZ = ujreZ;
+                imZ = ujimZ;
+
+                ++iteracio;
+
+            }
+
+            kepadat[j][k] = iteracio;
+        }
+			}]]></programlisting>
+			</para>
+	<para>
+           Az értelmezési tartományon kezdjük a lépegetést, és kiszámolunk egy z értéket a c számhoz
+	   minden iterációban. Itt jön a képbe a while ciklus, ez ugyanis addig igaz (tehát fut a számítás)
+	   ameddig a z négyzete kisebb 4-nél, illetve az iterációs határt még nem értük el.
+	   C-t akkor mondhatjuk a Mandelbrot halmaz elemének ha elértük az iterációs határt.
+           (a kiindulási c komplex számra az iteráció konvergens)
+	</para>
+<para>
+	Ha a felhasználó esetleg rosszul futtatná a programot akkor ezt a hibát iratjuk ki neki.
+	Ebben a pontos futtatási parancs van:
+	<programlisting language="c++"><[CDATA[
+	int
+main (int argc, char *argv[])
+{
+
+    if (argc != 2)
+    {
+        std::cout << "Hasznalat: ./mandelpng fajlnev";
+        return -1;
+		     }]]></programlisting>
+		</para>
+	<para>
+		Itt pedig létrehozunk egy üres png-t. Ebbe rakjuk majd a képünket a halmazról.
+		<programlisting language="c++"><[CDATA[
+		png::image < png::rgb_pixel > kep (MERET, MERET);]]></programlisting>
+	</para>
+	
         </section>
         
     <section>
