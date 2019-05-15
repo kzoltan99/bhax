@@ -33,13 +33,14 @@
             Ha így kijutunk a 2 sugarú körből, akkor a vizsgált rácspont nem a Mandelbrot halmaz eleme. Csak véges sok z-t nézünk meg minden rácsponthoz.
             Ha nem lép ki akkor feketére színezzük, ezzel jelezve ,hogy az a c rácspont a halmaz része.
 		Először is definiáljuk egy konstansban a létrehozandó képünk méretet, valamint
-		az iterációs határunkat:<programlisting language="c++"><[CDATA[
+		az iterációs határunkat:
+		<programlisting language="c++"><![CDATA[
 #define MERET 600
 #define ITER_HAT 32000
 ]]></programlisting>
 		Majd jöhet az értékkészlet valamint az értelmezési tartomány, illetve az előbb definiált
 		adatok hívása:
-	<programlisting language="c++"><[CDATA[	
+	<programlisting language="c++"><![CDATA[	
 float a = -2.0, b = .7, c = -1.35, d = 1.35;
 int szelesseg = MERET, magassag = MERET, iteraciosHatar = ITER_HAT;]]></programlisting>
    Aztán a számítások a következő részben történnek két for ciklus segítségével
@@ -48,7 +49,7 @@ int szelesseg = MERET, magassag = MERET, iteraciosHatar = ITER_HAT;]]></programl
 		</para>
 		<para>
 		Változók és lépésköz deklaraciója:
-		<programlisting language="c++"><[CDATA[    
+		<programlisting language="c++"><![CDATA[    
     float dx = (b - a) / szelesseg;
     float dy = (d - c) / magassag;
     float reC, imC, reZ, imZ, ujreZ, ujimZ;
@@ -56,7 +57,7 @@ int szelesseg = MERET, magassag = MERET, iteraciosHatar = ITER_HAT;]]></programl
 		</para>
 	<para>
         A for ciklusok:
-		<programlisting language"c++"><[CDATA[
+		<programlisting language"c++"><![CDATA[
 for (int j = 0; j < magassag; ++j)
     {
         //sor = j;
@@ -103,7 +104,7 @@ for (int j = 0; j < magassag; ++j)
 <para>
 	Ha a felhasználó esetleg rosszul futtatná a programot akkor ezt a hibát iratjuk ki neki.
 	Ebben a pontos futtatási parancs van:
-	<programlisting language="c++"><[CDATA[
+	<programlisting language="c++"><![CDATA[
 	int
 main (int argc, char *argv[])
 {
@@ -116,12 +117,12 @@ main (int argc, char *argv[])
 		</para>
 	<para>
 		Itt pedig létrehozunk egy üres png-t. Ebbe rakjuk majd a képünket a halmazról.
-		<programlisting language="c++"><[CDATA[
+		<programlisting language="c++"><![CDATA[
 		png::image < png::rgb_pixel > kep (MERET, MERET);]]></programlisting>
 	</para>
 	<para>
 		Színt adunk a pixeleknek, ezzel befolyásolva a kirajzolt halmazunk színét
-		<programlisting language="c++"><[CDATA[
+		<programlisting language="c++"><![CDATA[
 		 kep.set_pixel (k, j,
                            png::rgb_pixel (255 -
                                            (255 * kepadat[j][k]) / ITER_HAT,
@@ -133,7 +134,7 @@ main (int argc, char *argv[])
 	<para>
 		Legvégül pedig abba a fájlba amit felhasználó megadott argumentumként belenyomjuk a kész képet
 		és a sikeres művelet végét egy "mentve" kiírással nyugtázzuk.
-		<programlisting language="c++"><[CDATA[
+		<programlisting language="c++"><![CDATA[
 		kep.write (argv[1]);
     std::cout << argv[1] << " mentve" << std::endl;]]></programlisting>
 	</para>
