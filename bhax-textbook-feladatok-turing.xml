@@ -32,7 +32,7 @@ main()
 }]]></programlisting>
 		
 	<programlisting language="c"><![CDATA[
- #include <stdio.h>
+#include <stdio.h>
 main()
 {
     while(1){}
