@@ -173,7 +173,7 @@ while (read (0, (void *) &b, sizeof(unsigned char)))
 	    }
 	}
     }
-]]></programlisting
+]]></programlisting>
 	</para>
 	<para>
 		Itt történik a fa kiírása:
