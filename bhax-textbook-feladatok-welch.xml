@@ -115,8 +115,12 @@ extern void szabadit (BINFA_PTR elem);
 ]]></programlisting>
 	    </para>
 	    <para>
-		    
-		    int
+		  A main hozzuk létre a gyökeret. Mivel itt még se jobboldali se baloldali gyermek sincs
+		    még ezért NULL értéket adunk a pointernek, a fát gyökérre állítjuk.
+		    Illetve "/" lesz most a gyökerünk értéke.
+		    A fát a while ciklusunkban csináljuk meg a már fentebbi (megoldás forrása utáni) részben említett módon.
+<programlisting language="c"><![CDATA[
+int
 main (int argc, char **argv)
 {
   char b;
@@ -169,7 +173,149 @@ while (read (0, (void *) &b, sizeof(unsigned char)))
 	    }
 	}
     }
+]]></programlisting
+	</para>
+	<para>
+		Itt történik a fa kiírása:
+		<programlisting language="c"><![CDATA[
+ printf ("\n");
+  kiir (gyoker);
 
+  extern int max_melyseg, atlagosszeg, melyseg, atlagdb;
+  extern double szorasosszeg, atlag;
+
+  printf ("melyseg=%d\n", max_melyseg - 1);
+
+  /* Átlagos ághossz kiszámítása */
+  atlagosszeg = 0;
+  melyseg = 0;
+  atlagdb = 0;
+  ratlag (gyoker);
+  // atlag = atlagosszeg / atlagdb;
+  // (int) / (int) "elromlik", ezért casoljuk
+  // K&R tudatlansági védelem miatt a sok () :)
+  atlag = ((double) atlagosszeg) / atlagdb;
+
+  /* Ághosszak szórásának kiszámítása */
+  atlagosszeg = 0;
+  melyseg = 0;
+  atlagdb = 0;
+  szorasosszeg = 0.0;
+
+  rszoras (gyoker);
+
+  double szoras = 0.0;
+
+  if (atlagdb - 1 > 0)
+    szoras = sqrt (szorasosszeg / (atlagdb - 1));
+  else
+    szoras = sqrt (szorasosszeg);
+
+  printf ("altag=%f\nszoras=%f\n", atlag, szoras);
+
+  szabadit (gyoker);
+}]]></programlisting>
+	</para>
+	<para>
+		Az ratlag-nak beadjuk a fa pointert, ha ez nem NULL akkor a melyseg-et növeljuk
+		illetve ráengedjuk az ratlag-ot a jobb és bal gyermekekre is.
+		Ha a jobb és bal gyermek is a legutolsó az összes közül akkor
+		az atlagdb-t növeljük egyel. Ha ezzel megvagyunk akkor még a 
+		mélységhez hozzáadjuk az atlagosszeget.
+		Az rszoras ugyanezen az elven működik, annyi a különbség, hogy a végén
+		más műveletet végzünk el: most már az előbb kiszámolt átlagot is használjuk.
+		Kivonjuk a mélységből és a kapott különbséget nyégyzetre emeljük, és ezt adjuk hozzá
+		a szórásösszeghez.
+		<programlisting language="c"><![CDATA[
+int atlagosszeg = 0, melyseg = 0, atlagdb = 0;
+
+void
+ratlag (BINFA_PTR fa)
+{
+
+  if (fa != NULL)
+    {
+      ++melyseg;
+      ratlag (fa->jobb_egy);
+      ratlag (fa->bal_nulla);
+      --melyseg;
+
+      if (fa->jobb_egy == NULL && fa->bal_nulla == NULL)
+	{
+
+	  ++atlagdb;
+	  atlagosszeg += melyseg;
+
+	}
+
+    }
+
+}
+
+double szorasosszeg = 0.0, atlag = 0.0;
+
+void
+rszoras (BINFA_PTR fa)
+{
+
+  if (fa != NULL)
+    {
+      ++melyseg;
+      rszoras (fa->jobb_egy);
+      rszoras (fa->bal_nulla);
+      --melyseg;
+
+      if (fa->jobb_egy == NULL && fa->bal_nulla == NULL)
+	{
+
+	  ++atlagdb;
+	  szorasosszeg += ((melyseg - atlag) * (melyseg - atlag));
+
+	}
+
+    }
+
+}
+
+//static int melyseg = 0;
+int max_melyseg = 0;
+
+void
+kiir (BINFA_PTR elem)
+{
+  if (elem != NULL)
+    {
+      ++melyseg;
+      _melyseif (melyseg > maxg);
+	max_melyseg = melyseg;
+      kiir (elem->jobb_egy);
+      // ez a postorder bejáráshoz képest
+      // 1-el nagyobb mélység, ezért -1
+      for (int i = 0; i < melyseg; ++i)
+	printf ("---");
+      printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek,
+	      melyseg - 1);
+      kiir (elem->bal_nulla);
+      --melyseg;
+    }
+}]]></programlisting>
+	</para>
+	<para>
+	Legvégül pedig a szabadit függvény. Ennek segítségével szabadítjuk fel a területet melyet lefoglaltunk eddig.
+		Ha van gyermeke az elemnek akkor azokra is hívjuk a függvényt.
+		A szabadításban a free függvény áll rendelkezésünkre.
+		<programlisting language="c"><![CDATA[
+void
+szabadit (BINFA_PTR elem)
+{
+  if (elem != NULL)
+    {
+      szabadit (elem->jobb_egy);
+      szabadit (elem->bal_nulla);
+      free (elem);
+    }
+}]]></programlisting>
+	</para>
 	</section> 
    
         
