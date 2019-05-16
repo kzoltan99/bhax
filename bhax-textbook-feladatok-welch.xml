@@ -724,7 +724,9 @@ main (int argc, char *argv[])
 		    Kezdődik a b változó működése, ha valami hibát észlel a program olvasás közben
 		    tehát törésbe ütközik akkor megállítja a ciklust. A fa építése a második ciklusban
 		    történik. Karakter észlelése során igaz, törés esetén hamis értéket adunk a változónak
-		    a kommentben. 
+		    a kommentben. Végül pedig egy for ciklust is használunk. A ciklus szépen bitenként végigfut
+		    a beolvasott karakteren és éseli a b-vel. Ha egyet kapunk akkor egyest ír a fába egyébként
+		    pedig nullát.
 		    <programlisting language="c++"><![CDATA[
 
     while (beFile.read ((char *) &b, sizeof (unsigned char)))
@@ -764,6 +766,22 @@ main (int argc, char *argv[])
         }
 
     }]]></programlisting>
+	    </para>
+	    <para>
+		    A forrásunk legvégén pedig szépen bele bitshifteljük a fát a kimeneti fájlba.
+		    Plusz ugyanezt tesszük a korábban számolt mélység, átlag és szórás értékekkel.
+		    <programlisting language="c++"><![CDATA[
+ kiFile << binFa;
+    kiFile << "depth = " << binFa.getMelyseg () << std::endl;
+    kiFile << "mean = " << binFa.getAtlag () << std::endl;
+    kiFile << "var = " << binFa.getSzoras () << std::endl;
+
+    kiFile.close ();
+    beFile.close ();
+
+    return 0;
+]]></programlisting>
+	    </para>
 		    
     </section>   
     <section>
