@@ -797,9 +797,34 @@ main (int argc, char *argv[])
             Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/z3a73.cpp">https://github.com/kzoltan99/feladatok/blob/master/z3a73.cpp</link>
         </para>
 		<para>
-		  A különbség az előző feladathoz képest, hogy ebben a gyökérelemre is már egy mutató mutat, azért a Binfa konstruktorában létre kell hozni a gyökérobjektumot.
-          A program mostmár a gyökérelemet adja át nem a referenciáját.
-		</para>
+		  A különbség az előző feladathoz képest, hogy ebben a gyökérelemre is már egy mutató mutat,
+		  azért a Binfa konstruktorában létre kell hozni a gyökérobjektumot.
+                  A program mostmár a gyökérelemet adja át nem a referenciáját.
+	    </para>
+	    <para>
+	    A gyökér mutatóvá alakítása:
+	    <programlisting language="c++"><![CDATA[
+ Csomopont* gyoker;]]></programlisting>
+	    </para>
+	    <para>
+		    A fának és a gyökér mutatónak új területet foglalunk le, de ezt fel is kell szabadítani,
+		    ezért változtatni kell a destruktoron is a következőképpen:
+		    <programlisting language="c++"><![CDATA[
+   LZWBinFa (){
+        gyoker = new Csomopont ('/');
+        fa = gyoker;
+    }
+
+    ~LZWBinFa ()
+    {
+        szabadit (gyoker->egyesGyermek ());
+        szabadit (gyoker->nullasGyermek ());
+        delete(gyoker);
+    }]]></programlisting>
+		    		</para>
+	    <para>
+		    A forrásunk többi része megegyezik az eredetivel.
+	    </para>
     </section>                    
 
     <section>
@@ -815,10 +840,28 @@ main (int argc, char *argv[])
             Megoldás forrása:  <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/z3a9.cpp">https://github.com/kzoltan99/feladatok/blob/master/z3a9.cpp</link>
         </para>
 		<para>
-		 A másoló szemantika lényege, hogy az értékül kapott bináris fát értékül adja az eredeti fának, minden érték másolásával. 
-		 A mozgató szemantika pedig úgy működik, hogy az eredeti bináris fa gyökerét "kicseréli" az értékül kapott fa gyökerével,
-         és az értékül kapott fa gyökerének gyermekeit nullpointerre állítja,
-         hogy az eredetileg létező fa ne törlődjön le.
+		 A másoló szemantika lényege, hogy az értékül kapott bináris fát értékül adja az eredeti fának,
+	         minden érték másolásával.A mozgató szemantika pedig úgy működik, hogy az eredeti bináris fa gyökerét
+	        "kicseréli" az értékül kapott fa gyökerévelés az értékül kapott fa gyökerének gyermekeit nullpointerre
+	         állítja, hogy az eredetileg létező fa ne törlődjön le.
+	    </para>
+	    <para>
+		    Maga a mozgató konstruktor a forrásba implementálva:
+		    <programlisting language="c++"><![CDATA[
+LZWBinFa (LZWBinFa && regi) {
+		std::cout << "LZWBinFa move ctor" << std::endl;
+		gyoker = nullptr; 
+		*this = std::move(regi);
+//		gyoker = regi.gyoker;
+//		regi.gyoker = nullptr;
+	}
+
+	LZWBinFa& operator=(LZWBinFa && regi){
+		std::cout << "LZWBinFa move assign" << std::endl;
+		std::swap(gyoker, regi.gyoker);
+		return *this;
+ }]]></programlisting>
+		    
          </para>
 	</section>     
                  
