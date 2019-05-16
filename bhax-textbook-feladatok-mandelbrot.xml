@@ -360,7 +360,77 @@ else
             Ezt a "sudo apt-get install build-essential libgl1-mesa-dev" paranccsal érhetjük el terminálunkban.
             Qmake -projects paranccsal kapunk e .pro fájlt. Ebbe be kell implementálni a qt +=widgets-et illetve a targetnek egy tetszőleges nevet adni.
             Aztán újra qmake jön csak kapcsoló nélkül (qmake *.pro), ezután egy make parancs majd végül szokás szerint ./-el futtatjuk az általunk elnevezett progit.
-            
+	    </para>
+	    <para>
+	    Maga a nagyítási művelet a frakablak.cpp fájlban történik.
+	    Itt hívjuk a frakablak. h headerben lévő mousePressEvent-et(egérgomb lenyomása),
+	    mouseMoveEvent(egér "vonszolása")-et, mouseReleaseEvent(egérgomb felengedése)-et
+            és a keyPressEvent(billentyű lenyomása)-et. Ezek segítségével tudjuk implementálni kódunk az egérrel való kattintást, és 
+	    a nagyítandó terület egér általi kijelőlését. Az "n" betű lenyomásával tudjuk a nagyított területetet részletesebben kirajzolni.
+	    (a kijelölt területen újraszámolja a z-ket)
+	    </para>
+	    <para>
+		<programlisting language="c++"><![CDATA[
+		void FrakAblak::mousePressEvent(QMouseEvent* event) {
+
+    // A nagyítandó kijelölt területet bal felsõ sarka:
+    x = event->x();
+    y = event->y();
+    mx = 0;
+    my = 0;
+
+    update();
+}
+
+void FrakAblak::mouseMoveEvent(QMouseEvent* event) {
+
+    // A nagyítandó kijelölt terület szélessége és magassága:
+    mx = event->x() - x;
+    my = mx; // négyzet alakú
+
+    update();
+}
+
+void FrakAblak::mouseReleaseEvent(QMouseEvent* event) {
+
+    if(szamitasFut)
+        return;
+
+    szamitasFut = true;
+
+    double dx = (b-a)/szelesseg;
+    double dy = (d-c)/magassag;
+
+    double a = this->a+x*dx;
+    double b = this->a+x*dx+mx*dx;
+    double c = this->d-y*dy-my*dy;
+    double d = this->d-y*dy;
+
+    this->a = a;
+    this->b = b;
+    this->c = c;
+    this->d = d;
+
+    delete mandelbrot;
+    mandelbrot = new FrakSzal(a, b, c, d, szelesseg, magassag, iteraciosHatar, this);
+    mandelbrot->start();
+
+    update();
+}
+
+void FrakAblak::keyPressEvent(QKeyEvent *event)
+{
+
+    if(szamitasFut)
+        return;
+
+    if (event->key() == Qt::Key_N)
+        iteraciosHatar *= 2;
+    szamitasFut = true;
+
+    delete mandelbrot;
+    mandelbrot = new FrakSzal(a, b, c, d, szelesseg, magassag, iteraciosHatar, this);
+    mandelbrot->start();]]></programlisting>
         </para>
     </section>                     
                                                                                                                                                                             
