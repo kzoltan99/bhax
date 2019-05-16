@@ -679,6 +679,7 @@ LZWBinFa::rszoras (Csomopont * elem)
 		    Ha minden jól működik és helyesen van a program elindítva akkor újfent az
 		    fstream segítségével létrehozzuk a kiFile-t melynek a negyedik argumentumot
 		    adjuk meg első paraméterként ugyanis ebbe a fájlba fog történni a fa írása.
+		    A b változóba pedig bitenként fogjuk olvasni a bemenetet.
 		    		    <programlisting language="c++"><![CDATA[
 void
 usage (void)
@@ -717,6 +718,52 @@ main (int argc, char *argv[])
     unsigned char b;
     LZWBinFa binFa;]]></programlisting>
 	    </para>
+	    <para>
+		    A binfát itt is while ciklusok segítségével rajzoljuk meg ugyanúgy mint
+		    a c-s változatban, de persze ebben is vannak eltérések.
+		    Kezdődik a b változó működése, ha valami hibát észlel a program olvasás közben
+		    tehát törésbe ütközik akkor megállítja a ciklust. A fa építése a második ciklusban
+		    történik. Karakter észlelése során igaz, törés esetén hamis értéket adunk a változónak
+		    a kommentben. 
+		    <programlisting language="c++"><![CDATA[
+
+    while (beFile.read ((char *) &b, sizeof (unsigned char)))
+        if (b == 0x0a)
+            break;
+
+    bool kommentben = false;
+
+    while (beFile.read ((char *) &b, sizeof (unsigned char)))
+    {
+
+        if (b == 0x3e)
+        {			// > karakter
+            kommentben = true;
+            continue;
+        }
+
+        if (b == 0x0a)
+        {			// újsor
+            kommentben = false;
+            continue;
+        }
+
+        if (kommentben)
+            continue;
+
+        if (b == 0x4e)		// N betű
+            continue;
+
+        for (int i = 0; i < 8; ++i)
+        {
+            if (b & 0x80)
+                binFa << '1';
+            else
+                binFa << '0';
+            b <<= 1;
+        }
+
+    }]]></programlisting>
 		    
     </section>   
     <section>
