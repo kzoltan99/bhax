@@ -393,12 +393,152 @@ void
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/z3a72.cpp">https://github.com/kzoltan99/feladatok/blob/master/z3a72.cpp</link>               
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/z3a7.cpp">https://github.com/kzoltan99/feladatok/blob/master/z3a7.cpp</link>               
         </para>
 		<para>
-		 Ez a megoldás az előző feladat megoldására épül. A különbség, hogy a  fát kezelő függvényeket a Binfa osztályba rendezzük, illetve a Binfa osztály privát részébe helyezzük a Node-ot.
-         A binfa osztályban túlterheljük a balra bitshift operátort, amely a fa építését látja el.      
+	 Ez a megoldás az előző feladat megoldására épül. A különbség, hogy a  fát kezelő függvényeket a Binfa osztályba
+	 rendezzük, illetve a Binfa osztály privát részébe helyezzük a Node-ot.
+	 A binfa osztályban túlterheljük a balra bitshift operátort, amely a fa építését látja el.
+	 Ezt a c++ használata miatt tudjuk megvalósítani, hiszen c-ben még nem lehetett operátort túlterhelni.
+	Bármit így sem tudunk az operátorral megcsináltatni de tudjuk alakítani bizonyos szinten annak függvényében,
+	hogy mire szeretnenk használni.
         </para>
+	    <para>
+		    C++-ban újdonság még a classok (osztályok) bevezetése. Tehát már mi is
+		    így vezetjük be forrásunkba a binfát nem pedig struktúraként:
+		    <programlisting language="c++"><![CDATA[
+class LZWBinFa
+{
+public:
+    LZWBinFa ():fa (&gyoker)
+    {
+    }
+    ~LZWBinFa ()
+    {
+        szabadit (gyoker.egyesGyermek ());
+        szabadit (gyoker.nullasGyermek ());
+    }]]></programlisting>
+	    </para>
+	    <para>
+		    Itt történik az operátor túlterhelése valamint a feladat elején leírt bitshiftelése.
+		    Az történik, hogy megnézzük, hogy van-e egyes illetve nullás gyermeke a fának.
+		    Ha van akkor arra a gyermekre állítjuk a fát. Ha nincs akkor létrehozunk egyet
+		    ujNullasGyermek (vagy ujEgyesGyermek) néven. A new függvény segítségével foglalunk helyet.
+		    Mindkét esetben a fa pointerünket az adott gyermekre állítjuk.		    
+		    <programlisting language="c++"><![CDATA[
+void operator<< (char b)
+    {
+        if (b == '0')
+        {
+            if (!fa->nullasGyermek ())
+            {
+                Csomopont *uj = new Csomopont ('0');
+                fa->ujNullasGyermek (uj);
+                fa = &gyoker;
+            }
+            else
+            {
+                fa = fa->nullasGyermek ();
+            }
+        }
+        // Mit kell betenni éppen, vagy '1'-et?
+        else
+        {
+            if (!fa->egyesGyermek ())
+            {
+                Csomopont *uj = new Csomopont ('1');
+                fa->ujEgyesGyermek (uj);
+                fa = &gyoker;
+            }
+            else
+            {
+                fa = fa->egyesGyermek ();
+            }
+        }
+    }]]></programlisting>
+	    </para>
+	    <para>
+		    Az új c++-os egyszerűsített kiir függvényünk pedig 0-ra állítja a mélységet
+		    valamint hív egy másik kiir függvényt (c++-ban már akár 2 ugyanolyan
+		    függvény is lehet egymásba ágyazva, a fordító képes különbséget tenni köztük).
+<programlisting language="c++"><![CDATA[	
+void kiir (void)
+    {
+        melyseg = 0;
+        kiir (&gyoker, std::cout);
+    }]]></programlisting>
+	    </para>
+	    <para>
+		    A mélységet, átlagot és a szórást get-tel meghívjuk a privát részből.
+		    Megint túlterheljük az operátort,kimenetet kapunk és átadunk neki
+		    egy kimenetet és egy objektum referenciát. Végül pedig előhívjuk a kiir-t.
+		    <programlisting language="c++"><![CDATA[ 
+    int getMelyseg (void);
+    double getAtlag (void);
+    double getSzoras (void);
+
+    friend std::ostream & operator<< (std::ostream & os, LZWBinFa & bf)
+    {
+        bf.kiir (os);
+        return os;
+    }
+    void kiir (std::ostream & os)
+    {
+        melyseg = 0;
+        kiir (&gyoker, os);
+    }]]></programlisting>
+	    </para>
+	    <para>
+		    Az lzwbinfa osztályunk privát részébe kerül a csomópont osztály.
+		    Ugyanúgy mint a c-s változatban a csomópont eredeti, alapértelmezett
+		    értéke "/" lesz. A balnullát és a jobbegyet 0-ra állítjuk.
+		    a nullás és egyesgyermek a megfelelő gyermekre mutatót ad vissza.
+		    Az átadott csomópontra állítjak a gyermekek mutatóját az
+		    ujNullasGyermek és az ujEgyesGyermek.
+		    A getBetu függvény segítségével olvassuk a bemenetet. 
+		<programlisting language="c++"><![CDATA[		    
+private:
+    class Csomopont
+    {
+    public:
+        Csomopont (char b = '/'):betu (b), balNulla (0), jobbEgy (0)
+        {
+        };
+        ~Csomopont ()
+        {
+        };
+        Csomopont *nullasGyermek () const
+        {
+            return balNulla;
+        }
+        Csomopont *egyesGyermek () const
+        {
+            return jobbEgy;
+        }
+        void ujNullasGyermek (Csomopont * gy)
+        {
+            balNulla = gy;
+        }
+        void ujEgyesGyermek (Csomopont * gy)
+        {
+            jobbEgy = gy;
+        }
+        char getBetu () const
+        {
+            return betu;
+        }
+
+    private:
+        char betu;
+        Csomopont *balNulla;
+        Csomopont *jobbEgy;
+        Csomopont (const Csomopont &); //másoló konstruktor
+        Csomopont & operator= (const Csomopont &);
+		    };]]></programlisting>
+	    </para>
+		    
+		    
+		    
     </section>   
     <section>
         <title>Mutató a gyökér</title>
