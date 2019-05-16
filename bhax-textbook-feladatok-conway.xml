@@ -67,7 +67,196 @@
             -Az elhaló sejtek megjelölése
             -A születő sejtek elhelyezése
             -A megjelölt sejtek eltávolítása
-        </para>            
+        </para>
+	<para>
+		A sejtablak.h és a sejtablak.cpp tartalmazza azt az osztályt (SejtAblak) ami felelős a kirajzolásért.
+		<programlisting language="c++"><![CDATA[
+#ifndef SEJTABLAK_H
+#define SEJTABLAK_H
+
+#include <QMainWindow>
+#include <QPainter>
+#include "sejtszal.h"
+
+class SejtSzal;
+
+class SejtAblak : public QMainWindow
+{
+  Q_OBJECT
+  
+public:
+  SejtAblak(int szelesseg = 100, int magassag = 75, QWidget *parent = 0);
+  ~SejtAblak();
+  // Egy sejt lehet élő
+  static const bool ELO = true;
+  // vagy halott
+  static const bool HALOTT = false;
+  void vissza(int racsIndex);
+  
+protected:
+  // Két rácsot használunk majd, az egyik a sejttér állapotát
+  // a t_n, a másik a t_n+1 időpillanatban jellemzi.
+  bool ***racsok;
+  // Valamelyik rácsra mutat, technikai jellegű, hogy ne kelljen a
+  // [2][][]-ból az első dimenziót használni, mert vagy az egyikre
+  // állítjuk, vagy a másikra.
+  bool **racs;
+  // Megmutatja melyik rács az aktuális: [rácsIndex][][]
+  int racsIndex;
+  // Pixelben egy cella adatai.
+  int cellaSzelesseg;
+  int cellaMagassag;
+  // A sejttér nagysága, azaz hányszor hány cella van?
+  int szelesseg;
+  int magassag;    
+  void paintEvent(QPaintEvent*);
+  void siklo(bool **racs, int x, int y);
+  void sikloKilovo(bool **racs, int x, int y);
+  
+private:
+  SejtSzal* eletjatek;
+  
+};
+
+#endif // SEJTABLAK_H
+]]></programlisting>
+	    </para>
+	    <para>
+		    A siklókilövőhöz most egy külön eljárást kell írnunk. A koordinátákat egyenként rajzoljuk ki.
+		    <programlisting language="c++"><![CDATA[
+		    void SejtAblak::siklo(bool **racs, int x, int y) {
+  
+  racs[y+ 0][x+ 2] = ELO;
+  racs[y+ 1][x+ 1] = ELO;
+  racs[y+ 2][x+ 1] = ELO;
+  racs[y+ 2][x+ 2] = ELO;
+  racs[y+ 2][x+ 3] = ELO;
+  
+}
+/**
+ * A sejttérbe "ELOlényeket" helyezünk, ez a "sikló ágyú".
+ * Adott irányban siklókat lő ki.
+ * Az ELOlény ismertetését lásd például a
+ * [MATEK JÁTÉK] hivatkozásban /Csákány Béla: Diszkrét
+ * matematikai játékok. Polygon, Szeged 1998. 173. oldal./,
+ * de itt az ábra hibás, egy oszloppal told még balra a
+ * bal oldali 4 sejtes négyzetet. A helyes ágyú rajzát
+ * lásd pl. az [ÉLET CIKK] hivatkozásban /Robert T.
+ * Wainwright: Life is Universal./ (Megemlíthetjük, hogy
+ * mindkettő tartalmaz két felesleges sejtet is.)
+ *
+ * @param   racs    a sejttér ahová ezt az állatkát helyezzük
+ * @param   x       a befoglaló tégla bal felső sarkának oszlopa
+ * @param   y       a befoglaló tégla bal felső sarkának sora
+ */
+void SejtAblak::sikloKilovo(bool **racs, int x, int y) {
+  
+  racs[y+ 6][x+ 0] = ELO;
+  racs[y+ 6][x+ 1] = ELO;
+  racs[y+ 7][x+ 0] = ELO;
+  racs[y+ 7][x+ 1] = ELO;
+  
+  racs[y+ 3][x+ 13] = ELO;
+  
+  racs[y+ 4][x+ 12] = ELO;
+  racs[y+ 4][x+ 14] = ELO;
+  
+  racs[y+ 5][x+ 11] = ELO;
+  racs[y+ 5][x+ 15] = ELO;
+  racs[y+ 5][x+ 16] = ELO;
+  racs[y+ 5][x+ 25] = ELO;
+  
+  racs[y+ 6][x+ 11] = ELO;
+  racs[y+ 6][x+ 15] = ELO;
+  racs[y+ 6][x+ 16] = ELO;
+  racs[y+ 6][x+ 22] = ELO;
+  racs[y+ 6][x+ 23] = ELO;
+  racs[y+ 6][x+ 24] = ELO;
+  racs[y+ 6][x+ 25] = ELO;
+  
+  racs[y+ 7][x+ 11] = ELO;
+  racs[y+ 7][x+ 15] = ELO;
+  racs[y+ 7][x+ 16] = ELO;
+  racs[y+ 7][x+ 21] = ELO;
+  racs[y+ 7][x+ 22] = ELO;
+  racs[y+ 7][x+ 23] = ELO;
+  racs[y+ 7][x+ 24] = ELO;
+  
+  racs[y+ 8][x+ 12] = ELO;
+  racs[y+ 8][x+ 14] = ELO;
+  racs[y+ 8][x+ 21] = ELO;
+  racs[y+ 8][x+ 24] = ELO;
+  racs[y+ 8][x+ 34] = ELO;
+  racs[y+ 8][x+ 35] = ELO;
+  
+  racs[y+ 9][x+ 13] = ELO;
+  racs[y+ 9][x+ 21] = ELO;
+  racs[y+ 9][x+ 22] = ELO;
+  racs[y+ 9][x+ 23] = ELO;
+  racs[y+ 9][x+ 24] = ELO;
+  racs[y+ 9][x+ 34] = ELO;
+  racs[y+ 9][x+ 35] = ELO;
+  
+  racs[y+ 10][x+ 22] = ELO;
+  racs[y+ 10][x+ 23] = ELO;
+  racs[y+ 10][x+ 24] = ELO;
+  racs[y+ 10][x+ 25] = ELO;
+  
+  racs[y+ 11][x+ 25] = ELO;
+  
+}]]></programlisting>
+	    </para>
+	    <para>
+		    A szabályok pedig megint más fájlokban kaptak helyet, a kód "felbontása" több részre
+		    az átláthatóságot segíti.
+		    A szabályok a sejtszal.cpp-ben illetve a sejtszal.h-ban kapnak helyet.
+		    <programlisting language="c++"><![CDATA[
+void SejtSzal::idoFejlodes() {
+
+    bool **racsElotte = racsok[racsIndex];
+    bool **racsUtana = racsok[(racsIndex+1)%2];
+
+    for(int i=0; i<magassag; ++i) { // sorok
+        for(int j=0; j<szelesseg; ++j) { // oszlopok
+
+            int elok = szomszedokSzama(racsElotte, i, j, SejtAblak::ELO);
+
+            if(racsElotte[i][j] == SejtAblak::ELO) {
+                /* Élő élő marad, ha kettő vagy három élő
+             szomszedja van, különben halott lesz. */
+                if(elok==2 || elok==3)
+                    racsUtana[i][j] = SejtAblak::ELO;
+                else
+                    racsUtana[i][j] = SejtAblak::HALOTT;
+            }  else {
+                /* Halott halott marad, ha három élő
+             szomszedja van, különben élő lesz. */
+                if(elok==3)
+                    racsUtana[i][j] = SejtAblak::ELO;
+                else
+                    racsUtana[i][j] = SejtAblak::HALOTT;
+            }
+        }
+    }
+    racsIndex = (racsIndex+1)%2;
+}
+
+
+/** A sejttér időbeli fejlődése. */
+void SejtSzal::run()
+{
+    while(true) {
+        QThread::msleep(varakozas);
+        idoFejlodes();
+        sejtAblak->vissza(racsIndex);
+    }
+
+}
+
+SejtSzal::~SejtSzal()
+{
+}]]></programlisting>
+	    </para>
     </section>        
     <section>
         <title>BrainB Benchmark</title>
