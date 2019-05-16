@@ -18,7 +18,11 @@
         </para>
         <para>
             Megoldás forrása:
+	 </para>
+	 <para>
             Java:  <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/polargen.java">https://github.com/kzoltan99/feladatok/blob/master/polargen.java</link>
+	    </para>
+	    <para>
             C++:   <link xlink:href="https://github.com/kzoltan99/feladatok/blob/master/polargen.cpp">https://github.com/kzoltan99/feladatok/blob/master/polargen.cpp</link>
         </para>
         <para>
@@ -31,7 +35,21 @@
             tehát minden páratlanadik meghíváskor nem kell számolnunk, csupán az előző lépés másik számát visszaadnunk. 
             Hogy páros vagy páratlan lépésben hívtuk-e meg a megfelelő számítást elvégző következő() függvényt, a nincsTárolt logikai változóval jelöljük. 
             Igaz értéke azt jelenti, hogy tárolt lebegőpontos változóban el van tárolva a visszaadandó szám.
+	    </para>
+	    <para>
+		    Itt történik maga a generálás:
+		    <programlisting language="c++"><![CDATA[
+int
+main (int argc, char **argv)
+{
+  PolarGen pg;
 
+  for (int i = 0; i < 10; ++i)
+    std::cout << pg.kovetkezo () << std::endl;
+
+  return 0;
+}]]></programlisting>
+		    Legenerálunk 10 db random számot, és ezt adjuk magának az algoritmusnak.
 
         </para>                
     </section>        
@@ -49,13 +67,13 @@
         </para>
 		<para>
                A függvény először megvizsgálja, hogy a kapott érték 0-e. Ha 0, akkor megnézi, mutató által címzett csomópontak van-e 0-s gyermeke.
-				Ha van, akkor a fa mutató az aktuális csomópont bal gyermekére lép. Ha nincs, akkor létrehozza azt,a mutatót a gyökérre állítja.
-				Ha a kapott érték nem 0,a függvény végrehajtja az utasításokat,az aktuális csomópont jobb gyermekére.
-				Az eljárás inorder módon rekurzívan bejárja a bináris fát.
-				Az inorder bejárásnál először a fa bal oldalát járjuk be, majd a gyökerét, végül pedig a jobb oldalát dolgozzuk fel.
-				A eljárás rekurzívan postorder módon bejárja a fát és minden rekurzió végén felszabadítja a részfa gyökérelemét.
-				A felszabadítás előtt meg kell vizsgálni, hogy a részfa gyökere egyenlő-e a teljes fa gyökerével, fa gyökére nem dinamikusan foglalt.
-				Inorder módon bejárjuk a fát, majd felszabadjuk a mutatóit.
+		Ha van, akkor a fa mutató az aktuális csomópont bal gyermekére lép. Ha nincs, akkor létrehozza azt,a mutatót a gyökérre állítja.
+		Ha a kapott érték nem 0,a függvény végrehajtja az utasításokat,az aktuális csomópont jobb gyermekére.
+		Az eljárás inorder módon rekurzívan bejárja a bináris fát.
+		Az inorder bejárásnál először a fa bal oldalát járjuk be, majd a gyökerét, végül pedig a jobb oldalát dolgozzuk fel.
+		A eljárás rekurzívan postorder módon bejárja a fát és minden rekurzió végén felszabadítja a részfa gyökérelemét.
+		A felszabadítás előtt meg kell vizsgálni, hogy a részfa gyökere egyenlő-e a teljes fa gyökerével, fa gyökére nem dinamikusan foglalt.
+		Inorder módon bejárjuk a fát, majd felszabadjuk a mutatóit.
 		</para>
 	</section> 
    
@@ -69,12 +87,58 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: A megoldás forrása az előző feladat forrásának egy iterációja.
+		csupán a kiir függvényt kell átírnunk.
         </para>
 		<para>
-     
-        A preorder fabejárás abban különbözik az inorder eljárástól, hogy ebben először a részfa gyökerét dolgozzuk fel, majd a részfa bal oldalát és jobb oldalát járjuk be.
-        A postorder fabejárás abban különbözik az inorder eljárástól, hogy ebben először  a részfa bal oldalát és jobb oldalát járjuk be. Végül pedig részfa gyökerét dolgozzuk fel.
+             A preorder fabejárás abban különbözik az inorder eljárástól, hogy ebben először a részfa gyökerét dolgozzuk fel
+			majd a részfa bal oldalát és jobb oldalát járjuk be:
+			<programlisting language="c"><![CDATA[
+void
+	kiir (BINFA_PTR elem)
+	{
+	  if (elem != NULL)
+	    {
+	      ++melyseg;
+	      if (melyseg > max_melyseg)
+		max_melyseg = melyseg;
+	      for (int i = 0; i < melyseg; ++i)
+		printf ("---");
+	      printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek,
+		      melyseg-1);
+	      kiir (elem->jobb_egy);
+	      // ez a postorder bejáráshoz képest
+	      // 1-el nagyobb mélység, ezért -1
+	      kiir (elem->bal_nulla);
+	      --melyseg;
+	    }
+ }]]></programlisting>
+	
+	    </para>
+	    <para>
+        A postorder fabejárás abban különbözik az inorder eljárástól, hogy ebben először  a részfa bal oldalát
+			és jobb oldalát járjuk be. Végül pedig részfa gyökerét dolgozzuk fel:
+<programlisting language="c"><![CDATA[
+void
+	kiir (BINFA_PTR elem)
+	{
+  	if (elem != NULL)
+    	{
+	      ++melyseg;
+	      if (melyseg > max_melyseg)
+		max_melyseg = melyseg;
+	      kiir (elem->jobb_egy);
+	      // ez a postorder bejáráshoz képest
+	      // 1-el nagyobb mélység, ezért -1
+	      kiir (elem->bal_nulla);
+	      for (int i = 0; i < melyseg; ++i)
+		printf ("---");
+	      printf ("%c(%d)\n", elem->ertek < 2 ? '0' + elem->ertek : elem->ertek,
+		      melyseg-1);
+	      --melyseg;
+	    }
+ }]]></programlisting>
+
 		</para>
     </section>  
 	
