@@ -379,7 +379,6 @@ void
 	      --melyseg;
 	    }
  }]]></programlisting>
-
 		</para>
     </section>  
 	
@@ -492,7 +491,7 @@ void kiir (void)
 		    Az lzwbinfa osztályunk privát részébe kerül a csomópont osztály.
 		    Ugyanúgy mint a c-s változatban a csomópont eredeti, alapértelmezett
 		    értéke "/" lesz. A balnullát és a jobbegyet 0-ra állítjuk.
-		    a nullás és egyesgyermek a megfelelő gyermekre mutatót ad vissza.
+		    A nullás és egyesgyermek a megfelelő gyermekre mutatót ad vissza.
 		    Az átadott csomópontra állítjak a gyermekek mutatóját az
 		    ujNullasGyermek és az ujEgyesGyermek.
 		    A getBetu függvény segítségével olvassuk a bemenetet. 
@@ -536,8 +535,188 @@ private:
         Csomopont & operator= (const Csomopont &);
 		    };]]></programlisting>
 	    </para>
-		    
-		    
+	    <para>
+		    Aztán jöhet a fa mutató deklarációja:
+		    <programlisting language="c++"><![CDATA[
+
+    Csomopont *fa;
+    int melyseg, atlagosszeg, atlagdb;
+    double szorasosszeg;
+
+	//nocopy
+	LZWBinFa (const LZWBinFa &);
+    LZWBinFa & operator= (const LZWBinFa &);]]></programlisting>	    
+	    </para>
+	    <para>
+		    A c-s verzióban végbement számítások így néznek ki a fejlesztett c++-os forrásunkban.
+		    Itt történik az osztályon belüli függvények definiálása is.
+		    <programlisting language="c++"><![CDATA[
+ void kiir (Csomopont * elem, std::ostream & os)
+    {
+        if (elem != NULL)
+        {
+            ++melyseg;
+            kiir (elem->egyesGyermek (), os);
+            for (int i = 0; i < melyseg; ++i)
+                os << "---";
+            os << elem->getBetu () << "(" << melyseg - 1 << ")" << std::endl;
+            kiir (elem->nullasGyermek (), os);
+            --melyseg;
+        }
+    }
+    void szabadit (Csomopont * elem)
+    {
+        if (elem != NULL)
+        {
+            szabadit (elem->egyesGyermek ());
+            szabadit (elem->nullasGyermek ());
+            delete elem;
+        }
+    }
+
+protected:
+    Csomopont gyoker;
+    int maxMelyseg;
+    double atlag, szoras;
+
+    void rmelyseg (Csomopont * elem);
+    void ratlag (Csomopont * elem);
+    void rszoras (Csomopont * elem);
+
+};
+
+int
+LZWBinFa::getMelyseg (void)
+{
+    melyseg = maxMelyseg = 0;
+    rmelyseg (&gyoker);
+    return maxMelyseg - 1;
+}
+
+double
+LZWBinFa::getAtlag (void)
+{
+    melyseg = atlagosszeg = atlagdb = 0;
+    ratlag (&gyoker);
+    atlag = ((double) atlagosszeg) / atlagdb;
+    return atlag;
+}
+
+double
+LZWBinFa::getSzoras (void)
+{
+    atlag = getAtlag ();
+    szorasosszeg = 0.0;
+    melyseg = atlagdb = 0;
+
+    rszoras (&gyoker);
+
+    if (atlagdb - 1 > 0)
+        szoras = std::sqrt (szorasosszeg / (atlagdb - 1));
+    else
+        szoras = std::sqrt (szorasosszeg);
+
+    return szoras;
+}
+
+void
+LZWBinFa::rmelyseg (Csomopont * elem)
+{
+    if (elem != NULL)
+    {
+        ++melyseg;
+        if (melyseg > maxMelyseg)
+            maxMelyseg = melyseg;
+        rmelyseg (elem->egyesGyermek ());
+        rmelyseg (elem->nullasGyermek ());
+        --melyseg;
+    }
+}
+
+void
+LZWBinFa::ratlag (Csomopont * elem)
+{
+    if (elem != NULL)
+    {
+        ++melyseg;
+        ratlag (elem->egyesGyermek ());
+        ratlag (elem->nullasGyermek ());
+        --melyseg;
+        if (elem->egyesGyermek () == NULL && elem->nullasGyermek () == NULL)
+        {
+            ++atlagdb;
+            atlagosszeg += melyseg;
+        }
+    }
+}
+
+void
+LZWBinFa::rszoras (Csomopont * elem)
+{
+    if (elem != NULL)
+    {
+        ++melyseg;
+        rszoras (elem->egyesGyermek ());
+        rszoras (elem->nullasGyermek ());
+        --melyseg;
+        if (elem->egyesGyermek () == NULL && elem->nullasGyermek () == NULL)
+        {
+            ++atlagdb;
+            szorasosszeg += ((melyseg - atlag) * (melyseg - atlag));
+        }
+    }
+}]]></programlisting>
+	    </para>
+	    <para>
+		    Aztán segítünk a felhasználónak a helyes használatban. Ez tényleg nagy segítség
+		    mert őszintén szólva elsőre én magam sem tudtam hogyan futtassam a programot.
+		    Egyszerűen meghatározzuk hány db (esetünkben 4) parancssori argumentum szükséges
+		    a helyes futáshoz. A usage függvény segítségével irjuk ki a helyes módszert.
+		    Fontos még az is, hogy a harmadik argumentum második elem o legyen. Ezt is ellenőrizzük
+		    és ha nem az akkor újra hibát küldünk és ismét leírjuk a helyes futtatást.
+		    Ha nem létező bemeneti fájlt ad meg a felhasználó akkor az fstream-et hívjuk segítségül
+		    és nemes egyszerűséggel tudatára adjuk, hogy a fájl nem létezik.
+		    Ha minden jól működik és helyesen van a program elindítva akkor újfent az
+		    fstream segítségével létrehozzuk a kiFile-t melynek a negyedik argumentumot
+		    adjuk meg első paraméterként ugyanis ebbe a fájlba fog történni a fa írása.
+		    		    <programlisting language="c++"><![CDATA[
+void
+usage (void)
+{
+    std::cout << "Usage: lzwtree in_file -o out_file" << std::endl;
+}
+
+int
+main (int argc, char *argv[])
+{
+    if (argc != 4)
+    {
+        usage ();
+        return -1;
+    }
+
+    char *inFile = *++argv;
+
+    if (*((*++argv) + 1) != 'o')
+    {
+        usage ();
+        return -2;
+    }
+
+    std::fstream beFile (inFile, std::ios_base::in);
+
+    if (!beFile)
+    {
+        std::cout << inFile << " nem letezik..." << std::endl;
+        usage ();
+        return -3;
+    }
+
+    std::fstream kiFile (*++argv, std::ios_base::out);
+
+    unsigned char b;
+    LZWBinFa binFa;]]></programlisting>
+	    </para>
 		    
     </section>   
     <section>
