@@ -75,6 +75,101 @@ main (int argc, char **argv)
 		A felszabadítás előtt meg kell vizsgálni, hogy a részfa gyökere egyenlő-e a teljes fa gyökerével, fa gyökére nem dinamikusan foglalt.
 		Inorder módon bejárjuk a fát, majd felszabadjuk a mutatóit.
 		</para>
+	    <para>
+		    Először létrehozzuk magát a binfa struktúrát ahol definiáljuk a binfa típust.
+		    A typedef használata elég előnyös, mivel így (itt megadott) más névvel is tudunk hivatkozni az osztályra.
+		    Aztán az uj_elem függvényben malloc segítségével helyet foglalunk a BINFA típusu változóknak és
+		    visszakapunk egy pointert ami a foglalt területre mutat. Majd deklaráljuk a kiir, ratlag, rszoras
+		    és szabadít függvényeket melyeket később fogunk használni.		    
+<programlisting language="c"><![CDATA[		    
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <math.h>
+
+typedef struct binfa
+{
+  int ertek;
+  struct binfa *bal_nulla;
+  struct binfa *jobb_egy;
+                //>itt definiáljuk a binfa típust
+} BINFA, *BINFA_PTR;
+
+BINFA_PTR
+uj_elem ()
+{
+  BINFA_PTR p;
+
+  if ((p = (BINFA_PTR) malloc (sizeof (BINFA))) == NULL)
+    {
+      perror ("memoria");
+      exit (EXIT_FAILURE);
+    }
+  return p;
+}
+
+extern void kiir (BINFA_PTR elem);
+extern void ratlag (BINFA_PTR elem);
+extern void rszoras (BINFA_PTR elem);
+extern void szabadit (BINFA_PTR elem);
+]]></programlisting>
+	    </para>
+	    <para>
+		    
+		    int
+main (int argc, char **argv)
+{
+  char b;
+  int egy_e;
+  int i;
+  unsigned char c;
+                //>BinfaPTR== user által definiált típus
+  BINFA_PTR gyoker = uj_elem ();
+  gyoker->ertek = '/';
+  gyoker->bal_nulla = gyoker->jobb_egy = NULL;
+  BINFA_PTR fa = gyoker;
+  long max=0;
+while (read (0, (void *) &b, sizeof(unsigned char)))
+    {
+        for(i=0;i<8; ++i)
+        {
+            egy_e= b& 0x80;
+            if ((egy_e >>7)==0)
+                c='1';
+            else
+                c='0';
+        }
+//      write (1, &b, 1);
+      if (c == '0')
+	{
+	  if (fa->bal_nulla == NULL)
+	    {
+	      fa->bal_nulla = uj_elem ();
+	      fa->bal_nulla->ertek = 0;
+	      fa->bal_nulla->bal_nulla = fa->bal_nulla->jobb_egy = NULL;
+	      fa = gyoker;
+	    }
+	  else
+	    {
+	      fa = fa->bal_nulla;
+	    }
+	}
+      else
+	{
+	  if (fa->jobb_egy == NULL)
+	    {
+	      fa->jobb_egy = uj_elem ();
+	      fa->jobb_egy->ertek = 1;
+	      fa->jobb_egy->bal_nulla = fa->jobb_egy->jobb_egy = NULL;
+	      fa = gyoker;
+	    }
+	  else
+	    {
+	      fa = fa->jobb_egy;
+	    }
+	}
+    }
+
 	</section> 
    
         
