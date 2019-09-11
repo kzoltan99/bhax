@@ -21,30 +21,11 @@ az algot.) és az OpenJDK, Oracle JDK-ban a Sun által adott OO szervezés ua.!
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/prog2-feladatok/blob/master/polargen.java">https://github.com/kzoltan99/prog2-feladatok/blob/master/polargen.java</link>
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/prog2-feladatok/blob/master/Pol%C3%A1rGener%C3%A1tor.java">https://github.com/kzoltan99/prog2-feladatok/blob/master/Pol%C3%A1rGener%C3%A1tor.java</link>
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
-            Először is kell egy logikai tag ami ellenőrzi, hogy van_e jelenleg eltárolt normálisunk:
-            <programlisting><![CDATA[synchronized public double nextGaussian() {
-        // See Knuth, ACP, Section 3.4.1 Algorithm C.
- if (haveNextNextGaussian) {
-            haveNextNextGaussian = false;
-            return nextNextGaussian;
-]]></programlisting>
-            Ha nincs eltárolt akkor pedig készítenünk kell. Itt fut le maga az algoritmus, de számunkra most a matek nem lényeg.
-            <programlisting><![CDATA[} else {
-            double v1, v2, s;
-            do {
-                v1 = 2 * nextDouble() - 1; // between -1 and 1
-                v2 = 2 * nextDouble() - 1; // between -1 and 1
-                s = v1 * v1 + v2 * v2;
-            } while (s >= 1 || s == 0);
-            double multiplier = StrictMath.sqrt(-2 * StrictMath.log(s)/s);
-            nextNextGaussian = v2 * multiplier;
-            haveNextNextGaussian = true;
-            return v1 * multiplier;
-]]></programlisting>
+            
             
         </para>
     </section>        
