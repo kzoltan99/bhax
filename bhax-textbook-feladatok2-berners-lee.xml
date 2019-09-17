@@ -22,6 +22,14 @@ Java: Nyékyné Dr. Gaizler Judit et al. Java 2 útikalauz programozóknak 5.0 I
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+		A java  fordító egy bájtkódnak nevezett formáturma forditja le a forrásskódot amit a jvm önálló interpreterként fog érzékelni.
+előnyös biztosnági szempontból de lassú, ezért minen jó jvm próbálja növelni a sebességet.
+a kódot fordytás előtt platformfüggő gépi kódra alakítja át.
+a nyelv szintaxisa c, c++ ból fejlődött ki.  ez a szerk-ben jelenik meg de a java el is tér tőlük.
+a static a main metódusban=úgy is lehet futtatni h az osztályból nem jön létre objektum!!!
+void a mainben= nem-függvény jellegű metódus alias nincs vissz.érték. c és c++- al szemben nincs alapértelmezett vissz érték, mindig meg kell azt adni.
+váltózókhoz "="-el lehet értéket rendelni, kezdeti értékadás után nincs definiálva az érték (előteszt=while ciklus pl i < 10)
+név túlterhelés van viszont operátor túlterhelésnincs javaban
         </para>
     </section>        
 
