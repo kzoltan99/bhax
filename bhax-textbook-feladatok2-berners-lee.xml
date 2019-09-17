@@ -22,14 +22,32 @@ Java: Nyékyné Dr. Gaizler Judit et al. Java 2 útikalauz programozóknak 5.0 I
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
-		A java  fordító egy bájtkódnak nevezett formáturma forditja le a forrásskódot amit a jvm önálló interpreterként fog érzékelni.
-előnyös biztosnági szempontból de lassú, ezért minen jó jvm próbálja növelni a sebességet.
+		
+A java  fordító egy bájtkódnak nevezett formátumra fordítja le a forráskódot amit a jvm önálló interpreterként fog érzékelni.
+Előnyös biztosnági szempontból de lassú, ezért minden jó jvm próbálja növelni a sebességet.
 a kódot fordytás előtt platformfüggő gépi kódra alakítja át.
 a nyelv szintaxisa c, c++ ból fejlődött ki.  ez a szerk-ben jelenik meg de a java el is tér tőlük.
 a static a main metódusban=úgy is lehet futtatni h az osztályból nem jön létre objektum!!!
 void a mainben= nem-függvény jellegű metódus alias nincs vissz.érték. c és c++- al szemben nincs alapértelmezett vissz érték, mindig meg kell azt adni.
 váltózókhoz "="-el lehet értéket rendelni, kezdeti értékadás után nincs definiálva az érték (előteszt=while ciklus pl i < 10)
 név túlterhelés van viszont operátor túlterhelésnincs javaban
+számos c++ kifejezés utasítás szintaktikailag helyes javaban is sőt sokszor a jelenetése is megegyewzik.
+a hasonlóág nem egyenlő az azonossággal.
+A java mint nyelv szűkebb a c++nál, de az osztálykönyvtárai miatt szélesebb az alkalmazhatósági területe.
+Támogatja például a GUI programozást, network programozást vagy éppen a perzisztenciát is.
+C++-ban is lehet ezeket csinálni de van amelyikhez külső könyvtárak segítségét kell igénybe vennünk.
+Valamint lehet benne forrás szinten hordozható programokat írni de a szerkeztett bináris kód már nem hordozható,
+mert a lefordított kód tartalmazza a helyi oprendszerre és hardverre vonatkozó feltételezéseket.
+A Java egyik fő célja és egyben egyik legnagyobb különbsége a c++-hoz képest az 
+,hogy a kód teljesmértékben hordozható.
+Emiatt a Java szigorúbb előírásokat szab a típusok méretére, belső szerkezetére, a kifejezések kiértékelésére
+és a kivételek kiváltásának ellenőrzésésre.
+A statikus változók inicializálása is futási időben történik Javaban, valamint sokkal kevesebb dolgot bíz
+az implementációra mint a c vagy a c++. Ezt azért teszi, hogy maga a kód amely hordozható ne függjön annyira
+a platformtól és az implementációtól. A Java nyelv nagyon odafigyel arra, hogy a kód a lehető 
+legpontosabban forduljon le és működjön. Ezért az ellenőrzésés során kitér olyan dolgokra is amire a c++ és a c nem.
+Ilyen például a lokális változók ellenőrzése, pontosabban annak ellenőrzése, hogy kapnak-e értéket.
+
         </para>
     </section>        
 
