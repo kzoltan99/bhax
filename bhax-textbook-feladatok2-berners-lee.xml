@@ -28,7 +28,7 @@ Előnyös biztosnági szempontból de lassú, ezért minden jó jvm próbálja n
 A kódot fordítás előtt platformfüggő gépi kódra alakítja át. A nyelv szintaxisa c, c++ ból fejlődött ki, 
 ez a szerkezetben jelenik meg de a java el is tér tőlük vagyis a hasonlóság nem egyenlő az azonossággal. C és c++-al szemben nincs
 alapértelmezett visszatérési érték, mindig meg kell azt adni, váltózókhoz "="-el lehet értéket rendelni
-kezdeti értékadás után nincs definiálva az érték (előteszt=while ciklus pl i < 10).
+kezdeti értékadás után nincs definiálva az érték.
 Még egy különbség, hogy név túlterhelés ugyan van a Javaban is viszont operátor túlterhelés nincs benne.
 Illetve számos c++ kifejezés, utasítás szintaktikailag helyes Javaban is sőt sokszor a jelenetése is megegyezik.
 A java mint nyelv szűkebb a c++nál, de az osztálykönyvtárai miatt szélesebb az alkalmazhatósági területe.
