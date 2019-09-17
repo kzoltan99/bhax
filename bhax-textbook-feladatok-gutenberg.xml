@@ -1,0 +1,236 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Gutenberg!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+        <cover>
+            <para>
+                Programozás tankönyvek rövid olvasónaplói.
+            </para>
+        </cover>
+    </info>
+    <section>
+        <title>Programozási alapfogalmak</title>
+        <para>         
+            <citation>PICI</citation>       
+        </para>
+		
+		<para>
+        A programozási nyelveknek három különböző szintjük van: gépi nyelv, assembly szintű nyelv, valamint
+        magas szintű nyelv. Itt most főleg a magas szintű nyelvekről lesz szó. Forrásprogramnak vagy 
+        forrásszövegnek nevezzük a magas szintű nyelven íródott programokat.
+    </para>
+    
+    <para>
+        Minden processzornak saját gépi nyelve van, és csak az ezen íródott programokat tudja lefuttatni.
+        Tehát az általunk megírt programokat valahogy gépi nyelvvé kell alakítani, ehhez fordítóprogramos
+        vagy interpreteres megoldás létezik.
+    </para>
+    
+    <para>
+        A <emphasis>fordítóprogramos</emphasis> megoldás gépi kódot, úgy nevezett tárgyprogramot állít 
+        elő a magas szintű nyelven megírt kódból. Ezt a tárgyprogramot a szerkesztő vagy 
+        kapcsolatszerkesztő fogja futtathatóvá tenni. Az <emphasis>interpreteres</emphasis> megoldás 
+        esetén sorról sorra olvassa és hajtja végre a programot.
+    </para>
+    
+    <para>
+        Hivatkozási nyelveknek hívjuk minden programnyelv saját szabványait. Ebben fogalmazódnak meg a
+        szintaktikai és szemantikai szabályok. Léteznek még implementációk is, amelyek fordítóprogramokat,
+        interpretereket takarnak.
+    </para>
+    
+    <para>
+        Az <emphasis>adattípus</emphasis> egy absztrakt programozási eszköz. Három dolog határozza meg: 
+        tartomány, műveletek, reprezentáció. Két nagy csoportja van: skalár vagy egyszerű adattípus, 
+        valamint strukturált vagy összetett adattípus. Skalár adattípusnál minden érték egyedi, míg 
+        strukturált adattípusnál az elemek egy-egy értékcsoportot képviselnek.
+    </para>
+    
+    <para>
+        A <emphasis>nevesített</emphasis> konstans egy programozási eszköz, melynek részei a név, a típus 
+        és az érték. Őket mindig deklarálni kell. Ide tartozik még a <emphasis>változó</emphasis> is, 
+        amely a névből, az attribútumból, a címből és az értékből tevődik össze.
+    </para>
+    
+    <para>
+        A <emphasis>kifejezések</emphasis> szintaktikai eszközök. A programon belül új értékeket 
+        határozhatunk meg velük. Két eleme van: érték és típus. Egy kifejezés operandusokból, 
+        operátorokból, és kerek zárójelekből áll. Egyetlen operandusból áll a legegyszerűbb kifejezés. Alakja lehet infix, prefix vagy postfix.
+    </para>
+
+    <para>
+		Fontosak azok a kifejezések, amelyek logikai operátorokat tartalmaznak. Ezeknél a kifejezés értékét 
+		meg tudjuk úgy is állapítani, hogy nem hajtjuk végre az összes műveletet. Erre példa az ÉS operátor,
+		ahol ha az egyik operandum hamis, akkor az egész hamis lesz.
+	</para>
+	
+	<para>
+		Az utasítások az eljárásorientált nyelveken írt programok egységei, amelyekkel az algoritmusok minden 
+		lépése meg van adva, és a fordító ennek segítségével hozza létre az őket használó tárgyprogramot. 
+		Kettő fő csoportja van: deklarációs és végrehajtható utasítások.
+	</para>
+	
+	<para>
+		Nincs tárgykód a deklarációs utasításoknál. Ezek teljes egészében a fordítóra vonatkoznak. Alapjaiban 
+		van hatással a tárgykódra, de ezt nem ők fordítják le.
+	</para>
+
+	<para>
+		Az I/O-ban jelennek meg a program nyelvek közötti különbségek. Az I/O feladata a perifériák közötti
+		kommunikáció biztosítása. Állományokra van szüksége működéséhez, ami lehet logikai vagy fizikai.
+		Funkció szerint lehet input, output vagy input-output. Működése során adatmozgás történik.
+	</para>
+
+    </section>        
+    <section>
+        <title>Programozás bevezetés</title>
+        <para>                
+            <citation>KERNIGHANRITCHIE</citation>
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/zmfT9miB-jY">https://youtu.be/zmfT9miB-jY</link>
+        </para>
+
+		<para>
+		A végrehajtási sorrend megállapítása a vezérlést átadó utasítások feladata. 
+Az olyan kifejezéseket, amelyek pontosvesszőre végződnek, utasításoknak nevezzük. Ez
+az úgynevezett utasításlezáró jel, ami az utasítások végét jelzik. Kapcsos zárójelek
+közötti utasítások együttesét nevezzük blokkoknak. Ezekre jellemző példa a for, while
+if, else függvények. Azonban a lezáró kapcsos zárójel után a pontosvessző használata tilos.
+		</para>
+		
+		<para>
+		Az if-else utasítás nagyon hasznos lehet számunkra, ha döntést akarunk hozni egy problémára.
+Maga az else elhagyható, ami csak akkor fut le, ha hamis értéket kapott a kifejezés az 
+if résznél. Előfordulhat, hogy egybeágyazott if függvényt használunk és ott else-t 
+használva felmerül a kérdés, hogy melyik if-re utal. Ennek nagyon egyszerű megoldása van,
+mivel mindig a neki legközelebbi if-hez tartozik. Ha még így is zavaró tud lenni a kód
+olvasása, akkor kapcsos zárójelek közé is tehetjük ezt az elágazást. 
+		</para>
+		
+		<para>
+		Az else-if hasonló az előzőhöz, mivel itt döntésünknek többféle választási lehetőséget
+adunk. Sorról sorra haladva nézi, hogy melyik if/else-if-nél teljesül a feltétel, és 
+az ahhoz kapcsolódó utasítást végzi el, és a többit pedig kihagyja. Ha egyik sem teljesül,
+akkor az else-if végén lévő else ág történik lefutásra, persze ez is elhagyható, mint
+az előző esetben.
+		</para>
+		
+		<para>
+		A switch utasítás talán az if/else-if/if-else legjobb formája. Ez azért hasznos, mivel
+ha nem csak 1, 2, esetleg 3 elágazás van, hanem 10 vagy annál is több, akkor if-et 
+használva kódunk nagyon könnyen követhetetlen, olvashatatlanná válik. Ezzel szemben a 
+switch megvizsgálja a case ágak utáni kifejezések értékét, és ha azzal megegyezik, akkor
+hajtódik végre az utasítás. Ha persze egyik case sem teljesül, akkor a default fog lefutni.
+Itt is tetszőlegesen elhagyható a default ág. Minden case utasítást követ egy break utasítás
+is, ami kilép a switch-ből, amint végrehajtódott a folyamat. Szóval minden case esetén
+break-kel kell zárni az ágat.
+		</para>
+		
+		<para>
+		A for és while utasítások ciklusok. A for esetében addig fut, amíg igaz nem lesz a 
+kifejezés. A for ciklus általános alakja: for (mettől; meddig; lépésköz). Ugyanakkor
+a while addig fut, amíg a kifejezés igaz. Ennek alakja: kezdőérték; while(meddig)
+utasítás lépésköz;. A for-nál bármelyik kifejezés elhagyható, viszont a pontosvesszőt továbbra 
+is ki kell írni. Azonban a for és while ciklusok között lényeges különbség nincs, így
+használata teljes mértékben a felhasználótól függ.
+		</para>
+		
+		<para>
+		A for és a while-lal ellentétben, míg ezek csak akkor futnak le egyszer is, ha while 
+esetében igaz a feltétel, for esetében hamis, addig a do-while biztos hogy le fog futni
+legalább egyszer és csak utána nézi a feltételt. Amíg nem hamis a kifejezés, addig fog
+futni. Használata a for és a while-hoz képest ritkább, de vannak alkalmak, amikor
+hasznos tud lenni.
+		</para>
+
+	<para>
+		A break lehetővé teszi számunkra, hogy az eddig megismert for, while vagy do
+		utasításokból könnyen ki tudjunk lépni, ahelyett, hogy végigmennénk az összes lehetséges
+		eset leellenőrzésén. Tehát a ciklusunk befejeződik, amint eléri a break utasítást.
+	</para>
+
+	<para>
+		A continue-t, amit ha bár ma már kevésbé használt, meg kell itt is említeni. Ilyenkor 
+		a ciklusban, amint elérjük a continue utasítást, az őt követő iterációs lépés fog lefutni.
+		Használata switch esetén nem valósítható meg, míg for, while esetén alkalmazható.
+	</para>
+		
+    </section>        
+    <section>
+        <title>Programozás</title>
+        <para>                
+            <citation>BMECPP</citation>
+        </para>
+		
+		<para>
+		A C++ a C nyelvnek egy továbbfejlesztése, ami az objektumorientált programozást valósítja
+meg. Ezt a nyelvet Bjarne Stroustrup fejlesztette ki, aminek legelső megvalósulása
+1983-ban látott napvilágot. Mivel a C nyelvére épül, így pár különbséget leszámítva 
+egy C-ben megírt program valójában C++ is egyben. Ebben a könyvben a C és a C++ közötti
+különbségeket fogjuk megvizsgálni.
+		</para>
+		
+		<para>
+		Elsőnek a függvényparaméterek és a visszatérési értékek közötti különbség. C-ben ha 
+nem definiálunk paramétert, akkor az számtalan paramétert használhatunk. Azonban ez 
+C++-ban annyit jelent, hogy a függvény paraméter nélkül van megadva.
+		</para>
+		
+		<para>
+		A main függvény főbb ismertetője, hogy a kódunk végére kell egy return érték, azonban
+egy újításnak köszönhetően, ha elhagyjuk a return-nek a használatát, akkor a fordító
+a program sikeres futásához szükséges return 0-t fogja értelmezni és lefordítani.
+		</para>
+		
+		<para>
+		A bool típus a C++ egy új találmánya, amely igaz vagy hamis értéket vehet fel. Ennek 
+köszönhetően válik a kódunk másoknak olvashatóvá. Ez korábban C-ben is elérhető volt
+számunkra, viszont csak int vagy enum típusokkal volt erre lehetőség a kifejezésére.
+		</para>
+		
+		<para>
+		Változókat deklarálhatunk az utasítások között is, ami egy újabb C++-os innováció.
+Ez azért tud hasznos lenni, mivel ott hozhatunk létre változót, ahol tényleg szükségünk 
+van rá, ugyanakkor amíg nincs definiálva egy változó, addig az nem lép életbe. Továbbá, 
+például a for ciklusban felhasznált változók csak az adott utasításban élnek, így azokat
+azon kívűl már nem használhatjuk fel.
+		</para>
+		
+		<para>
+		C-ben ugyanolyan nevű függvény nem létezhet, mivel az nem értelmezett a fordító számára.
+Azonban ugyanez C++-ban már megvalósítható, mivel a függvénynév és az argumentumlista 
+együtt azonosítja a függvényeket. Ez a fejlesztés azzal az előnnyel járt, hogy a 
+programozóknak nem kellett mindenféle túlbonyolított neveket kitalálni a függvényeknek.
+Ha eltér a paraméterlistája egy hasonlóan elnevezett függvénynek, akkor az két különböző
+függvényt eredményez. Ezt nevezzük névelferdítésnek. Ezt megvalósulhat C-ben is, ezért
+létezik az extern "C" deklaráció.
+		</para>
+		
+		<para>
+		C++-ban az is lehetséges, hogy egy függvény értéke alapértelmezett legyen. Amikor ezek
+meghívásra kerülnek és nem adunk meg nekik értéket, akkor az előre megadott értékkel
+fog dolgozni. Fontos tudni, hogy a függvények meghívásánál az értékek hátulról kezdve
+hagyhatók el, tehát például nem kezdhetjük a második értékkel a hívást. Valamint mindig
+csak egy helyen definiáljuk az argumentumok alapértelmezett értékeit.
+		</para>
+		
+		<para>
+		Hatalmas újításnak mondható a C++-ban a paraméterátadás, annyi különbséggel C-hez képest,
+hogy itt referenciatípussal történik, míg C-ben érték szerint. Ha módosítani szeretnénk
+az értéken, és nem csak másolni, akkor pointert kell használni,azaz egy csillagot írunk
+a változó neve elé, amely így a memóriacímére fog mutatni. Ezzel tudjuk elérni, hogy 
+ne másoljuk, hanem átadjuk a függvénynek a változót, így módosítani lehet azt. Fontos még 
+az is, hogy az átadott változó elé ki kell írni egy &#038; jelet, ami a változó címe lesz.
+		</para>
+		
+		<para>
+		Különbséget kell tenni pointer és referencia között. A pointer memóriacímet fog kapni,
+és ennek segítségével hozzáférünk a változóhoz, így meg tudjuk változtatni az értékét
+is. Ezt cím szerinti paraméterátadásnak hívjuk. Ezzel ellentétben van az érték szerinti
+paraméterátadás, amikor a lemásolt érték változtatása nincs hatással az eredetire.
+		</para>
+    </section>        
+</chapter>                
