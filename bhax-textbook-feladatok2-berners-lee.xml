@@ -22,6 +22,8 @@ Java: Nyékyné Dr. Gaizler Judit et al. Java 2 útikalauz programozóknak 5.0 I
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+	    </para>
+	    <para>
 		
 A java  fordító egy bájtkódnak nevezett formátumra fordítja le a forráskódot amit a jvm önálló interpreterként fog érzékelni.
 Előnyös biztosnági szempontból de lassú, ezért minden jó jvm próbálja növelni a sebességet.
@@ -61,6 +63,19 @@ Gyors prototípus-fejlesztés Python és Java nyelven (35-51 oldal), a kijelölt
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+	    </para>
+	    <para>
+		   A phyton programozási nyelv a C++-tól, c-től és a Javatól eltérő módon arra lett inkább tervezve
+		   hogy ne a futási sebességet tegye előtérbe, hanem inkább a programozót segítse azzal, hogy könnyebben olvasható.
+		   Maga a Phyton egy nagyon magas szintű programozási nyelv melyet 1989 és 1991 között alkottak meg.
+		   Egy objektumorientált interpreteres nyelv (tehát rögtön futtatható, nincs különbség a forrás és a tárgykód között).
+		   Ahogy a könyv címe is sejtteti az olvasóval a Phyton legelterjettebb felhasználási területe a mobilprogramozás.
+		   A nyelv legfőbb jellemzője ami megkülönbözteti az általunk már jobban ismert nyelvektől és ujdonság lehet a számunkra,
+		   hogy a szintaxisa behúzás alapú. Ez azt jelenti h az állításokat azonos szintű behúzásokkal tudjuk csoportosítani.
+		   Nem kell kapcsos zárójeleket és kulcsszavakat mint például a begin és az end használatba vennünk ehhez a feladathoz.
+		   Nagyon fontos, hogy az első utasítás a szkriptben nem lehet behúzás illetve ezeket egységesen kell kezelnünk.
+		   Továbbá az utasítások csak a sor végéig tartanak nem kell ezeket lezárni. Ha mégsem férne egy utasítás egy sorba akkor
+		   '/'-el tudjuk ezt folytatni a következő sorba.
         </para>
     </section>  
         
