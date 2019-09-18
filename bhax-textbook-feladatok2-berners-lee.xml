@@ -42,6 +42,12 @@ Információ elrejtés: Az objektum a publikus interfészén kommunikál a több
 Illetve gondoskodik a saját adatairól és csak a metódusain keresztül ad változtatási lehetőséget a külső objektumoknak.
 A külső objektumoknak igazából nem is kell tudnia arról, hogy az objektum állapota
 hogyan van reprezentálva, csak a kívánt viselkedést kell kérnie a metódusokon keresztül.
+A pédányosításhoz a new operátort használjük a Javaban. Ez egy új példányt hoz létre az osztályból és foglal helyet a memóriában.
+Szükségünk van egy konstruktorra is ami a hívást írja elő, ennek a neve adja majd meg, hogy melyik osztályból kell létrehozni
+az új példányt és inicializálja az új objektumot. A new operátor egy hivatkozást ad vissza a létrehozott objektumra.
+Gyakran ezt a hivatkozást hozzárendeljük egy változóhoz. Ha a hivatkozás nincs hozzárendelve változóhoz, az objektumot
+nem lehet majd elérni, miután a new operátort tartalmazó utasítás végrehajtódott.
+Az ilyen objektumot névtelen objektumnak is szoktuk nevezni.
 A java  fordító egy bájtkódnak nevezett formátumra fordítja le a forráskódot amit a jvm önálló interpreterként fog érzékelni.
 Előnyös biztosnági szempontból de lassú, ezért minden jó jvm próbálja növelni a sebességet.
 A kódot fordítás előtt platformfüggő gépi kódra alakítja át. A nyelv szintaxisa c, c++ ból fejlődött ki, 
