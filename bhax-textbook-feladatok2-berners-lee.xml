@@ -25,6 +25,10 @@ Java: Nyékyné Dr. Gaizler Judit et al. Java 2 útikalauz programozóknak 5.0 I
 	    </para>
 	    <para>
 		
+Osztályozásnak nevezzük azt a folyamatot, amelynek során a hasonló objektumokat közös csoportokba azaz osztályokba soroljuk.
+Az objektumorientált programokban közös tervezésre ad lehetőséget, hogy sok objektum hasonló jellemzőkkel rendelkezik
+Nagy előnyt jelent az, ha sok hasonló objektumot közös "tervrajz" alapján tudunk elkészíteni. Az objektumok tervrajzait hívjuk osztályoknak.
+Az osztály bizonyos fajta objektumok közös változóit és metódusait leíró tervrajz.
 A java  fordító egy bájtkódnak nevezett formátumra fordítja le a forráskódot amit a jvm önálló interpreterként fog érzékelni.
 Előnyös biztosnági szempontból de lassú, ezért minden jó jvm próbálja növelni a sebességet.
 A kódot fordítás előtt platformfüggő gépi kódra alakítja át. A nyelv szintaxisa c, c++ ból fejlődött ki, 
