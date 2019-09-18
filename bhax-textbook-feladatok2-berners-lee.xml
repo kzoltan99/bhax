@@ -27,8 +27,21 @@ Java: Nyékyné Dr. Gaizler Judit et al. Java 2 útikalauz programozóknak 5.0 I
 		
 Osztályozásnak nevezzük azt a folyamatot, amelynek során a hasonló objektumokat közös csoportokba azaz osztályokba soroljuk.
 Az objektumorientált programokban közös tervezésre ad lehetőséget, hogy sok objektum hasonló jellemzőkkel rendelkezik
-Nagy előnyt jelent az, ha sok hasonló objektumot közös "tervrajz" alapján tudunk elkészíteni. Az objektumok tervrajzait hívjuk osztályoknak.
-Az osztály bizonyos fajta objektumok közös változóit és metódusait leíró tervrajz.
+Nagy előnyt jelent az, ha sok hasonló objektumot közös "tervrajz" alapján tudunk elkészíteni.
+Ezeket az ún. tervrajzokat hívjuk osztályoknak.
+Az osztály bizonyos fajta objektumok közös változóit és metódusait írja le.
+Az ostályok definiálhatnak példányváltozókat, osztályváltozókat és osztálymetódusokat is. Az osztályváltozók az összes
+objektumpéldány számára megosztott információkat tartalmaznak. Ha osztályváltozókat alkalmatunk akkor feleslegesek lesznek
+a példányváltozók. Az osztályok legnagyobb előnye az újrafeljhasználhatóság.
+Az objektum változókból és kapcsolódó metódusokból felépített egység. Az objektum tulajdonságait célszerű elrejteni tehát nem publikusként kezelni
+és csak a metódusokon keresztül befolyásolni.
+Az objektumok használatának legnagyobb előnye a modularitás és az információelrejtés.
+Modularitás: Az objektum forráskódja független marad más objektumok forráskódjától és ennek köszönhetően könnyen
+tud illeszkedni a rendszer különböző részeihez.
+Információ elrejtés: Az objektum a publikus interfészén kommunikál a többi objektum felé.
+Illetve gondoskodik a saját adatairól és csak a metódusain keresztül ad változtatási lehetőséget a külső objektumoknak.
+A külső objektumoknak igazából nem is kell tudnia arról, hogy az objektum állapota
+hogyan van reprezentálva, csak a kívánt viselkedést kell kérnie a metódusokon keresztül.
 A java  fordító egy bájtkódnak nevezett formátumra fordítja le a forráskódot amit a jvm önálló interpreterként fog érzékelni.
 Előnyös biztosnági szempontból de lassú, ezért minden jó jvm próbálja növelni a sebességet.
 A kódot fordítás előtt platformfüggő gépi kódra alakítja át. A nyelv szintaxisa c, c++ ból fejlődött ki, 
