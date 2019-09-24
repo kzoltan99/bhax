@@ -129,11 +129,44 @@ példányokat poolozza!
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/prog2-feladatok/tree/master">https://github.com/kzoltan99/prog2-feladatok/tree/master</link>               
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
-        </para>
+	    </para>
+	    <para>
+	
+	Ha az integer értékét úgy adjuk meg, hogy az -128 és 127 közé essen akkor nem lesz végtelen ciklusunk.
+	Ez azért van így mert ebben a tartományban az Integer ugyanazt az objektumot fogja felhasználni, csupán más értékek fognak hozzárendelődni.
+	Ezzel azt érjük el, hogy a t!=x -re minden egyes lefutás során hamis értéket fogunk kapni.
+		    Ezt például a következő képpen érhetjük el:<programlisting><![CDATA[
+class Gagyi
+{
+	public static void main(String[] args)
+	{
+		Integer t = 127;
+		Integer x = 127;
+		
+		while(x <= t && x>=t && t != x)
+			System.out.println("hop");		 
+	}
+}      ]]></programlisting>
+		    Ha viszont egy nagyon csekély változtatást alkalmazunk a kis kódunkban, máris végetelen ciklust kapunk:<programlisting><![CDATA[
+public class Gagyi_2 {
+
+	public static void main(String[] args) {
+	
+		Integer x = 128;
+		Integer t = 128;
+
+		while (x <= t && x >= t && t!=x) {
+			System.out.println("hop");
+		}
+	}
+}
+	 ]]></programlisting>	    
+       
+	    </para>
     </section>  
 
     <section>
