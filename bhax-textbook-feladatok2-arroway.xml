@@ -21,10 +21,53 @@ Ugyanezt írjuk meg C++ nyelven is! (lásd még UDPROG repó: source/labor/polar
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/prog2-feladatok">https://github.com/kzoltan99/prog2-feladatok</link>             
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+	    </para>
+	    <para>
+Ebben a feladatban a polártranszformációs generátor megírása volt a feladat. A szemléltetés a Bátfai Tanrár úr által megírt kódon kersztül történik,
+hiszen ez a Sun által írt program egy egyszerűbb, könnyebben megérthető változata.
+A működési elv egyszerű: <programlisting><![CDATA[
+public class PolárGenerátor {
+
+boolean nincsTárolt = true;
+double tárolt;
+
+public PolárGenerátor() {
+nincsTárolt = true;
+}]]></programlisting>
+		    Tehát ebben a részben annyit csinál a program, hogy boolean típusú változó segítségével megnézi, hogy van-e
+		    eltárolt normális. Ha nincs akkor a következő módon állítunk elő kettőt:
+<programlisting><![CDATA[
+public double következő() {
+if (nincsTárolt) {
+double u1, u2, v1, v2, w;
+do {
+	u1 = Math.random();
+	u2 = Math.random();
+	v1 = 2 * u1 - 1;
+	v2 = 2 * u2 - 1;
+	w = v1 * v1 + v2 * v2;
+	} while (w>1);
+	double r = Math.sqrt((-2 * Math.log(w)) / w);
+	tárolt = r * v2;
+	nincsTárolt = !nincsTárolt;
+	return r * v1;
+	} else {
+		nincsTárolt = !nincsTárolt;
+		return tárolt;
+]]></programlisting>
+		    Ebből a kettőből egyet eltárolunk és a másikat fogjuk a végrehajtásra felhasználni, vagyis ezzel fog a következő() függvény visszatérni.
+		    Végül pedig a mainben használjuk fel a következő függvény-t és íratjuk ki a standard outputra az eredményt.
+		    <programlisting><![CDATA[
+   public static void main(String[] args) {
+PolárGenerátor g = new PolárGenerátor ();
+for (int i = 0; i < 10; ++i) {
+System.out.println(g.következő());
+]]></programlisting>
+		    
         </para>
     </section>        
 
