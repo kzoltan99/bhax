@@ -184,6 +184,41 @@ conditions-t! https://en.wikipedia.org/wiki/Yoda_conditions
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+	    </para>
+	    <para>
+A Yoda egy olyan programozási stílus, ahol a kifejezések sorrendét felcseráljül, mégpedig olyan módon, hogy a konstans kifejezés a bal
+oldalra kerül. Ez nem változtatja meg a program működését. Azért nevezhették el Yodaról ezt a módszert mert a Star Wars filmekben ő is igy beszélt, tehát nem
+helyes nyelvtani sorrendben mondta a mondatokat. Ez a módszer nagyon hatásos akkor ha el akarjuk kerülni a nullpointeres hibákat.
+Ezt a módszert a null pointeres hibák ellen használjuk.
+Először is nézzünk egy olyan példát ahol nem használjuk a Yoda conditions és ez problémát okoz:<programlisting><![CDATA[
+class yoda
+{
+	public static void main(String[] args)
+{
+String myString = null;
+if (myString.equals("valami"))
+{
+System.out.println("semmi"); 
+		}
+
+}
+}]]></programlisting>
+		    Ha ezt a kis egyszerű csipetet így használnánk akkor NullPointerEx-et kapunk és leáll.
+		    Ha viszont  használjuk Yoda mester módszerét akkor a program lefut:<programlisting><![CDATA[
+class yoda
+{
+	public static void main(String[] args)
+{
+String myString = null;
+if ("valami".equals(myString))
+{
+System.out.println("semmi"); 
+		}
+
+}
+}]]></programlisting>
+
+
         </para>
     </section>  
     <section>
