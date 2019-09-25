@@ -45,8 +45,19 @@ Az osztályhierarchiában a Kör az Ellipszisből származik, mivel az annak egy
 Ha ezt vesszük figyelembe akkor egy szerintem érdekes problémába fogunk ütközni.
 készítsünk egy olyan függvényt ami az ellipszis tengelyét is módosítja.
 Maga a Liskov elv alkalmázásából adódóan a ezt a függvényt akármelyik Kör objektumra is meg tudjuk hívni.
-Mi történik akkor, ha egy Kör objektum tengelyei megváltoznak?
-        </para>
+Mi történik akkor, ha egy Kör objektum tengelyei megváltoznak? A válasz egyértelmű: a kör megszűnik kör lenni, de maga
+az objektum, hibásan ugye, de megmarad.
+Végülis az a probléma, hogy azt gondoljuk, hogy a Kör egy Ellipszis. Ennek a matematikai része igaz is, viszont
+nekünk most a programozási részről kellene megközelíteni a dolgot.
+Az a baj, hogy hiába vannak a Körnek Ellipszishez hasonló tulajdonságai, nem feltétlenül tudjuk vele betartani
+az arra vonatkozó szabályokat.
+
+	megoldás az, hogy nincs “igazi” megoldás, de vannak lehetőségeink. A legegyszerűbb, hogy – mivel egyszerű típusról van szó
+– legyenek az objektumaink immutábilisek, vagyis minden olyan esetben amikor az objektumot megváltoztatnánk,
+új objektum keletkezik,
+Egy másik “megoldás”, hogy egyáltalán nem vesszük bele a Kört a hierarchiába, helyette mindig Ellipszist használunk 
+
+	    </para>
     </section>
        <section>
         <title>Szülő-gyerek</title>
