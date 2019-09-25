@@ -233,11 +233,16 @@ melyet szeretném, ha átélnél).
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:  https://github.com/kzoltan99/prog2-feladatok/blob/master/PiBBP.java              
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
-        </para>
+	    </para>
+	    <para>
+   A BBP (Bailey-Borwein-Plouffe) algoritmus a Pi hexa jegyeit kiszámoló osztály. Az alapja a BPP formula amit 1995-ben találtak fel.
+   Ez alapján a matematikai képlet apaján működik. Pi tizediktől a tizenötödik hatványáig számolja ki a számokat a program.
+   
+	    </para>
     </section>  	
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
