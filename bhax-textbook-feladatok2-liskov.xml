@@ -28,7 +28,24 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_1.pdf (93-99 
 	Például ha S altípusa T-nek, akkor minden olyan helyen ahol T-t felhasználjuk S-t is be tudjuk helyettesíteni
 	de a programrész tulajdonságai így sem változnak. Ha kicsit egyszerűbben szeretnénk kifejezni magunkat akkor mondhatjuk azt is, hogy
 	ha S a T osztály leszármazottja akkor be tudjuk helyettesíteni minden olyan helyre ahol T típust várunk.
-	 Nézzünk most egy egyserű példát:
+	 Nézzünk most egy egyszerű példát:<programlisting>![CDATA[
+	class Shape { }
+
+class Ellipse : Shape
+{
+    public double MajorAxis { get; set; }
+    public double MinorAxis { get; set; }
+}
+
+class Circle : Ellipse
+{
+
+	}]]></programlisting>
+Az osztályhierarchiában a Kör az Ellipszisből származik, mivel az annak egy különleges esete. 
+Ha ezt vesszük figyelembe akkor egy szerintem érdekes problémába fogunk ütközni.
+készítsünk egy olyan függvényt ami az ellipszis tengelyét is módosítja.
+Maga a Liskov elv alkalmázásából adódóan a ezt a függvényt akármelyik Kör objektumra is meg tudjuk hívni.
+Mi történik akkor, ha egy Kör objektum tengelyei megváltoznak?
         </para>
     </section>
        <section>
