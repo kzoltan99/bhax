@@ -18,10 +18,17 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_1.pdf (93-99 
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/prog2-feladatok/blob/master/liskovsert.cpp">https://github.com/kzoltan99/prog2-feladatok/blob/master/liskovsert.cpp</link>
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+	    </para>
+<para>
+	A Liskov féle helyettesítési elv lényege:
+	Például ha S altípusa T-nek, akkor minden olyan helyen ahol T-t felhasználjuk S-t is be tudjuk helyettesíteni
+	de a programrész tulajdonságai így sem változnak. Ha kicsit egyszerűbben szeretnénk kifejezni magunkat akkor mondhatjuk azt is, hogy
+	ha S a T osztály leszármazottja akkor be tudjuk helyettesíteni minden olyan helyre ahol T típust várunk.
+	 Nézzünk most egy egyserű példát:<programlisting><[!CDATA
         </para>
     </section>
        <section>
