@@ -51,11 +51,9 @@ Végülis az a probléma, hogy azt gondoljuk, hogy a Kör egy Ellipszis. Ennek a
 nekünk most a programozási részről kellene megközelíteni a dolgot.
 Az a baj, hogy hiába vannak a Körnek Ellipszishez hasonló tulajdonságai, nem feltétlenül tudjuk vele betartani
 az arra vonatkozó szabályokat.
-
-	megoldás az, hogy nincs “igazi” megoldás, de vannak lehetőségeink. A legegyszerűbb, hogy – mivel egyszerű típusról van szó
-– legyenek az objektumaink immutábilisek, vagyis minden olyan esetben amikor az objektumot megváltoztatnánk,
-új objektum keletkezik,
-Egy másik “megoldás”, hogy egyáltalán nem vesszük bele a Kört a hierarchiába, helyette mindig Ellipszist használunk 
+Ezt a problémát kiküszöbölni úgy tudjuk ha ún. immutábilis objektumokat használunk. Ez azt jelenti, hogy minden olyan esetben
+amikor megváltoztatnánk az objektumot akkor egy új jön létre. Vagy éppenséggel azt is megtehetjük, hogy a Kört nem is
+vesszük bele a hierarchiába hanem helyette mindig Ellipszist használunk.
 
 	    </para>
     </section>
@@ -74,6 +72,35 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_1.pdf (98. f�
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+	       </para>
+	       <para>
+	       Ennek a feladatnak a lényege az, hogy szemléltetni tudjuk azt a jelenséget, hogy a Szülő-Gyerek kapcsolatban
+	       a Szülő mindig érti a gyerek üzenetét viszont fordítva ez nincs így. Hiszen ha valamit a gyerek classban definiálunk
+	       akkor azt a szülő nem fogja érteni és elszáll a programunk. Mivel vannak olyan osztályok, metódusok amikkel a szülő
+	       rendelkezik és ezeket a gyerek örökölni tudja, viszont ez visszafelé már nem működik.
+	       <programlisting><![CDATA[
+class Osztaly{
+	public static void main(String[] args){
+	Szulo sz = new Gyerek();
+	sz.kiir1();
+	sz.kiir2();
+	}
+}
+	class Szulo{
+	public void kiir1(){
+		System.out.println("Szulo");
+		}
+	}
+	class Gyerek extends Szulo{
+	public void kiir2(){
+		System.out.println("Gyerek");
+		}
+ }]]></programlisting>
+	       Ennek szemléltetésésre szerettem volna ezt a kis csipetet bemutatni.
+       a szülő rendelkezik a kiir1 metódussal amit tud tőle örökölni a gyerek is, de ahogy láthatjuk a kódban a gyereknek van egy
+       kiir 2 metódusa is amit viszont a szülő nem ismer és ez okozza nekünk a galibát. A kiir 2-t nem tudjuk meghívni
+       viszont a kiir 1-et simán tudnánk, fordulna, futna a progi probléma nélkül. Javában minden objektum referencia,
+       és a kötés dinamikus de ezzel nem küldhetjük a gyerek által hozott új üzeneteket.
         </para>
     </section>
 	<section>
