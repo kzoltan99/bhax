@@ -216,6 +216,26 @@ fóliát)!
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+		</para>
+		<para>
+A ciklomatikus komplexitás nem más mint egy ún. szoftvermetrika amit 1976-ban talált fel Thomas J. McCabe.
+Hallhattunk már róla akár McCabe-komplexitás néven is. Képes egy adott forráskód alapján a szoftver komplexitását kiszámolni 
+és ezt konkrétan számunkra értelmezhető számokban ki is tudja fejezni. Az eredményül kapott szám a kiszámítási művelete a gráfelméletre
+épül. A gráf pontjai és a köztük lévő élek a forrásban lévő elágazások alapján épülnek ki és ezek alapján történik a számítás.
+		</para>
+		<para>
+A komplexitás értéke:
+M = E − N + 2P
+E: a gráf éleinek száma.
+N: a gráfban lévő csúcsok száma.
+P: Az összefüggő komponensek száma
+A ciklomatikus szám: M = E − N + P
+		</para>
+		<para>
+A ciklomatikus komplexitás a gráf ciklomatikus száma ami a lehetséges kimeneteket köti össze a bemenetekkel.
+Tehát a gráf alkotói a függvényben lévő utasítások. Ha egyik utasítás után rögtön végre lehet hajtani a másikat akkor van él
+közöttük ami abból következik, hogy a lineárisan független útvonalakat a metrika közvetlenül számolja a forrásból.
+
         </para>
     </section>
         
