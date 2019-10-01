@@ -28,7 +28,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_1.pdf (93-99 
 	Például ha S altípusa T-nek, akkor minden olyan helyen ahol T-t felhasználjuk S-t is be tudjuk helyettesíteni
 	de a programrész tulajdonságai így sem változnak. Ha kicsit egyszerűbben szeretnénk kifejezni magunkat akkor mondhatjuk azt is, hogy
 	ha S a T osztály leszármazottja akkor be tudjuk helyettesíteni minden olyan helyre ahol T típust várunk.
-	 Nézzünk most egy egyszerű példát:<programlisting>![CDATA[
+	 Nézzünk most egy egyszerű példát:<programlisting><![CDATA[
 	class Shape { }
 
 class Ellipse : Shape
