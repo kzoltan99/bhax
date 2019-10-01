@@ -235,7 +235,17 @@ A ciklomatikus szám: M = E − N + P
 A ciklomatikus komplexitás a gráf ciklomatikus száma ami a lehetséges kimeneteket köti össze a bemenetekkel.
 Tehát a gráf alkotói a függvényben lévő utasítások. Ha egyik utasítás után rögtön végre lehet hajtani a másikat akkor van él
 közöttük ami abból következik, hogy a lineárisan független útvonalakat a metrika közvetlenül számolja a forrásból.
-
+		</para>
+		<para>
+A komplexitás számítására találtam egy nagyon jó kis oldalt amit segítségül hívtam:<link xlink:href="http://www.lizard.ws/">http://www.lizard.ws/</link>
+<figure>
+	<title>Példa a komplexitásra</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/ciklomatikus%20komplexitás.png" scale = "60"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
         </para>
     </section>
         
