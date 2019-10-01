@@ -140,10 +140,15 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apas03.html#id561
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/pi-bbp-bench">https://github.com/kzoltan99/pi-bbp-bench</link>           
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+		</para>
+		<para>
+	Ebben a feladatban négy különböző programnyelven(c, c++, c# és java) ugyanazt a programot fogjuk futtatni és összevetjük
+	a futási időket. Ez a program az előző fejezteben már taglalt BBP algoritmus ami a a Pi hexadecimális alakjának a
+	0. pozíciótól számított 10 a hatodikon, hetediken és nyolcadikon db jegyét határozza meg.
         </para>
     </section>
 	<section>
