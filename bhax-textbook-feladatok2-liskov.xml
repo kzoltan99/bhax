@@ -100,7 +100,32 @@ class Osztaly{
        a szülő rendelkezik a kiir1 metódussal amit tud tőle örökölni a gyerek is, de ahogy láthatjuk a kódban a gyereknek van egy
        kiir 2 metódusa is amit viszont a szülő nem ismer és ez okozza nekünk a galibát. A kiir 2-t nem tudjuk meghívni
        viszont a kiir 1-et simán tudnánk, fordulna, futna a progi probléma nélkül. Javában minden objektum referencia,
-       és a kötés dinamikus de ezzel nem küldhetjük a gyerek által hozott új üzeneteket.
+       és a kötés dinamikus de ezzel nem küldhetjük a gyerek által hozott új üzeneteket, tehát az ősön keresztül csak
+       az ős üzeneteit tudjuk küldeni.
+       <programlisting><![CDATA[
+#include <iostream>
+using namespace std;
+
+	class Szulo{
+	public:
+	 void kiir1(){
+		cout << "Szulo" << endl;
+		}
+	};
+	class Gyerek : public Szulo{
+	public:
+	 void kiir2(){
+		cout << "Gyerek" << endl;
+		}
+	};
+int main(){
+	
+	Szulo* sz = new Gyerek();
+	sz->kiir1();
+	sz->kiir2();
+}]]></programlisting>
+       Itt pedig a c++-os verzió látható. Az eredmény ugyanaz lesz mint Javaban. A példányosításnál hiába hívjuk a kiir2-t 
+       hibát fogunk kapni mint ahogy az Javaban is történt.
         </para>
     </section>
 	<section>
