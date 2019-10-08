@@ -34,9 +34,9 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		<imagedata fileref="./img/1.png scale = "60"/>
 		</imageobject>
 	</mediaobject>
-							    </figure>
-	    A language-nél megadjuk a c++ forrást, majd megadjuk a kódunk elérési útját és az ok-ra kattintunk, ezzel el is készült
-	    az osztálydiagram.
+	    </figure>
+	    <title>A language-nél megadjuk a c++ forrást, majd megadjuk a kódunk elérési útját és az ok-ra kattintunk, ezzel el is készült
+							    az osztálydiagram.</title>
 	      <figure>
 							    <mediaobject>
 		<imageobject>
