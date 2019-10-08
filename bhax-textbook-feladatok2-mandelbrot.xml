@@ -141,6 +141,21 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_7.pdf (34-47 
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+							    </para>
+	    <para>
+A BPMN (Business Process Model and Notation) legfőképpen az üzleti szférában alkalmazott folyamatleíró. Segítségével könnyen és egyszerűen
+tudunk grafikusan ábrázolni folyamatokat. Ebben a feladatban ennek a segítségével kellett valami egyszerű tevékenységet ábrázolni.
+Én úgy döntöttem, hogy ez a számítógép bekapcsolásásának és a bejelentkezésnek a folyamata lesz. A draw.io (Google) segítségével oldottam
+meg a feladatot. Használata elég egyszerű és szinte adja magát, hogy mit hogyan kell csinálni benne. Itt is mindent tudunk ábrázolni szinte
+amit szeretnénk (pl: event, activity, gateway)
+Az én verzióm így néz ki:
+ <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/8.png scale = "60"/>
+		</imageobject>
+	</mediaobject>
+							    
+Véleményem szerint a az ábra értelmezése is meglehetősen egyszerű, csupán ránézésre meg lehet érteni milyen folyamatot ír le és mi történik abban.
         </para>
     </section> 
 	
