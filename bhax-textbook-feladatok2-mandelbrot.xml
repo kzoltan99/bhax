@@ -182,7 +182,14 @@ tudunk grafikusan ábrázolni folyamatokat. Ebben a feladatban ennek a segítsé
 meg a feladatot. Használata elég egyszerű és szinte adja magát, hogy mit hogyan kell csinálni benne. Itt is mindent tudunk ábrázolni szinte
 amit szeretnénk (pl: event, activity, gateway)
 Az én verzióm így néz ki:</para>
-  
+  <figure>
+	  <title>10.</title>
+							    <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/8.png" scale = "60"/>
+		</imageobject>
+	</mediaobject>
+		 </figure>	
 		    <para>
 Véleményem szerint a az ábra értelmezése is meglehetősen egyszerű, csupán ránézésre meg lehet érteni milyen folyamatot ír le és mi történik abban.
         </para>
