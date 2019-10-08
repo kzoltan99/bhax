@@ -19,10 +19,41 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/prog2-feladatok/blob/master/Binfa.cpp">https://github.com/kzoltan99/prog2-feladatok/blob/master/Binfa.cpp</link>              
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+	    </para>
+    <para>
+	    Itt a C++-os binfát kellet legenerálni egy uml osztálydiagrammba. Ezt a feladatot a Visual Paradigm segítégével oldottam meg.
+	    A feladat viszonylag egyszerű volt egy pár kattintással meg lehetett oldani. Először is a visual paradigm-ban kiválasztjuk a
+	    tools fület azon belül pedig lenyitjuk a code-ot. A code opción belül pedig kiválasztjuk az instant reverse-t.
+	    <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/1.png scale = "60"/>
+		</imageobject>
+	</mediaobject>
+	    A language-nél megadjuk a c++ forrást, majd megadjuk a kódunk elérési útját és az ok-ra kattintunk, ezzel el is készült
+	    az osztálydiagram.
+	     <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/2.png scale = "60"/>
+		</imageobject>
+	</mediaobject>
+	    Már csak annyi a teendőnk, hogy a reversed classes and packages ablakban mindent bepipálunk így láthatóvá
+	    válik a diagrammunk.
+	     <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/3.png scale = "60"/>
+		</imageobject>
+	</mediaobject>
+	    Az importált elemek automatikusan behúzásra kerülnek megfelelő módon.(tehát minden kis vonal oda mutat ahová kell)
+							    
+    	 <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/reverse.png scale = "60"/>
+		</imageobject>
+	</mediaobject>
         </para>
     </section>        
 
