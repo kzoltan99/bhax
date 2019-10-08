@@ -28,6 +28,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	    Itt a C++-os binfát kellet legenerálni egy uml osztálydiagrammba. Ezt a feladatot a Visual Paradigm segítégével oldottam meg.
 	    A feladat viszonylag egyszerű volt egy pár kattintással meg lehetett oldani. Először is a visual paradigm-ban kiválasztjuk a
 	    tools fület azon belül pedig lenyitjuk a code-ot. A code opción belül pedig kiválasztjuk az instant reverse-t.
+	    </para>
 	    <figure>
 	    <mediaobject>
 		<imageobject>
@@ -35,8 +36,8 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		</imageobject>
 	</mediaobject>
 	    </figure>
-	    A language-nél megadjuk a c++ forrást, majd megadjuk a kódunk elérési útját és az ok-ra kattintunk, ezzel el is készült
-		az osztálydiagram.
+	   <para> A language-nél megadjuk a c++ forrást, majd megadjuk a kódunk elérési útját és az ok-ra kattintunk, ezzel el is készült
+		   az osztálydiagram.</para>
 	      <figure>
 							    <mediaobject>
 		<imageobject>
@@ -44,8 +45,8 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		</imageobject>
 	</mediaobject>
 		     </figure>
-	    Már csak annyi a teendőnk, hogy a reversed classes and packages ablakban mindent bepipálunk így láthatóvá
-	    válik a diagrammunk.
+	    <para>Már csak annyi a teendőnk, hogy a reversed classes and packages ablakban mindent bepipálunk így láthatóvá
+		    válik a diagrammunk.</para>
 	     <figure> 
 	    <mediaobject>
 		<imageobject>
@@ -53,7 +54,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		</imageobject>
 	</mediaobject>
 							     </figure>
-	    Az importált elemek automatikusan behúzásra kerülnek megfelelő módon.(tehát minden kis vonal oda mutat ahová kell)
+	   <para> Az importált elemek automatikusan behúzásra kerülnek megfelelő módon.(tehát minden kis vonal oda mutat ahová kell)</para>
 	 <figure>						    
     	 <mediaobject>
 		<imageobject>
@@ -61,7 +62,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		</imageobject>
 	</mediaobject>
         </figure>
-		     </para>
+		     
     </section>        
 
       <section>
@@ -83,7 +84,8 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	      ebből fogunk majd kódot generálni. Megint a Visual Paradigm-ot használtam a megoldáshoz. Ez a feladat már számomra nehezebb
 	      volt mivel még nem csináltam soha osztálydiagramot, de ettől függetlenül összeállítottam egy egyszerűt.
 	      Először is a a diagram fülön a new opciót valasztottam majd kikerestem a class diagramot, azon belül pedig a blank opciót.
-	       <figure>
+	      </para> 
+	      <figure>
 	      <mediaobject>
 		<imageobject>
 		<imagedata fileref="./img/4.png" scale = "50"/>
@@ -97,7 +99,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		</imageobject>
 	</mediaobject>
 	    </figure>
-		       Aztán megadjuk a diagramunk nevét és okéra kattintunk.
+	      <para>Aztán megadjuk a diagramunk nevét és okéra kattintunk.</para>
 	       <figure>
 	      <mediaobject>
 		<imageobject>
@@ -105,9 +107,9 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		</imageobject>
 	</mediaobject>
 							     </figure>
-	    Ezek után kapunk egy üres oldalt ahol kedvünkre hozhatunk létre akármilyen osztálydiagramot. Magunktól kell, hogy 
+	    <para>Ezek után kapunk egy üres oldalt ahol kedvünkre hozhatunk létre akármilyen osztálydiagramot. Magunktól kell, hogy 
 	    létrehozzuk az osztályokat, azok metódusait, változóit, függvényeit, szóval tényleg mindent ami hozzá tartozik.
-	    Az enyém így néz ki:
+		    Az enyém így néz ki:</para>
 	     <figure>
 							    <mediaobject>
 		<imageobject>
@@ -115,10 +117,10 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		</imageobject>
 	</mediaobject>
        </figure>
-		       Mostmár pedig már csak annyi dolgunk van, hogy ebből legeneráljuk magát a kódot amit a következőképpen csinálunk:
+		       <para>Mostmár pedig már csak annyi dolgunk van, hogy ebből legeneráljuk magát a kódot amit a következőképpen csinálunk:
       Ugyanúgy mint az előző feladatban kiválasztjuk a tool fülön belüli code opciót de most azon belül az instant generator-re kattintunk.
       Itt megint bepipáljuk amiot le szeretnénk generálni, az output path opciónál megadjuk neki hova rakja a forrást, generálunk és
-      mér készen is vagyunk.
+			       mér készen is vagyunk.</para>
 	       <figure>
 	      <mediaobject>
 		<imageobject>
@@ -126,7 +128,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		</imageobject>
 	</mediaobject>
 	      </figure>
-							    </para>
+							    
     </section> 
 	    <section>
         <title>Egy esettan</title>
@@ -165,14 +167,15 @@ tudunk grafikusan ábrázolni folyamatokat. Ebben a feladatban ennek a segítsé
 Én úgy döntöttem, hogy ez a számítógép bekapcsolásásának és a bejelentkezésnek a folyamata lesz. A draw.io (Google) segítségével oldottam
 meg a feladatot. Használata elég egyszerű és szinte adja magát, hogy mit hogyan kell csinálni benne. Itt is mindent tudunk ábrázolni szinte
 amit szeretnénk (pl: event, activity, gateway)
-Az én verzióm így néz ki:
+Az én verzióm így néz ki:</para>
   <figure>
 							    <mediaobject>
 		<imageobject>
 		<imagedata fileref="./img/8.png" scale = "60"/>
 		</imageobject>
 	</mediaobject>
-		 </figure>					    
+		 </figure>	
+		    <para>
 Véleményem szerint a az ábra értelmezése is meglehetősen egyszerű, csupán ránézésre meg lehet érteni milyen folyamatot ír le és mi történik abban.
         </para>
     </section> 
