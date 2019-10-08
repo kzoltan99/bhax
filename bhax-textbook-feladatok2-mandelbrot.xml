@@ -33,7 +33,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		    <title>1.</title>
 	    <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/1.png" format = "PNG"/>
+		<imagedata fileref="./img/1.png" scale = "50"/>
 		</imageobject>
 	</mediaobject>
 	    </figure>
@@ -45,7 +45,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 			<title>2.</title>		
 		      <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/2.png" format = "PNG"/>
+		<imagedata fileref="./img/2.png" scale = "50"/>
 		</imageobject>
 	</mediaobject>
 		     </figure>
@@ -55,7 +55,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	   <title>3.</title>
 		     <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/3.png" format = "PNG"/>
+		<imagedata fileref="./img/3.png" scale = "50"/>
 		</imageobject>
 	</mediaobject>
 							     </figure>
@@ -65,7 +65,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 		 <title>4.</title>
     	 <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/reverse.png" format = "PNG"/>
+		<imagedata fileref="./img/reverse.png" scale = "50"/>
 		</imageobject>
 	</mediaobject>
         </figure>	     
