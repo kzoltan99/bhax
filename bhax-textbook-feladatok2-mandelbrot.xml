@@ -66,11 +66,50 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:<link xlink:href="https://github.com/kzoltan99/forward-UML">https://github.com/kzoltan99/forward-UML</link>               
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
-        </para>
+	      </para>
+      <para>
+	      Ez a feladat ha úgy vesszük akkor az előző fordítottja lenne. Tehát most nekünk kell egy osztálydiagramot készíteni és
+	      ebből fogunk majd kódot generálni. Megint a Visual Paradigm-ot használtam a megoldáshoz. Ez a feladat már számomra nehezebb
+	      volt mivel még nem csináltam soha osztálydiagramot, de ettől függetlenül összeállítottam egy egyszerűt.
+	      Először is a a diagram fülön a new opciót valasztottam majd kikerestem a class diagramot, azon belül pedig a blank opciót.
+	      <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/4.png scale = "50"/>
+		</imageobject>
+	</mediaobject>
+	    <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/5.png scale = "60"/>
+		</imageobject>
+	</mediaobject>
+	   Aztán megadjuk a diagramunk nevét és okéra kattintunk.
+	      <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/6.png scale = "60"/>
+		</imageobject>
+	</mediaobject>
+	    Ezek után kapunk egy üres oldalt ahol kedvünkre hozhatunk létre akármilyen osztálydiagramot. Magunktól kell, hogy 
+	    létrehozzuk az osztályokat, azok metódusait, változóit, függvényeit, szóval tényleg mindent ami hozzá tartozik.
+	    Az enyém így néz ki:
+	    <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/forward.png scale = "60"/>
+		</imageobject>
+	</mediaobject>
+       Mostmár pedig már csak annyi dolgunk van, hogy ebből legeneráljuk magát a kódot amit a következőképpen csinálunk:
+      Ugyanúgy mint az előző feladatban kiválasztjuk a tool fülön belüli code opciót de most azon belül az instant generator-re kattintunk.
+      Itt megint bepipáljuk amiot le szeretnénk generálni, az output path opciónál megadjuk neki hova rakja a forrást, generálunk és
+      mér készen is vagyunk.
+	      <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/7.png scale = "60"/>
+		</imageobject>
+	</mediaobject>
+	      </para>
     </section> 
 	    <section>
         <title>Egy esettan</title>
