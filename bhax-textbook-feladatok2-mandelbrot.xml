@@ -29,6 +29,14 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	    A feladat viszonylag egyszerű volt egy pár kattintással meg lehetett oldani. Először is a visual paradigm-ban kiválasztjuk a
 	    tools fület azon belül pedig lenyitjuk a code-ot. A code opción belül pedig kiválasztjuk az instant reverse-t.
 	    </para>
+	    <figure>
+		    <title>1.</title>
+	    <mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/1.png" format = "PNG"/>
+		</imageobject>
+	</mediaobject>
+	    </figure>
 	    
 	    
 	   <para> A language-nél megadjuk a c++ forrást, majd megadjuk a kódunk elérési útját és az ok-ra kattintunk, ezzel el is készült
