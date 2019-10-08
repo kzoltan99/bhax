@@ -31,7 +31,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	    <figure>
 	    <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/1.png scale = "60"/>
+		<imagedata fileref="./img/1.png" scale = "60"/>
 		</imageobject>
 	</mediaobject>
 	    </figure>
@@ -49,7 +49,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	     <figure> 
 	    <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/3.png scale = "60"/>
+		<imagedata fileref="./img/3.png" scale = "60"/>
 		</imageobject>
 	</mediaobject>
 							     </figure>
@@ -57,7 +57,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	 <figure>						    
     	 <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/reverse.png scale = "60"/>
+		<imagedata fileref="./img/reverse.png" scale = "60"/>
 		</imageobject>
 	</mediaobject>
         </figure>
@@ -86,14 +86,14 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	       <figure>
 	      <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/4.png scale = "50"/>
+		<imagedata fileref="./img/4.png" scale = "50"/>
 		</imageobject>
 	</mediaobject>
 	    </figure>
 							     <figure>
 							    <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/5.png scale = "60"/>
+		<imagedata fileref="./img/5.png" scale = "60"/>
 		</imageobject>
 	</mediaobject>
 	    </figure>
@@ -101,7 +101,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	       <figure>
 	      <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/6.png scale = "60"/>
+		<imagedata fileref="./img/6.png" scale = "60"/>
 		</imageobject>
 	</mediaobject>
 							     </figure>
@@ -111,7 +111,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	     <figure>
 							    <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/forward.png scale = "60"/>
+		<imagedata fileref="./img/forward.png" scale = "60"/>
 		</imageobject>
 	</mediaobject>
        </figure>
@@ -122,7 +122,7 @@ https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_6.pdf (28-32 
 	       <figure>
 	      <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/7.png scale = "60"/>
+		<imagedata fileref="./img/7.png" scale = "60"/>
 		</imageobject>
 	</mediaobject>
 	      </figure>
@@ -169,7 +169,7 @@ Az én verzióm így néz ki:
   <figure>
 							    <mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/8.png scale = "60"/>
+		<imagedata fileref="./img/8.png" scale = "60"/>
 		</imageobject>
 	</mediaobject>
 		 </figure>					    
