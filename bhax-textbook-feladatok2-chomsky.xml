@@ -98,7 +98,7 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/prog2-feladatok/blob/master/para6.cpp">https://github.com/kzoltan99/prog2-feladatok/blob/master/para6.cpp</link>               
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
@@ -106,20 +106,30 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
     </section> 	
 	<section>
         <title>Paszigráfia Rapszódia OpenGL full screen vizualizáció</title>
+        
+            
+             <para>
+            A program sikeres futtatásához szükséges egy pár könyvtár telepítése ha ezek még nincsenek feltelepítve persze. Ezek a libmesa a freeglut és a boost.
+			A sikeres fordításhoz a -lboost_system -lGL -lGLU -lglut kapcsolót kell használatba vennünk. A feladat megoldásához Bátfai Tanár Úr para6.cpp nevű forrását használtam fel.
+			        </para>
         <para>
-		Lásd vis_prel_para.pdf! Apró módosításokat eszközölj benne, pl. színvilág, textúrázás, a szintek jobb
-elkülönítése, kézreállóbb irányítás.
-        </para>
+            A színeken kellett változtatni illetve meg kellett oldani, hogy a program teljes képernyős módban is futhasson.
+			A glColor3f eljárás segítségével tudtam változtatni a színkódokon. 3 értékre van szüksége amely egy rgb színkódot ad ki. (x * 255)
+			Ez fogja a rajzolt elemeket kiszínezni. A vonalak színét a glBegin (GL_LINES) meghívása után tudhatjuk, hogy itt a vonalak színezése fog történni.
+			</para>
         <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section> 
+			A feladat másik része pedig az volt, hogy teljes képernyőre kellett rakni a programot. Itt a már létező keyPress eventel kellet kicsit variálni.
+			Pontosabban ki kellet egészíteni még két új blokkal. Ezek f és m névre hallgatnak ebben az iterációban. A működése egyszerű: Ha f betűt nyomunk akkor a program
+			teljesképernyős módra vált át, ha pedig ezekután megnyomjuk az m-et akkor visszatérünk az eredeti ablakmérethez.
+            </para>
+<programlisting><![CDATA[
+        } else if (key == 'f') {
+                glutFullScreen();
+        } else if (key == 'm') {
+                glutReshapeWindow(640, 480);    
+        }
+]]></programlisting>
+    </section>
 	<section>
         <title>Paszigráfia Rapszódia LuaLaTeX vizualizáció</title>
         <para>
@@ -138,6 +148,9 @@ Lásd vis_prel_para.pdf! Apró módosításokat eszközölj benne, pl. színvil�
 	<section>
         <title>Perceptron osztály</title>
 	<para>
+	<para>
+		Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/perceptron">https://github.com/kzoltan99/perceptron</link>
+		</para>
 Dolgozzuk be egy külön projektbe a projekt Perceptron osztályát!
 Lásd <link xlink:href="https://youtu.be/XpBnR31BRJY">https://youtu.be/XpBnR31BRJY</link>
 	</para>
