@@ -23,7 +23,20 @@ https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
-    <para>
+	    <para>
+		    Ebben a feladatban az encoding kapcsolót kell használatba vennünk annak érdekében, hogy a magyar ábécében szereplő
+		    ékezetes betűket is használhassuk a kódban illetve annak nevében. Mivel alapjáraton a fordítónk UTF-8-as karakterkódolást
+		    használ és ezt kell egy számunkra megfelelőre átállítani. Erre szerintem megfelelő lenne a Latin-2-es kódolás (kódja: iso-8859-2)
+		    Így már fordul a program gond nélkül.  
+    </para>
+	    <figure>
+	<title>1.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/9.png" scale = "60"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
 	    
     </section>        
 
