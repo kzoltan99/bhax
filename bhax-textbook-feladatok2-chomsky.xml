@@ -92,8 +92,7 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
     </section>     
 	<section>
         <title>Paszigráfia Rapszódia OpenGL full screen vizualizáció</title>
-        <para>
-        </para>
+       
         <para>
             Megoldás videó:
         </para>
@@ -147,10 +146,11 @@ Lásd vis_prel_para.pdf! Apró módosításokat eszközölj benne, pl. színvil�
     </section> 
 	<section>
         <title>Perceptron osztály</title>
-	<para>
+	
 	<para>
 		Megoldás forrása: <link xlink:href="https://github.com/kzoltan99/perceptron">https://github.com/kzoltan99/perceptron</link>
 		</para>
+		<para>
 Dolgozzuk be egy külön projektbe a projekt Perceptron osztályát!
 Lásd <link xlink:href="https://youtu.be/XpBnR31BRJY">https://youtu.be/XpBnR31BRJY</link>
 	</para>
@@ -173,30 +173,37 @@ Lásd <link xlink:href="https://youtu.be/XpBnR31BRJY">https://youtu.be/XpBnR31BR
 #include <iostream>
 #include "mlp.hpp"
 #include <png++/png.hpp>]]></programlisting>
+	</para>
 	<para>
 	Maga a forrás nem túl hosszú. Először is beolvassuk a képet (get_width, get_height) és a new operátorral létrehozzuk a perceptront.
 	</para>
-<programlisting language><![CDATA[
+	<para>
+<programlisting><![CDATA[
 int main(int argc, char ++argv){
 png::image <png::rgb_pixel> png_image(argv[1]);
 int size = png_image.get_width()*png_image.get_height();
 Perceptron *p = new Perceptron(3, size, 256, 1);]]></programlisting>
+	</para>
 	<para>
 	Aztán létre kell hoznunk egy double változót. Utána szépen végigmegyünk a kép magasság/szélesség pontjain for ciklusokkal. Az image fogja tárolni azt a színkomponenst amit a kódban megadtunk. A value pedig majd azt a double-t fogja tárolni amit a végén kiíratunk.
 	</para>
-<programlisting language=><![CDATA[double* image = new double[size];
+	<para>
+<programlisting><![CDATA[double* image = new double[size];
 for(int i = 0; i<png_image.get_width(); ++i)
 	for(int j = 0; i<png_image.get_height(); ++j)
 	image[i*png_image.get_width()+j] = png_image[i][j].red;
 double value = (*p) (image);
 cout << value << endl;]]></programlisting>
+	</para>
 	<para>
 	A végén pedig a delete-el felszabadítjuk a számunkra szükséges helyet a memóriában.
 	</para>
-<programlisting language=><![CDATA[
+	<para>
+<programlisting><![CDATA[
 delete p;
 delete [] image;]]></programlisting>
-    </section>
+    </para>
+	</section>
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-</chapter>                
+</chapter>              
