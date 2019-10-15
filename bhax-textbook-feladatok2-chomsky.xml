@@ -137,20 +137,53 @@ Lásd vis_prel_para.pdf! Apró módosításokat eszközölj benne, pl. színvil�
     </section> 
 	<section>
         <title>Perceptron osztály</title>
-        <para>
+	<para>
 Dolgozzuk be egy külön projektbe a projekt Perceptron osztályát!
-Lásd https://youtu.be/XpBnR31BRJY
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section> 	
+Lásd <link xlink:href="https://youtu.be/XpBnR31BRJY">https://youtu.be/XpBnR31BRJY</link>
+	</para>
+	<para>
+           A gépi tanulásban nagyon fontos algoritmus a perceptron. Léteznek úgynevezett bináris osztályzók is melyeknek feladata az, hogy eldöntsék, hogy a bemenet egy különleges(specifikus) osztály része-e.
+		   Magát a perceptront sokkal jobban nem ecsetelném mivel nagyon összetett dolog és szinte minden információ megtalálható róla pl a Wikipédián is.
+		  </para>
+	<para>
+	Három részből áll a perceptron: van egy oylan rész melyet "retinának" nevezünk, ez az első elem, feladata azon cellák tárolása melyek fogadják az inputot.
+	Aztán maguk a cellák. ezek összegzik a jeleket amik beérkeznek.
+	Végül pedig vannak olyan cellák melyek már a perceptron kimeneti részében vannak, ezek a döntési cellák. A működésük módja hasonló a többi cellához.
+	</para>
+	                       
+		<para>
+	Ez a feladat egy az előző félévi perceptronos feladat egyik iterációja. Most ugye azt is meg kell oldani, hogy bemenetként vegyünk egy képet és az lesz a többrétegű perceptron bemenete.
+	</para>
+	<para>
+	Mivel többrétegű perceptront fogunk alkalmazni ezért meg kell tennünk a megfelelő include-okat. Ezek névszerint az mlp és a png kép használata végett a png könyvtárak.
+	<programlisting><![CDATA[
+#include <iostream>
+#include "mlp.hpp"
+#include <png++/png.hpp>]]></programlisting>
+	<para>
+	Maga a forrás nem túl hosszú. Először is beolvassuk a képet (get_width, get_height) és a new operátorral létrehozzuk a perceptront.
+	</para>
+<programlisting language><![CDATA[
+int main(int argc, char ++argv){
+png::image <png::rgb_pixel> png_image(argv[1]);
+int size = png_image.get_width()*png_image.get_height();
+Perceptron *p = new Perceptron(3, size, 256, 1);]]></programlisting>
+	<para>
+	Aztán létre kell hoznunk egy double változót. Utána szépen végigmegyünk a kép magasság/szélesség pontjain for ciklusokkal. Az image fogja tárolni azt a színkomponenst amit a kódban megadtunk. A value pedig majd azt a double-t fogja tárolni amit a végén kiíratunk.
+	</para>
+<programlisting language=><![CDATA[double* image = new double[size];
+for(int i = 0; i<png_image.get_width(); ++i)
+	for(int j = 0; i<png_image.get_height(); ++j)
+	image[i*png_image.get_width()+j] = png_image[i][j].red;
+double value = (*p) (image);
+cout << value << endl;]]></programlisting>
+	<para>
+	A végén pedig a delete-el felszabadítjuk a számunkra szükséges helyet a memóriában.
+	</para>
+<programlisting language=><![CDATA[
+delete p;
+delete [] image;]]></programlisting>
+    </section>
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
