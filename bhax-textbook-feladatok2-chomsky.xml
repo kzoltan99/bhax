@@ -126,6 +126,14 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
         }
 ]]></programlisting>
 </para>
+		<figure>
+	<title>1.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/10.png" scale = "60"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
     </section>
 	<section>
         <title>Paszigráfia Rapszódia LuaLaTeX vizualizáció</title>
