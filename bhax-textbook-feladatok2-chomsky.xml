@@ -102,10 +102,7 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
-    </section> 	
-	<section>
-        <title>Paszigráfia Rapszódia OpenGL full screen vizualizáció</title>
-        
+           
             
              <para>
             A program sikeres futtatásához szükséges egy pár könyvtár telepítése ha ezek még nincsenek feltelepítve persze. Ezek a libmesa a freeglut és a boost.
@@ -120,7 +117,7 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
 			A feladat másik része pedig az volt, hogy teljes képernyőre kellett rakni a programot. Itt a már létező keyPress eventel kellet kicsit variálni.
 			Pontosabban ki kellet egészíteni még két új blokkal. Ezek f és m névre hallgatnak ebben az iterációban. A működése egyszerű: Ha f betűt nyomunk akkor a program
 			teljesképernyős módra vált át, ha pedig ezekután megnyomjuk az m-et akkor visszatérünk az eredeti ablakmérethez.
-            </para>
+            
 <programlisting><![CDATA[
         } else if (key == 'f') {
                 glutFullScreen();
@@ -128,6 +125,7 @@ Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#l
                 glutReshapeWindow(640, 480);    
         }
 ]]></programlisting>
+</para>
     </section>
 	<section>
         <title>Paszigráfia Rapszódia LuaLaTeX vizualizáció</title>
@@ -176,8 +174,7 @@ Lásd <link xlink:href="https://youtu.be/XpBnR31BRJY">https://youtu.be/XpBnR31BR
 	</para>
 	<para>
 	Maga a forrás nem túl hosszú. Először is beolvassuk a képet (get_width, get_height) és a new operátorral létrehozzuk a perceptront.
-	</para>
-	<para>
+	
 <programlisting><![CDATA[
 int main(int argc, char ++argv){
 png::image <png::rgb_pixel> png_image(argv[1]);
@@ -186,8 +183,7 @@ Perceptron *p = new Perceptron(3, size, 256, 1);]]></programlisting>
 	</para>
 	<para>
 	Aztán létre kell hoznunk egy double változót. Utána szépen végigmegyünk a kép magasság/szélesség pontjain for ciklusokkal. Az image fogja tárolni azt a színkomponenst amit a kódban megadtunk. A value pedig majd azt a double-t fogja tárolni amit a végén kiíratunk.
-	</para>
-	<para>
+	
 <programlisting><![CDATA[double* image = new double[size];
 for(int i = 0; i<png_image.get_width(); ++i)
 	for(int j = 0; i<png_image.get_height(); ++j)
@@ -197,8 +193,7 @@ cout << value << endl;]]></programlisting>
 	</para>
 	<para>
 	A végén pedig a delete-el felszabadítjuk a számunkra szükséges helyet a memóriában.
-	</para>
-	<para>
+	
 <programlisting><![CDATA[
 delete p;
 delete [] image;]]></programlisting>
@@ -206,4 +201,4 @@ delete [] image;]]></programlisting>
 	</section>
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-</chapter>              
+</chapter>            
