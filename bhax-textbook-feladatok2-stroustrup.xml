@@ -21,6 +21,65 @@ osztályát (miután kicsomagoltuk az src.zip állományt, arra ráengedve)!
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
+	    </para>
+    <para>
+	    Ezt a feladatot a leírásban ajánlott Bátfai Tanár Úr által készített fenykard.cpp alapján készítettem el.
+	    </para>
+    <para>
+	    Azért jó kiindulási kód a fénykard mert ebben is állományok kilistázása valamint rekurzív bejárás megvalósítása történik.
+	    Ezt a feladatot itt a forrás 72. sorában található read_acts függvény végzi el, viszont nekünk ezen kell változtatnunk, 
+	    mivel mi a JDK osztályait akarjuk majd kilistázni.
+	    </para>
+    <para>
+	    <programlisting><![CDATA[
+void read_acts(boost::filesystem::path path, std::map <std::string, int> &acts)
+{
+
+    if (is_regular_file(path)) {
+
+        std::string ext(".props");
+        if (!ext.compare(boost::filesystem::extension(path))) {
+
+            std::string actpropspath = path.string();
+            std::size_t end = actpropspath.find_last_of("/");
+            std::string act = actpropspath.substr(0, end);
+
+            acts[act] = get_points(path);
+
+            std::cout << std::setw(4) << acts[act] << "    " << act << std::endl;
+        }
+
+
+    } else if (is_directory(path))
+        for (boost::filesystem::directory_entry & entry : boost::filesystem::directory_iterator(path))
+            read_acts(entry.path(), acts);
+
+}]]></programlisting>
+	    </para>
+    <para>
+	    Ahogy itt láthatjuk a kódcsipetben ez a függvény a .props állományokat listázza ki nekünk. Ezt módosítjuk úgy, hogy a
+	    .java állományokkal tegye ezt. Ezt úgy tudjuk megvalósítani, hogy egy kicsit fargunk ebból a függvényből, vagyis az act-okat
+	    kitöröljük mivel számunkra azok lényegtelenek. Egy egyszerű push_back-el hellyetesítjük, és a .props valamint acts előfordulásokat
+	    rendre .java és Classes előfordulásra cseréljük.
+	    </para>
+    <para>
+	    Így néz ki a számunkra megfelelő verzió:
+	    <programlisting><![CDATA[
+void readClasses(boost::filesystem::path path, vector<string>& classes){
+	if (is_regular_file(path)){
+		std::string ext(".java");
+		if (!ext.compare(boost::filesystem::extension(path))){
+			classes.push_back(path.string());
+		}
+	}
+	else if (is_directory(path))
+		for (boost::filesystem::directory_entry & entry : boost::filesystem::← directory_iterator(path))
+		readClasses(entry.path(), classes);
+}]]></programlisting>
+	    </para>
+    <para>
+	    És ezekkel a változatásokkal sikerült elérni a célunkat vagyis, hogy a programunk rekurzívan bejárja a kapott állományt és abból az
+	    összes .java-t kilistázza nekünk.
         </para>
     </section>        
 
