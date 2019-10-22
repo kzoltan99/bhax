@@ -123,22 +123,62 @@ készített titkos szövegen.
 
 
     <section>
-        <title>Változó argumentumszámú ctor</title>
-        <para>
-		Készítsünk olyan példát, amely egy képet tesz az alábbi projekt Perceptron osztályának bemenetére
+		<title>Változó argumentumszámú ctor</title>
+		<para>
+Készítsünk olyan példát, amely egy képet tesz az alábbi projekt Perceptron osztályának bemenetére
 és a Perceptron ne egy értéket, hanem egy ugyanakkora méretű „képet” adjon vissza. (Lásd még a 4
 hét/Perceptron osztály feladatot is.)
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>        
+		</para>
+	<para>
+	A feladatot az előző csokorban szereplő perceptronos feladat alapján csináltam meg. A forrás nagy része így megegyezik.
+		</para>
+<para>Mivel többrétegű perceptront fogunk alkalmazni ezért meg kell tennünk a megfelelő include-okat. Ezek névszerint az mlp és a png kép használata végett a png könyvtárak.
+	<programlisting><![CDATA[
+#include <iostream>
+#include "mlp.hpp"
+#include <png++/png.hpp>]]></programlisting>
+	</para>
+	<para>
+	Maga a forrás nem túl hosszú. Először is beolvassuk a képet (get_width, get_height) és a new operátorral létrehozzuk a perceptront.
+	<programlisting><![CDATA[
+int main(int argc, char ++argv){
+png::image <png::rgb_pixel> png_image(argv[1]);
+int size = png_image.get_width()*png_image.get_height();
+Perceptron *p = new Perceptron(3, size, 256, 1);]]></programlisting>
+	</para>
+	<para>
+	Aztán létre kell hoznunk egy double változót. Utána szépen végigmegyünk a kép magasság/szélesség pontjain for ciklusokkal. Az image fogja tárolni azt a színkomponenst amit a kódban megadtunk. A value pedig majd azt a double-t fogja tárolni amit a végén kiíratunk.
+	<programlisting><![CDATA[
+	double* image = new double[size];
+for(int i = 0; i<png_image.get_width(); ++i)
+	for(int j = 0; i<png_image.get_height(); ++j)
+	image[i*png_image.get_width()+j] = png_image[i][j].red;
+double value = (*p) (image);
+cout << value << endl;]]></programlisting>
+</para>
+	<para>
+	Ezek után jöhetnek a változtatások az eredeti perceptronos feladathoz képest. Most azt szeretnénk, hogy egy képet generáljon nekünk a program nem pedig értékeket írjon.
+	Ezt végrehajtandó implementálunk két új for ciklust az előzőekkel megfelelő céllal valamint double*-ot fogunk használni a sima double helyett. Ezek azért szükségesek, hogy
+	a megfelelő végeredményt kapjuk, vagyis a képünk megfelelő adatokat kapjon a sikeres generáláshoz és a write png kiterjesztésű képet alkosson nekünk.
+	<programlisting><![CDATA[
+double* newPicture = (*p) (image);
+for(int i=0; i<png_image.get_width(); ++i)
+for(int j=0; j<png_image.get_height(); ++j)
+	png_image[i][j].red = newPicture[i*png_image.get_width()+j];
+png_image.write("output.png");]]></programlisting>
+</para>
+	<para>
+	A kódunk végén pedig elvégezzük a szükséges hely felszabadítást a memóriában, amit a következő képpen teszünk:
+	<programlisting><![CDATA[
+delete p;
+delete [] image;]]></programlisting>
+</para>
+	<para>
+	Ahhoz, hogy minden probléma nélkül fusson már csak annyit kell tennünk, hogy az mlp.hpp header fájlban is átírjuk a double-t double*-ra, mivel azt szeretnénk, hogy visszaadja.
+	<programlisting><![CDATA[
+double* operator() ( double image [] )]]></programlisting>
+</para>
+		</section>
 
 
     <section>
