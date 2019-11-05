@@ -8,21 +8,43 @@
 
     <section>
         <title>Gengszterek</title>
-        <para>
-		Gengszterek rendezése lambdával a Robotautó Világbajnokságban
-https://youtu.be/DL6iQwPx1Yw (8:05-től)
-
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>        
+	<para>
+Gengszterek rendezése lambdával a Robotautó Világbajnokságban
+<link xlink:href="https://youtu.be/DL6iQwPx1Yw">https://youtu.be/DL6iQwPx1Yw</link>
+	</para>
+	<para>
+	A gengszterek rendezéséhez ebben a feladatban az std::sort() nevezetű függvényt hívjuk segítségül, amely három paramétert vár: az első és második paraméterek
+	azt fogják meghatározni, hogy a vektort (vagy éppenséggel a tömböt) melyik értéktől meddig akarjuk majd mi rendezni, a harmadik pedig az lesz, hogy mi abban a
+	rendezés feltétele, mi alapján akarjuk ezt a rendezést megvalósítani. Ez a feladatból eredően nem lesz más mint a lambda, amivel most meg kell, hogy ismerkedjünk egy kicsit:
+	<programlisting><![CDATA[
+	[](paraméterek)-> visszatérés típusa {utasítások}]]></programlisting>
+	<para>
+	Maga a felépítés az előbb leírtak alapján könnyen értelmezhető. Először megadjuk azokat a változókat amiket el szeretnénk érni a szögletes zárójelek "[]" közé.
+	(ezek függvényen kívüliek) aztán pedig rendre a paramétereket majd a visszatérést.
+	A felépítése a következő: [] jelek közé a függvényen kívüli változókat kell megadni amiket elszeretnénk érni, aztán a paramétereket kell megadnunk, majd a visszatérést.
+	Jelen esetben ez így fog kinézni:
+	</para>
+	<programlisting><![CDATA[
+std::sort {gangsters.begin(), gangsters.end(), [this, cop] (Gangster x, Gangster y,) {
+	return dst (cop, x.to) < dst (cop, y.to);
+	}
+};]]></programlisting>
+	<para>
+	Mivel mi itt most az összes gengsztert vizsgálat alá akarjuk vetni a függvényünk által ezért kezdőértékünk a gengszterek eleje, végértékünk pedig annak a vége lesz.
+	Ezt a begin és end függvényekkel egyszerűen megoldhatjuk. Ezután pedig ugye jön a rendezés feltétele ami a lambda. Ez pedig így néz ki jobban megtekintve:
+	</para>
+	<para>
+	A függvényen kívüli változóink az aktuális objektum (vagyis a this) és a cop lesz majd. A gangster x és y lesznek majd a paramétereink. Maga a viszgálat pedig a rendőröktől való
+	távolság alapján fog történni. Eszerint fogjuk rendezni a kis gengsztereinket. Ezt így implementáljuk a lambdába:
+	</para>
+	<programlisting><![CDATA[
+	return dst (cop, x.to) < dst (cop, y.to);
+	]]></programlisting>
+	<para>
+	Ezzel egyszerűen sorba tudjuk rendzeni a gengsztereinket, a "sor" legelején állnak majd a rendőrhöz legközelebb állók és szépen sorban a végére érve pedig a legtávolabbi lesz.
+	A rendezésünk a lambda segítségével biztosan pontos eredményt fog adni nekünk, amely egy "növekvő" sorrendű rendezés lesz majd.
+	</para>
+	   </section>
     <section>
         <title>C++11 Custom Allocator</title>
         <para>
@@ -40,38 +62,104 @@ CustomAlloc-os példa, lásd C forrást az UDPROG repóban!
             Tanulságok, tapasztalatok, magyarázat...
         </para>
     </section>      
-	    <section>
+	   <section>
         <title>STL map érték szerinti rendezése</title>
-        <para>
-		Például: https://github.com/nbatfai/future/blob/master/cs/F9F2/fenykard.cpp#L180
-
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>      
+	<para>
+Például: <link xlink:href="https://github.com/nbatfai/future/blob/master/cs/F9F2/fenykard.cpp#L180">https://github.com/nbatfai/future/blob/master/cs/F9F2/fenykard.cpp#L180</link>
+	</para>
+	<para>
+	Az STL (Standard Template Library)tárolók és  adatszerkezetek összessége amelyek hatékonyan, 
+	biztonságosan, kivételbiztosan és típushelyesen képesek tárolni az adatokat. Itt található például a map is ami a feladatunk része lesz.
+	</para>
+	<para>
+	A mapok a következőképpen épülnek fel. A mapok is tárolók lesznek, az itt tárolt elemeknek két értéke van az adat és a kulcs, és ezek alapján vannak az elemek sorba rendezve.
+	A map egyik implementációja itt látható ebben a csipetekben:
+	</para>
+	<para>
+	Legelső lépésünk az lesz, hogy megalkotjuk a sort_map-et, ennek return értékei olyan vectorpárok lesznek melynek típusai eltérnek, vagyis az egyik egy string
+	a másik pedig egy int lesz majd. Ez szerencsére nem okoz semmilyenféle fennakadást mivel itt van nekünk az std::pair függvény ami képes ezt kezelni.
+	Az std::map referenciát adjuk majd meg paraméterként a függvénynek.
+	</para>
+<programlisting><![CDATA[
+std::vector<std::pair<std::string, int>> sort_map ( std::map <std::string, int> &rank )]]>
+</programlisting>
+	<para>
+	A függvényünk return értéke egy általunk létrehozott "üres" vector lesz amiben majd a párok lesznek.
+	</para>
+<programlisting><![CDATA[
+std::vector<std::pair<std::string, int>> ordered;]]>
+</programlisting>
+	<para>
+	Ezután valahogy meg kell oldanunk, hogy bejárjuk az egész rank map-ünket és kikeressük a párokat belőle. Ezt egy for ciklus segítségével oldhatjuk meg.
+	Egy if-et használunk benne ami szépen megnézi, hogy egy értéknek van-e második értéke vagyis párja. Ha talál ilyet akkor elkészíti az std::pair szerkezetet
+	és beleteszi megfelelő helyre az első és második értékeket. A párokat amelyek itt létrehoz pedig szépen eltárolja az általunk létrehozott eddig üres vectorba.
+	</para>
+<programlisting><![CDATA[
+	for ( auto & i : rank ) {
+		if ( i.second ) {
+			std::pair<std::string, int> p {i.first, i.second};
+			ordered.push_back ( p );
+		}
+	}]]>
+	</programlisting>
+	<para>
+	Legvégül pedig a gengszteres feladatban megismert módszerrel szépen rendezzük az ordert lambda és sort segítségével.
+	</para>
+<programlisting><![CDATA[
+	std::sort (std::begin ( ordered ), std::end ( ordered ),
+	[ = ] ( auto && p1, auto && p2 ) {
+		return p1.second > p2.second;
+		}
+	);]]>
+	</programlisting>
+	<para>
+	Az egész vectorunkat rendezni szeretnénk ezért megint a legesőtől az utolsóig adjuk meg a paramétereket valamint a harmadik megint a lambda lesz.
+	Külső függvényt most nem hívunk meg csupán azt adjuk meg, hogy másolással vegyük át a változókat, ezt egy egyszerű "=" segítségével érjük el.
+	Paramétereink auto típusúak a return érték pedig p1 és a p2 összehasonlítása adja meg majd nekünk. Ezután pedig a már rendezett vectort visszadajuk:
+	</para>
+<programlisting><![CDATA[
+return ordered;]]>
+</programlisting>
+    </section>
 	    <section>
         <title>Alternatív Tabella rendezése</title>
-        <para>
-		Mutassuk be a https://progpater.blog.hu/2011/03/11/alternativ_tabella a programban a java.lang
-Interface Comparable T szerepét!
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>          
+	<para>
+Mutassuk be a <link xlink:href="https://progpater.blog.hu/2011/03/11/alternativ_tabella">https://progpater.blog.hu/2011/03/11/alternativ_tabella</link> a programban a java.lang
+Interface ComparableT szerepét!
+	</para>
+	<para>
+	A feladatunkban azt kell megoldanunk, hogy a labdarúgó bajnokságban (jelen esetben az NB1-ben) ne aszokásos módon menjen a pontozás, hanem azt is figyelembe
+	kell, hogy vegyük, hogy ki kivel játszott. Vagyis az a győzelem például többet ér amit egy erősebb csapat ellen szerez egy gyengébb csapat mint fordítva.
+	Ez a rendszer már ismerős, mivel a PageRank is ez az elv alapján működik. Ezt implementáljuk majd be a kis alternatív táblánkban.
+	</para>
+<programlisting><![CDATA[
+Interface Comparable<T>]]>
+</programlisting>
+	<para>
+	A felhasználó által definiált típusokat a Java Comparable segítségével rendezzük. A java.lang-ban találjuk meg ezt az interfészt. A compareTo(Object) lesz majd
+	az a metódus amit mi használni fogunk, illetve ez az egyetlen metódus, itt fogjuk majd definiálni a rendezésünket.
+	</para>
+	<para>
+	A feladathoz forrásként szereplő Wiki2Matrix.java lesz a kiindulási alap, vagyis ebben fogunk majd változtatásokat véghezni, hogy nekünk jó legyen.
+	Itt vannak az adatok amelyek a bajnoksághoz tartoznak. Ezek a következőképpen vannak implementálva: piros mező=3p, sárga mező=1p, zöld mező=0p, illetve
+	vannak üres mezők is, ezek azért vannak mert ugye egy csapat nem játszhat önmagával és az nem számít pontnak, illetve mérkőzésnek.
+	Ha minden adat jól van megadva és fordítjuk, futatjuk a programot akkor kapunk egy ún. linkmátrixot, ezt kell majd az AlternativTabella.java-ba beírnunk.
+	Ebben a forrásban kell majd változtatásokat eszközölnünk mivel a megadott forrás nem up to date.
+	</para>
+	<para>
+	Miután megtörténtek a módosítások, vagyis már az aktuális bajnokság tabelláját és mérkőzéseit adtuk meg mehet a fordítás, futtatás.
+	Itt láthatjuk majd, hogy a táblánk eltér az eredetitől, ez a kvázi "PageRank" alkalmazása miatt áll elő amit az elején írtam le.
+	</para>
+	<figure>
+	<title>Alternativ rendezett tabella</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./Godel/tabella.png" scale = "50"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+	
+    </section>
 	<section>
         <title>Prolog családfa</title>
         <para>
