@@ -23,52 +23,238 @@ Itt láthatjuk működésben az alapot: https://www.twitch.tv/videos/222879467
             Tanulságok, tapasztalatok, magyarázat...
         </para>
     </section>        
-    <section>
-        <title>OOCWC Boost ASIO hálózatkezelése</title>
-        <para>
-		Mutassunk rá a scanf szerepére és használatára! https://github.com/nbatfai/robocaremulator/blob/master/justine/rcemu/src/carlexer.ll
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section> 
-	    <section>
-        <title>SamuCam</title>
-        <para>
-		Mutassunk rá a webcam (pl. Androidos mobilod) kezelésére ebben a projektben:
-https://github.com/nbatfai/SamuCam
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section> 
-	    <section>
-        <title>BrainB</title>
-        <para>
-		Mutassuk be a Qt slot-signal mechanizmust ebben a projektben: https://github.com/nbatfai/esporttalent-search
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section> 
+   <section>
+		<title>OOCWC Boost ASIO hálózatkezelése</title>
+		<para>
+Mutassunk rá a scanf szerepére és használatára! <link xlink:href="https://github.com/nbatfai/robocar-emulator/blob/master/justine/rcemu/src/carlexer.ll">https://github.com/nbatfai/robocar-emulator/blob/master/justine/rcemu/src/carlexer.ll</link>
+		</para>
+	<para>
+	Magát a scanf függvény adatok beolvasására használjuk. Ezeket az adatokat egy olyan bufferből olvassa be ami egy null végű string. Így néz ki maga a függvény:
+	</para>
+<programlisting><![CDATA[
+int scanf(const char* buffer, const char* format, ...);]]>
+</programlisting>
+	<para>
+	A függvényünk visszatérésének függvénye az, hogy sikerült-e annyi adatot beolvasnia amennyi a formatban meg van határozva.
+	Tehát a buffer az azt mutatja majd meg nekünk, hogy honnan olvasunk, míg a format azt, hogy hogyan olvasunk. Mindkettő egy mutató tehát és egy null végű stringre mutatnak.
+	Valamint lehetnek olyan esetek is, hogy hibát észlel
+	futás közben ami annak köszönhető, hogy nem felel meg nekünk az adatbevitel.(Mármint a format előírásainak.)
+	Ha minden rendben lefut és nem észlel hibát akkor azt adja vissza egy int formájában, hogy hány adatot olvasott be.
+	</para>
+	
+	<para>
+	Ahogyan ezt már korábban is tanultuk amikor a lexer-el foglalkoztunk, annak 3 része van: deklarációk, szabályok és a kiegészítő funkciók.
+	Mivel ezt már tudjuk ezért meg tudjuk nézni hogyan használja a lexer a scanf-et.
+	</para>
+	<programlisting><![CDATA[
+	{POS}{WS}{INT}{WS}{INT}{WS}{INT}	{
+					  std::sscanf(yytext, "<pos %d %u %u", &m_id, &from, &to);
+					  m_cmd = 10001;
+					}]]>
+					</programlisting>
+<programlisting><![CDATA[
+	POS	"<pos"
+WS	[ \t]*]]>
+</programlisting>
+	<para>
+	A lényeg az, hogy itt a POS és a WS vannak definiálva, mégpedig olyan módón,hogy az előbbi csak a pos-al kezdődő szavakat, míg a másik a [\t]* karaktert jelöli.
+	</para>
+<programlisting><![CDATA[
+{std::sscanf(yytext, "<pos %d %u %u", &m_id, &from, &to);
+					  m_cmd = 10001;
+					}]]>
+						</programlisting>
+	<para>
+	Az itt feltüntetett csipetben láthatjuk azt, hogy azokat a szövegerészleteket amelyekre a lexer talált egyezést azt a yytext tartalmazza.
+	Az értékeink a header fájlban definiált változók alapján kerülnek beolvasásra illetve beállításra. Ezek az m_id, from, to.
+	Valamint az m_cmd amelynek értéke esetünkben 10001 lesz.
+	</para>
+	<para>
+	Valójában ezek után a többi rész is ezen logika alapján működik majd, csak más adatokkal illetve keresési kritériumokkal. Pédául találhatunk a vége felé
+	egy bonyolultabb részt amely már azért szerintem sokkal szofisztikáltabb mint az előbb bemutatott kis kódcsipet.
+	</para>
+	<programlisting><![CDATA[{ROUTE}{WS}{INT}{WS}{INT}({WS}{INT})*	{
+				  int size{0};
+				  int ss{0};
+				  int sn{0};				  
+				  
+				  std::sscanf(yytext, "<route %d %d%n", &size, &m_id, &sn);
+				  ss += sn;
+				  for(int i{0}; i<size; ++i)
+				  {
+				    unsigned int u{0u};
+				    std::sscanf(yytext+ss, "%u%n", &u, &sn);
+				    route.push_back(u);
+				    ss += sn; 				    
+				  }
+				  m_cmd = 101;
+				}]]>
+				</programlisting>
+				<para>
+				Talán kisebb részekre bontva könyebben meg lehet érteni ennek a működését illetve, hogy végülis mit csinál.
+				</para>
+<programlisting><![CDATA[{ROUTE}{WS}{INT}{WS}{INT}({WS}{INT})*	{
+				  int size{0};
+				  int ss{0};
+				  int sn{0};]]></programlisting>
+	<para>
+	Legelőször három változó deklarálása történik. Ezek lesznek a size, az ss és az sn. A size-ban fogjuk tárolni a teljes szöveg hosszát,
+	az ss-ben pedig a már feldolgozott szövegrész mérete lesz eltárolva. AZ sn pedig egy olyan tároló lesz nekünk ahol az éppen feldolgozott 
+	szöveg mérete lesz eltárolva viszont itt karakterekben mérve. Ezekre legfőképpen azért van szükségünk mert az egyik tagunk végén csillag állítjuk
+	ami azt jelenti, hogy végtelen sok féle kombinációban allhatnak egymás után, vagy akár nincsenek is jelen.
+	</para>
+<programlisting><![CDATA[
+				  std::sscanf(yytext, "<route %d %d%n", &size, &m_id, &sn);
+				  ss += sn;]]>
+				  </programlisting>
+	<para>
+	Kettő db scanf függvényünk lesz egy for ciklussal egymásba ágyazva. Az elsőben a size-ba beolvassuk a szöveg méretét, majd az utána lévő int-et a m_id, sn-be.
+	</para>
+<programlisting><![CDATA[				  for(int i{0}; i<size; ++i)
+				  {
+				    unsigned int u{0u};
+				    std::sscanf(yytext+ss, "%u%n", &u, &sn);
+				    route.push_back(u);
+				    ss += sn; 				    
+				  }]]></programlisting>
+	<para>
+	Növeljuk a feldolgozott karakterek számát az ss-ben miután megvolt az első scanf. AZtán jön az előbb említett for ciklus. Ez az egész szöveg végéig fut.
+	Elérkeztünk a második scanf-hez, yytexthez hozzá kell, hogy adjuk az ss értéket, ezzel azt érjük el, hogy onnan tudjuk folytatni a beolvasást ahol befejeztük.
+	Illetve lesz itt még nekünk egy insigned int-ünk is, ezt u-ba szépen beolvassuk, sn-ben tároljuk amit kell benne, majd pedig beletesszük a route vektorba az u-t.
+	Továbbra is el kell érnünk azt, hogy a következő beolvasásnál is onnan kezdjük el ahol itt befezejtük, ennek érdekében az ss-t sn értékével növeljük.
+	</para>
+<programlisting><![CDATA[m_cmd = 101;]]></programlisting>
+	<para>
+	az m_cmd-t most 101-re állítjuk.
+		</para>
+	</section>
+	   <section>
+		<title>SamuCam</title>
+		<para>
+Mutassunk rá a webcam (pl. Androidos mobilod) kezelésére ebben a projektben:
+<link xlink:href="https://github.com/nbatfai/SamuCam">https://github.com/nbatfai/SamuCam</link>
+	</para>
+	<para>
+	A feladatban használt kód a webkameránkat fogja használni ésm anak segítségével arcokat olvas majd be.
+	</para>
+	<para>
+	A projektet én Bátfai Tanár Úr githubjáról szedtem le gitclone segítségével.
+	AZtán belépünk a mappába ahova letöltöttük és ott egy parancs segítségével egy xml-t kapunk, majd jöhet a qmake.
+	Ezek után már csak egy make majd a ./fájlnév paranccsal futtatjuk is
+	Ezek rendre így néznek ki:
+	</para>
+	<programlisting><![CDATA[git clone https://github.com/nbatfai/SamuCam.git]]></programlisting>
+	<programlisting><![CDATA[wget https://github.com/Itseez/opencv/raw/master/data/lbpcascades/lbpcascade_frontalface.xml]]></programlisting>
+	<programlisting><![CDATA[~/Qt/5.12.2/gcc_64/bin/qmake SamuLife.pro]]></programlisting>
+	<para>
+	Ha rendelkezünk webkamerával elvileg gond nélkül érzékelnie kell azt. Sajnálatos módon én nem rendelkezem ezzel, illetve a laptobomba sincs beépített webkamera ezért
+	a helyes futást nem tudtam ellenőrizni. Annyi információm van még a kódról, hogy ha alapértelmezetté akarjuk tenni a kameránkat akkor azt a videostream-ben tudjuk elérni
+	a következő változtatások segítségével:
+	</para>
+<programlisting><![CDATA[void SamuCam::openVideoStream()
+{
+  videoCapture.open (0); //itt módosítottam
+  videoCapture.set ( CV_CAP_PROP_FRAME_WIDTH, width );
+  videoCapture.set ( CV_CAP_PROP_FRAME_HEIGHT, height );
+  videoCapture.set ( CV_CAP_PROP_FPS, 10 );
+}]]></programlisting>
+	
+	<para>
+	A SamuCam.h fájlból tudjuk megállapítani, hogy a Qthread osztályból származik. 
+	</para>
+<programlisting><![CDATA[class SamuCam : public QThread
+{
+    Q_OBJECT
+public:
+    SamuCam ( std::string videoStream, int width, int height );
+    ~SamuCam();
+    void openVideoStream();
+    void run();
+private:
+    std::string videoStream;
+    cv::VideoCapture videoCapture;
+    int width;
+    int height;
+    int fps;
+signals:
+    void faceChanged ( QImage * );
+    void webcamChanged ( QImage * );
+};]]></programlisting>
+	</section>
+	   <section>
+		<title>BrainB</title>
+		<para>
+Mutassuk be a Qt slot-signal mechanizmust ebben a projektben: <link xlink:href="https://github.com/nbatfai/esport-talent-search">https://github.com/nbatfai/esport-talent-search</link>
+		</para>
+	<para>
+	A BrtainB-vel foglakoztunk korábban is a tanulmányaink során, ebben a félévben például esport kurzuson is használtuk. Maga a program azt csinálja, hogy felméri
+	az ún. karakterelvesztést, ez legfőképpen MOBA-kban fordul elő ahol egyszerre nagyon sok minden történik és hajlamosak a játékosok nem észrevenni merre van a saját karakterük. 	
+	Ez lenne végülis magának a karakterelvesztésnek a definíciója. Az általunk használt BrainB programban a 10 perces futás alatt minél több ideig és minél folyamatosabban
+	a Samu Entropy nevű kis négyzeten kell tartanunk az egeret.
+	</para>
+	<para>
+	A megoldáshoz illetve a program megfelelő futásához több könyvtárra is szükségünk van, ezek a libqt4-dev, az opencv-data a libopencv-dev, valamint ugye maga a Qt is szükséges.
+	Ebben a feladatban specifikusan a QT slot-signal mechanizmusát kell bemutatnunk majd.
+	</para>
+	<para>
+	A slotok nagyon sokban hasonlítanak a függvényekre. Vannak definícióik, paramétereik és meg is lehet őket hívni mint egy rendes függvényt, viszont nincs visszatérési értékük.
+	A signáloknak pedig még ennél is egyszerűbb a felépítésük. Meghíni ugyan lehet őket, viszont csak az emit segítségével.
+	Csak és kizárólag paraméterekkel rendelkeznek, se definíció, se visszatérési érték nincs.
+	</para>
+	<para>
+	A slotokat és a signalokat lehet párba is rendezni, viszont ehhez teljesülnie kell annak, hogy a paraméterek páronként ugyanolyanok, vagy csak a signalnak
+	legyenek paraméterei és azokat a slot át tudja majd venni. Ez így néz ki a kódban:
+<programlisting><![CDATA[
+BrainBWin::BrainBWin ( int w, int h, QWidget *parent ) : QMainWindow ( parent )
+{
+//    setWindowTitle(appName + " " + appVersion);
+//    setFixedSize(QSize(w, h));
+        statDir = appName + " " + appVersion + " - " + QDate::currentDate().toString() + QString::number ( QDateTime::currentMSecsSinceEpoch() );
+        brainBThread = new BrainBThread ( w, h - yshift );
+        brainBThread->start();
+        connect ( brainBThread, SIGNAL ( heroesChanged ( QImage, int, int ) ),
+                  this, SLOT ( updateHeroes ( QImage, int, int ) ) );
+        connect ( brainBThread, SIGNAL ( endAndStats ( int ) ),
+                  this, SLOT ( endAndStats ( int ) ) );
+}]]>
+</programlisting>
+	<para>
+	A slot-signal párost itt a connect segítségével hozzuk létre. Négy paraméterünk lesz majd. Az első az az objektum ami a magát a signalt küldi, aztán a signal
+	a harmadik a signal kezelő objektumra mutató mutató és vegül de nem utolsó sorban a negyedik a slot.</para>
+<programlisting><![CDATA[
+        connect ( brainBThread, SIGNAL ( heroesChanged ( QImage, int, int ) ),
+                  this, SLOT ( updateHeroes ( QImage, int, int ) ) );]]>
+				  </programlisting>
+	<para>
+	Vagyis ha a heroesChanged signál (ami a brainBThread objektum része) aktiválódik akkor ezt az updateHeroes slotal fogja kezelni a BrainBWin. Tehát a megjelenést és az
+	ablakok frissítését az updateHeroes segítségével végzi majd el amit aminek értékeit a signal viszi is adja át.
+	</para>
+<programlisting><![CDATA[
+        connect ( brainBThread, SIGNAL ( endAndStats ( int ) ),
+                  this, SLOT ( endAndStats ( int ) ) );]]>
+				  </programlisting>
+	<para>
+	A következő connectben viszont már az endAndStats signált fogjuk kezelni. Ez akkor lesz aktív ha a futási idő lejár. Ekkor a BrainBWin ezt az endAndStats slotjával fogja kezelni.
+	Itt történik majd meg végül a futási ablak bezárása és a program leállítása.
+	</para>
+<programlisting><![CDATA[
+void BrainBThread::run()
+{
+        while ( time < endTime ) {
+                QThread::msleep ( delay );
+                if ( !paused ) {
+                        ++time;
+                        devel();
+                }
+                draw();
+        }
+        emit endAndStats ( endTime );
+}]]>
+</programlisting>
+	<para>
+	Ebben a kódcsipetben pedig már azt láthatjuk, hogy az a második connect slot-signal-ját hasznaálja fel, és ezt az elején említett emit-tel hívja meg. 
+	</para>
+	</section>
 	    <section>
         <title>OSM térképre rajzolása</title>
         <para>
