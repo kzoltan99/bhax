@@ -16,6 +16,7 @@ Gengszterek rendezése lambdával a Robotautó Világbajnokságban
 	A gengszterek rendezéséhez ebben a feladatban az std::sort() nevezetű függvényt hívjuk segítségül, amely három paramétert vár: az első és második paraméterek
 	azt fogják meghatározni, hogy a vektort (vagy éppenséggel a tömböt) melyik értéktől meddig akarjuk majd mi rendezni, a harmadik pedig az lesz, hogy mi abban a
 	rendezés feltétele, mi alapján akarjuk ezt a rendezést megvalósítani. Ez a feladatból eredően nem lesz más mint a lambda, amivel most meg kell, hogy ismerkedjünk egy kicsit:
+	</para>
 	<programlisting><![CDATA[
 	[](paraméterek)-> visszatérés típusa {utasítások}]]></programlisting>
 	<para>
@@ -191,3 +192,4 @@ dobozosat) akkor itt az alkalom!
     </section>      
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
+
