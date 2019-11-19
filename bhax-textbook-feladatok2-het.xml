@@ -204,6 +204,7 @@ Mutassuk be a Qt slot-signal mechanizmust ebben a projektben: <link xlink:href="
 	<para>
 	A slotokat és a signalokat lehet párba is rendezni, viszont ehhez teljesülnie kell annak, hogy a paraméterek páronként ugyanolyanok, vagy csak a signalnak
 	legyenek paraméterei és azokat a slot át tudja majd venni. Ez így néz ki a kódban:
+	</para>
 <programlisting><![CDATA[
 BrainBWin::BrainBWin ( int w, int h, QWidget *parent ) : QMainWindow ( parent )
 {
@@ -277,3 +278,4 @@ kiindulhatsz, mondjuk az komplexebb, mert ott időfejlődés is van...)
         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
+
