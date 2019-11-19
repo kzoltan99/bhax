@@ -6,40 +6,110 @@
         </keywordset>
     </info>
 
-    <section>
+     <section>
         <title>Port scan</title>
-        <para>
-		Mutassunk rá ebben a port szkennelő forrásban a kivételkezelés szerepére!
-https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/ch01.html#id527287
-
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>        
+	<para>
+Mutassunk rá ebben a port szkennelő forrásban a kivételkezelés szerepére!
+<link xlink:href="https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/ch01.html#id527287">https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/ch01.html#id527287</link>
+	</para>
+	<para>
+	Ebben a feladatban a fentebb megadott forrást használtam fel.
+	</para>
+<programlisting><![CDATA[
+public class KapuSzkenner {
+    
+    public static void main(String[] args) {
+        
+        for(int i=0; i<1024; ++i)
+            
+            try {
+                
+                java.net.Socket socket = new java.net.Socket(args[0], i);
+                
+                System.out.println(i + " figyeli");
+                
+                socket.close();
+                
+            } catch (Exception e) {
+                
+                System.out.println(i + " nem figyeli");
+                
+            }
+    }
+    
+}]]>
+</programlisting>
+	<para>
+	Ez a kis promgram egy for ciklust fog alkalmazni, amelnyek segítségével 0-tól 1024-ig lévő portokon lávő TCP kapukat nézi meg. Ezen belül is azt deríti ki, hogy lehet-e ezeken
+	keresztül kapcsolatot kiépíteni. Az igazság az, hogy ezt futtatni nem érdemes/szabad csak sajaát gépen, vagy ismert gépen mert akár fenyegetésnek is vehetik.
+	Ha ez a kapcsolatépítés lehetséges, vagyis a porton keresztül el tudjuk érni a szervert akkor a figyeli üzenetet kapjuk vissza ahhoz a porthoz.
+	Ha ez a kapcsolat viszont nem megvalósítható, akkor a try-catch segítségével visszakapunk egy kivételt a nem figyeli üzenet formájában. 
+	Ez pedig a következőképpen néz ki a gyakorlatban:
+	</para>
+	<figure>
+	<title>1.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/12.png" scale = "50"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+    </section>
 
    <section>
         <title>AOP</title>
-        <para>
-		Szőj bele egy átszövő vonatkozást az első védési programod Java átiratába! (Sztenderd védési
+	<para>
+Szőj bele egy átszövő vonatkozást az első védési programod Java átiratába! (Sztenderd védési
 feladat volt korábban.)
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>        
+	</para>
+	<para>
+	Az AOP egy programozási mód amely az aspektus orientált programozás rövidítése (Aspect oriented programing). OO-tól abban különbözik legfőképpen, hogy magasabb szintű
+	az absztrakció benne. Segítségével különböző aspektusokból tudjuk megfigyelni a kódunkat, annak működését, viselkedését és ehhez még bele sem kell,
+	hogy szerkesszünk vagy nyulkáljunk magába a kódba. Ehelyett inkább egy külön fájlba írjuk meg amit szeretnénk és ezt egy fordítóval hozzáfűzzük a fő forráshoz.
+	Ezeknek külön logja lesz majd. A már korábban használt java-s binfa forrásunkba kell egy AspectJ szkriptet tenni. 
+	Ez azt fogja csinálni, hogy az eredeti inorder kiírás mellett preorder-ben is ki lesz iratva a kimenet, ehhez a kiir függvényen kell változatni.
+	A kiír függvényünket egy pointcutba helyezzük bele, ennek segítségével tudjuk majd a feladatot megcsinálni. (valamit itt lesznek majd a jointpoitok is)
+	A call fügvény segítségével meghívjuk majd a kiir-t és azzal együtt az AspectJ-t is (tehát a kiir már az alapján fut le) viszont maga a kiir függvényig minden
+	változatlanul történik majd. Ezután az after függvény segítségével megjelenítünk mindent a kiiron belül, vagyis az inorder és az AspectJ-s preordert is.
+	És ez tökéletesen demonstrálja az AOP működését és hasznát, mivel nem nyúltunk hozzá az eredeti forráshoz, mégis más a végeredmény amit kapunk.
+	Itt láthatjuk végül a .aj fájlunkat, ami az ellőbiekben elmodnott dolgokat csinálja meg, tehát a call-al meghívja a függvényeket amire szükség van,
+	majd a kimenetet az afterben határozza meg. Aztán bele kell még írni magát a preorder kiirás függvényét is. Egy txt fogja majd tartalmazni az ehhez 
+	tartozó kimenetet.
+		</para>
+<programlisting><![CDATA[
+package binfa;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+public aspect order {
+	int melyseg = 0;
+	public pointcut travel(LZWBinFa.Csomopont elem, java.io.PrintWriter os) 
+		: call(public void LZWBinFa.kiir(LZWBinFa.Csomopont, java.io.PrintWriter)) && args(elem,os);
+	after(LZWBinFa.Csomopont elem, java.io.PrintWriter os) throws IOException : travel(elem, os)
+	{
+		java.io.PrintWriter kiPre = new java.io.PrintWriter(
+				new java.io.BufferedWriter(new java.io.FileWriter("preorder.txt")));
+		melyseg = 0;
+		preorder(elem, kiPre);
+		kiPre.close();
+	}
+	public void preorder(LZWBinFa.Csomopont elem, java.io.PrintWriter p) {
+		if (elem != null) {
+			++melyseg;
+			for (int i = 0; i < melyseg; ++i) {
+				p.print("---");
+			}
+			p.print(elem.getBetu());
+			p.print("(");
+			p.print(melyseg - 1);
+			p.println(")");
+			preorder(elem.egyesGyermek(), p);
+			preorder(elem.nullasGyermek(), p);
+			--melyseg;
+		}
+	}
+}]]>
+</programlisting>
+	    </section>
 	<section>
         <title>Android Játék</title>
         <para>
@@ -57,22 +127,52 @@ feladat volt korábban.)
     </section>        
 	<section>
         <title>Junit teszt</title>
-        <para>
-		A https://progpater.blog.hu/2011/03/05/labormeres_otthon_avagy_hogyan_dolgozok_fel_egy_pedat
+	<para>
+	A <link xlink:href="https://progpater.blog.hu/2011/03/05/labormeres_otthon_avagy_hogyan_dolgozok_fel_egy_pedat">https://progpater.blog.hu/2011/03/05/labormeres_otthon_avagy_hogyan_dolgozok_fel_egy_pedat</link>
 poszt kézzel számított mélységét és szórását dolgozd be egy Junit tesztbe (sztenderd védési feladat
 volt korábban).
+	</para>
+	<para>
+	Mi is ez a Junit teszt? Vagyis pontosabban mi a Junit? Nem más mint egy keretrendszer, amit egységek tesztelésére használnak a javaban.
+	</para>
+<programlisting><![CDATA[
+@org.junit.Test]]>
+</programlisting>
+	<para>
+	A Junit tesztfuttatójának úgy tudjuk megadni, hogy mely metódusokat vizsgálja meg, hogy a metódus elé egy @ jelet teszük (ez egy annotáció, többféle is van már belőle de 
+	nekünk ez most tökéletesen megteszi) Maga a teszt úgy épül fel, hogy @-al kezdjük, aztán megadjuk a tesztelendő metódust amit meg fog majd hívni.
+	Az eredményt pedig össze tudjuk majd hasonlítani azzal amit mi várunk el ezektől a bizonyos metódusoktól.
+	Ezzel végülis azt tudjuk meg, hogy úgy működnek-e ahogy azt mi szeretnénk. Itt látható a tesztelési szegmens:
+	</para>
+<programlisting><![CDATA[
+public void tesBitFeldolg() {
+		for (char c : "01111001001001000111".toCharArray()) 
+		{
+			binfa.egyBitFeldolg(c);
+		}
+		org.junit.Assert.assertEquals(4, binfa.getMelyseg(), 0.0);
+		org.junit.Assert.assertEquals(2.75, binfa.getAtlag(), 0.001);
+		org.junit.Assert.assertEquals(0.957427, binfa.getSzoras(), 0.0001);
+	}]]>
+	</programlisting>
+	<para>
+	A tesztet elvégző programunk neve a testBitFeldolg lesz, ebben a megadott tömböt az egyBitFeldolg segítségével bitenként dolgozzuk fel.
+	Ezután történik az összehasonlítás melyet a következő 3 sorban végzünk el. Magát az összehasonlítást az assertEquals függvény végzi.
+	Ez három paraméterrel rendelkezik, ezek rendre az elvárt eredmény, a kapott érték valamint a max eltérés mértéke lesznek.
+	</para>
+	<figure>
+	<title>2.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/junit.jpg" scale = "40"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
 
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>        
+
+
+
+    </section>
 	<section>
         <title>OSCI</title>
         <para>
