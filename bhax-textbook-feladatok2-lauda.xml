@@ -164,7 +164,7 @@ public void tesBitFeldolg() {
 	<title>2.</title>
 	<mediaobject>
 		<imageobject>
-		<imagedata fileref="./img/junit.jpg" scale = "40"/>
+		<imagedata fileref="./img/junit.png" scale = "40"/>
 		</imageobject>
 	</mediaobject>
 	</figure>
