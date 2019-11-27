@@ -8,21 +8,134 @@
 
     <section>
         <title>MNIST</title>
-        <para>
-		Az alap feladat megoldása, +saját kézzel rajzolt képet is ismerjen fel,
-https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow-bol Háttérként ezt vetítsük le:
-https://prezi.com/0u8ncvvoabcr/no-programming-programming/
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>        
+	<para>
+Az alap feladat megoldása, +saját kézzel rajzolt képet is ismerjen fel,
+<link xlink:href="https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow">https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow</link>-bol Háttérként ezt vetítsük le:
+<link xlink:href="https://prezi.com/0u8ncvvoabcr/no-programming-programming/">https://prezi.com/0u8ncvvoabcr/no-programming-programming/</link>
+	</para>
+	<para>
+	Az MNIST egy adatbázis, ami kézzel írott arab stámjegyek ezreit tartalmazza. Kétféle állomány található benne, a tanulási és a tesztállomány. Előbbi képekből tanulja be
+	a gépünk a számjegyeket majd utóbbival tudjuk ellenőrizni, hogy ez milyen hatékonysággal történt meg. Itt látható maga a tanulási folyamat a kódban:
+	</para>
+<programlisting><![CDATA[
+import keras
+from keras.datasets import fashion_mnist 
+from keras.layers import Dense, Activation, Flatten, Conv2D, MaxPooling2D
+from keras.models import Sequential
+from keras.utils import to_categorical,np_utils
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+import tensorflow as tf
+import os
+]]></programlisting>
+	<para>
+	Nem lehet csakúgy nekiugrani a feladatnak, mivel több könyvtár is stükséges ahhoz, hogy működjön. Szükségünk lesz például a python3-pip-re és a python3-dev-re, ha ezekkel
+	nem rendelkezünk még akkor be kell szerezni őket. Ezek után pedig telepítettem a Kerast:
+	</para>
+<programlisting><![CDATA[
+sudo pip3 install keras
+]]></programlisting>
+	<para>
+	Utána be kell, hogy töltsük az adatbázist, ez itt látható:</para>
+<programlisting><![CDATA[
+(train_X,train_Y), (test_X,test_Y) = tf.keras.datasets.mnist.load_data()
+]]></programlisting>
+	
+<programlisting><![CDATA[
+train_X = train_X.reshape(-1, 28,28, 1)
+test_X = test_X.reshape(-1, 28,28, 1)
+]]></programlisting>
+	<para>
+	Ebben a csipetben láthatjuk a vektorok létrehozását a reshape segítségével. Az első paramétere -1 ami azt jelenti, hogy minden tagra értelmezzük, a második
+	és harmadik paraméter pedig 28, ez azt eredményezi, hogy 28, 28 elemmel rendelkező vektort hozunk létre. A negyedik paraméter pedig az 1, ez a paraméter a 
+	színcsatornát adja meg, az 1-el a grayscale képeket állíthatjuk be. ( pl 3-assal az RGB-t tudnánk beállítani)
+	</para>
+
+<programlisting><![CDATA[
+train_Y_one_hot = to_categorical(train_Y)
+test_Y_one_hot = to_categorical(test_Y)
+]]></programlisting>
+	<para>
+	Itt a one_hot kódolás megjelenése látható a forrásban. Ennek segítségével a számokat (ugye 0-tól 9-ig) 9db 0-val és 1db 1-essel le is tudjuk írni.
+	Ez úgy működik, hogy az egyes minden egyes számnál más helyen fog állni, így tudjuk melyik számról van szó. Talán a legnagyobb ok amiért ezt használnunk kell
+	az az, hogy a kódunkat nem tudjuk működésre bírni csak nem kategórikus adatokkal.
+	</para>
+<programlisting><![CDATA[
+model = Sequential()
+model.add(Conv2D(64, (3,3), input_shape=(28, 28, 1)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(Conv2D(64, (3,3)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(Flatten())
+model.add(Dense(64))
+model.add(Dense(10))
+model.add(Activation('softmax'))
+model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adam(),metrics=['accuracy'])
+]]></programlisting>
+	<para>
+	Az add() segítségével egymásra pakoljuk a rétegeket, ezzel létrehozva a modellünket. Három paramétere lesz. Az első a neuronok száma lesz
+	ami a mi esetünkben most 64, a második a detectorunk lesz, ide 3,3 értéket írunk be. Végül a harmadik egy input_shape lesz, ebben a már
+	előbb említett 28x28 grayscale-es képeink lesznek benne. Utána a Rectified Linear Unit-ot kell aktivizálnunk, ezt röviden relu-ként tudjuk megadni.
+	Aztán a pool_size segítségével megadjuk egyszerre mennyi adatot dolgozzon fel a program. Végül elindítjuk magát a tanulási folyamatot.
+	</para>
+<programlisting><![CDATA[
+model.fit(train_X, train_Y_one_hot, batch_size=64, epochs=1)
+test_loss, test_acc = model.evaluate(test_X, test_Y_one_hot)
+print('Test loss', test_loss)
+print('Test accuracy', test_acc)
+predictions = model.predict(test_X)
+print(np.argmax(np.round(predictions[0])))
+plt.imshow(test_X[0].reshape(28, 28), cmap = plt.cm.binary)
+plt.show()
+print(np.argmax(np.round(predictions[1])))
+plt.imshow(test_X[1].reshape(28, 28), cmap = plt.cm.binary)
+plt.show()
+img = Image.open('szam.png').convert("L")
+img = np.resize(img,(28,28,1))
+im2arr = np.array(img)
+im2arr = im2arr.reshape(1,28,28,1)
+print(np.argmax(np.round(model.predict(im2arr))))
+plt.imshow(im2arr[0].reshape(28,28),cmap = plt.cm.binary)
+plt.show()
+]]></programlisting>
+	<para>
+	A fentebb látható kódcsipetben többek között azt állítjuk be, hogy a tanulási folyamat hányszor történjen meg, egyértelműen ez minél nagyobb annál pontosabb eredményeket
+	kapunk majd. Ezt az epochs után alló számmal állíthatjuk be. De tökéletesen megfelel az 1 is mivel így is viszonylag pontos eredményeket fogunk kapni.
+	Ezek mellett a futtatási kiírásokat is itt adjuk meg, és ahogy azt a feladat kéri egy "kézzel" írt számot is beadunk.
+	</para>
+
+	<figure>
+	<title>1.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/13.png" scale = "50"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+
+	<figure>
+	<title>2.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/14.png" scale = "50"/>
+		</imageobject>
+	</mediaobject>
+	</figure>	
+
+	<figure>
+	<title>3.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/15.png" scale = "50"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+
+	
+    </section>
 
    <section>
         <title>Deep MNIST</title>
@@ -44,38 +157,132 @@ https://arato.inf.unideb.hu/batfai.norbert/NEMESPOR/DE/denbatfai2.pdf 8. fóliá
 
 <section>
         <title>CIFAR-10</title>
-        <para>
-		Az alap feladat megoldása, +saját fotót is ismerjen fel,
-https://progpater.blog.hu/2016/12/10/hello_samu_a_cifar-10_tf_tutorial_peldabol
-
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>        
+	<para>
+Az alap feladat megoldása, +saját fotót is ismerjen fel,
+<link xlink:href="https://progpater.blog.hu/2016/12/10/hello_samu_a_cifar-10_tf_tutorial_peldabol">https://progpater.blog.hu/2016/12/10/hello_samu_a_cifar-10_tf_tutorial_peldabol</link>
+	</para>
+	<para>
+	Ez a feladat az előző egy átalakított változata, mivel abban számokat kellett, hogy felismerjen a programunk, itt ugyan ezt kell tennie képekkel
+	amelyek például tárgyakat, élőlenyeket ábrázolnak. Éppen ennek köszönhetően most elhagyjuk a grayscale kéepket és áttérünk színesekre.
+	A feladatok hasonlóságából eredően nem sok különbség van a források között, de természetesen vannak fontos különbségek.
+	</para>
+<programlisting><![CDATA[
+(train_X,train_Y), (test_X,test_Y) = cifar10.load_data()
+]]></programlisting>
+	<para>
+	Egyértelmű különbség például az, hogy más adatbázist kell alkalmaznunk mivel a képek eltérőek lesznek az előzőhöz képest.
+	</para>
+<programlisting><![CDATA[
+train_X = train_X.reshape(-1,32,32,3)
+test_X = test_X.reshape(-1, 32,32, 3)
+]]></programlisting>
+	<para>
+	A reshape függvényünk is meg lesz variálva egy kicsit, a második, harmadik és negyedik paraméter rendre 32-re, 32-re és 3-ra módosul. Ennek oka a képek
+	mássága, vagyis mostmar 32x32 színes képünk van.
+	</para>
+<programlisting><![CDATA[
+model.add(Conv2D(64, (3, 3), activation='relu', input_shape=(32, 32, 3)))
+]]></programlisting>
+	<para>
+	Ebből eredően változik majd az input_shape is.
+	</para>
+<programlisting><![CDATA[
+cifar_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+print(cifar_classes[np.argmax(np.round(predictions[0]))])
+]]></programlisting>
+	 <para>
+	A class tömbbeli változtatások eredményezik talán a legnagyobb különbséget, mivel itt nekünk kell megadni, hogy miről található kép az adatbázisban.
+	A feladat által kért saját képet is ezekből a kategóriákból kell majd kiválasztanunk.
+	 </para>
+	
+	<figure>
+	<title>4.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/21.png" scale = "50"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+	<figure>
+	<title>5.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/22.png" scale = "50"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+	<figure>
+	<title>6.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/23.png" scale = "50"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+	
+	<figure>
+	<title>7.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/airplane.jpg" scale = "250"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+    </section>
 
 <section>
         <title>Android telefonra a TF objektum detektálója</title>
-        <para>
-		Telepítsük fel, próbáljuk ki!
+	<para>
+Telepítsük fel, próbáljuk ki!
+	</para>
+	<para>
+	Ebben a feladatban csupán annyit kellett csinálnunk, hogy a Tensorflow tárgyfelismerő appját kipróbáljuk. Erre szeretnék egy pár példát mutatni:
+	</para>
+	<figure>
+	<title>8.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/16.png" scale = "30"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+	<figure>
+	<title>9.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/17.png" scale = "30"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
 
-        </para>
-        <para>
-            Megoldás videó:
-        </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>        
+	<figure>
+	<title>10.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/18.png" scale = "30"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+	<figure>
+	<title>11.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/19.png" scale = "30"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+	
+	<figure>
+	<title>12.</title>
+	<mediaobject>
+		<imageobject>
+		<imagedata fileref="./img/20.png" scale = "30"/>
+		</imageobject>
+	</mediaobject>
+	</figure>
+	
+	
+    </section>
 
 <section>
         <title>SMNIST for Machines</title>
